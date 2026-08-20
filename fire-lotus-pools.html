@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fire Lotus Pools — Blood and Steel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@500;600;700;800&family=Spectral:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Ground and system identity — taken from blood-and-steel.css */
+    --peat:#0B0B0D;
+    --water:#0C1210;
+    --silt:#15120F;
+    --plank:#1E1913;
+    --stroke:rgba(255,255,255,.13);
+    --stroke-hot:rgba(225,6,0,.45);
+    --bone:#E9E2D4;
+    --bone-dim:#9C9484;
+
+    /* Derived from the location itself */
+    --accent:#E10600;   /* danger, attacks, the dragon's edge */
+    --lotus:#F2761F;    /* the fire lotus — every prize on this page */
+    --paste:#8A7E68;    /* dung paint — every SAFE thing on this page */
+    --verdigris:#4A6F60;/* the water, the thing beneath it */
+
+    --display:'Cinzel',Georgia,serif;
+    --body:'Spectral',Georgia,serif;
+    --data:'Montserrat',-apple-system,'Segoe UI',sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--peat); color:var(--bone);
+    font-family:var(--body); font-weight:300; font-size:17px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; padding:88px 0 56px; margin-bottom:8px;
+    background:
+      radial-gradient(120% 80% at 50% 0%,rgba(74,111,96,.20) 0%,transparent 62%),
+      linear-gradient(180deg,var(--water) 0%,var(--peat) 100%);
+    border-bottom:1px solid var(--stroke);
+  }
+  .hero-inner{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{
+    font-family:var(--data); font-size:11px; font-weight:700; letter-spacing:.34em;
+    text-transform:uppercase; color:var(--paste); margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--display); font-weight:700; font-size:clamp(38px,7vw,72px);
+    line-height:1.02; letter-spacing:.01em; margin:0 0 22px; color:var(--bone);
+  }
+  h1 em{font-style:normal;color:var(--lotus)}
+  .thesis{
+    font-size:clamp(19px,2.4vw,25px); line-height:1.44; max-width:37ch; margin:0;
+    color:var(--bone); font-weight:300;
+  }
+  .thesis strong{color:var(--accent);font-weight:400}
+
+  /* ---------- at a glance ---------- */
+  .glance{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+    background:var(--stroke); border:1px solid var(--stroke); margin:48px 0 12px;
+  }
+  .glance div{background:var(--peat);padding:20px 18px}
+  .glance b{
+    display:block; font-family:var(--data); font-size:30px; font-weight:800;
+    line-height:1; margin-bottom:8px; color:var(--bone);
+  }
+  .glance .lotus b{color:var(--lotus)}
+  .glance .paste b{color:var(--paste)}
+  .glance .danger b{color:var(--accent)}
+  .glance span{
+    font-family:var(--data); font-size:10px; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--bone-dim);
+  }
+
+  /* ---------- structure ---------- */
+  section{padding-top:60px}
+  h2{
+    font-family:var(--display); font-weight:700; font-size:clamp(24px,3.4vw,34px);
+    margin:0 0 6px; letter-spacing:.01em;
+  }
+  .sub{
+    font-family:var(--data); font-size:11px; font-weight:600; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--paste); margin:0 0 26px;
+  }
+  h3{font-family:var(--display);font-weight:500;font-size:20px;margin:32px 0 10px}
+  p{margin:0 0 16px;max-width:70ch}
+  .lede{font-size:19px;color:var(--bone)}
+  strong{font-weight:400;color:#fff}
+
+  .rule{height:1px;background:var(--stroke);margin:0;border:0}
+
+  /* ---------- the danger track — signature element ---------- */
+  .track{display:grid;gap:0;margin:8px 0 0;counter-reset:stage}
+  .stage{
+    position:relative; padding:30px 30px 30px 92px; border:1px solid var(--stroke);
+    border-bottom:0; background:linear-gradient(90deg,var(--water) 0%,var(--peat) 70%);
+  }
+  .stage:last-child{border-bottom:1px solid var(--stroke)}
+  /* water rises with each stage — the page's one piece of ambient theatre */
+  .stage::before{
+    content:""; position:absolute; inset:auto 0 0 0; pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(74,111,96,.30));
+  }
+  .stage-1::before{height:22%}
+  .stage-2::before{height:52%}
+  .stage-3::before{height:100%;background:linear-gradient(180deg,transparent,rgba(225,6,0,.24))}
+  .stage > *{position:relative;z-index:1}
+  .stage-n{
+    position:absolute; left:0; top:0; width:92px; padding-top:30px; text-align:center;
+    font-family:var(--data); font-size:11px; font-weight:800; letter-spacing:.12em;
+    color:var(--paste); z-index:2;
+  }
+  .stage-n b{display:block;font-size:34px;line-height:1;margin-bottom:4px;color:var(--bone)}
+  .stage-3 .stage-n b{color:var(--accent)}
+  .stage h3{font-family:var(--display);font-size:23px;margin:0 0 4px}
+  .stage-3 h3{color:var(--accent)}
+  .trigger{
+    font-family:var(--data); font-size:11px; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--bone-dim); margin:0 0 14px;
+  }
+  .stage p{margin-bottom:12px}
+  .stage p:last-child{margin-bottom:0}
+
+  /* ---------- callout boxes ---------- */
+  .box{border:1px solid var(--stroke);padding:26px 28px;margin:26px 0;background:var(--silt)}
+  .box-safe{border-left:3px solid var(--paste);background:rgba(138,126,104,.07)}
+  .box-prize{border-left:3px solid var(--lotus);background:rgba(242,118,31,.06)}
+  .box-danger{border-left:3px solid var(--accent);background:rgba(225,6,0,.06)}
+  .box h3{margin-top:0}
+  .box p:last-child,.box ul:last-child{margin-bottom:0}
+  ul{margin:0 0 16px;padding-left:20px;max-width:70ch}
+  li{margin-bottom:7px}
+  li::marker{color:var(--paste)}
+
+  /* ---------- location key ---------- */
+  .locs{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1px;background:var(--stroke);border:1px solid var(--stroke)}
+  .loc{background:var(--peat);padding:20px 22px;display:flex;gap:16px;align-items:flex-start}
+  .loc-k{
+    flex:0 0 34px; height:34px; display:grid; place-items:center; margin-top:2px;
+    font-family:var(--data); font-weight:800; font-size:15px;
+    border:1px solid var(--stroke); color:var(--bone-dim);
+  }
+  .loc-prize .loc-k{border-color:var(--lotus);color:var(--lotus)}
+  .loc-safe  .loc-k{border-color:var(--paste);color:var(--paste)}
+  .loc-death .loc-k{border-color:var(--accent);color:var(--accent)}
+  .loc h4{font-family:var(--data);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 5px}
+  .loc p{font-size:15px;margin:0;color:var(--bone-dim);line-height:1.5}
+
+  /* ---------- threat cards ---------- */
+  .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px;margin-top:8px}
+  .card{
+    border:1px solid var(--stroke); background:linear-gradient(165deg,var(--plank),var(--silt));
+    padding:16px 16px 14px; display:flex; flex-direction:column;
+  }
+  .card-boss{border-color:var(--stroke-hot);grid-column:1/-1;background:linear-gradient(165deg,#1B1512,#0E0C0B)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+  .kind{
+    font-family:var(--data); font-size:9px; font-weight:800; letter-spacing:.2em;
+    text-transform:uppercase; padding:5px 10px; border:1px solid var(--stroke); color:var(--bone-dim);
+  }
+  .kind-anta{border-color:var(--stroke-hot);color:var(--accent)}
+  .vitals{display:grid;grid-template-columns:repeat(2,44px);gap:5px}
+  .vital{
+    border:1px solid var(--stroke); padding:5px 2px; text-align:center; line-height:1.05;
+  }
+  .vital b{display:block;font-family:var(--data);font-weight:800;font-size:16px}
+  .vital span{font-family:var(--data);font-size:8px;font-weight:600;letter-spacing:.08em;color:var(--bone-dim)}
+  .v-lp{border-color:var(--stroke-hot)}
+  .v-lp b{color:var(--accent)}
+  .v-th b{color:var(--lotus)}
+  .card h3{font-family:var(--display);font-size:21px;margin:0 0 2px;line-height:1.15}
+  .role{font-family:var(--data);font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--paste);margin:0 0 12px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:12px}
+  .stat{border:1px solid var(--stroke);padding:6px 2px;text-align:center}
+  .stat b{display:block;font-family:var(--data);font-weight:800;font-size:17px;line-height:1}
+  .stat i{display:block;font-family:var(--data);font-style:normal;font-size:9px;color:var(--bone-dim);margin-top:2px}
+  .stat span{font-family:var(--data);font-size:8px;font-weight:600;letter-spacing:.1em;color:var(--paste)}
+  .pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .pill{
+    font-family:var(--data); font-size:10px; font-weight:600; letter-spacing:.03em;
+    padding:5px 10px; border:1px solid var(--stroke-hot); color:#FFD9D6;
+    background:rgba(225,6,0,.13);
+  }
+  .pill-rule{border-color:var(--stroke);color:var(--bone-dim);background:transparent}
+  .card-note{font-size:14px;line-height:1.5;color:var(--bone-dim);margin:auto 0 0;padding-top:10px;border-top:1px solid var(--stroke)}
+  .card-note b{color:var(--paste);font-weight:400}
+  .abilities{margin:12px 0 0;padding:0;list-style:none}
+  .abilities li{font-size:14px;line-height:1.45;color:var(--bone-dim);margin-bottom:8px}
+  .abilities b{font-family:var(--data);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--bone);display:block}
+
+  .tally{
+    font-family:var(--data); font-size:11px; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--bone-dim); border:1px solid var(--stroke);
+    padding:14px 18px; margin:22px 0 0;
+  }
+  .tally b{color:var(--bone)}
+
+  footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--stroke);font-family:var(--data);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-dim)}
+  footer b{color:var(--accent)}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .stage{padding:26px 20px 26px 20px}
+    .stage-n{position:static;width:auto;padding:0 0 10px;text-align:left}
+    .stage-n b{display:inline;font-size:26px;margin-right:8px}
+    .vitals{grid-template-columns:repeat(2,40px)}
+  }
+  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+  @media print{
+    body{background:#fff;color:#111}
+    .hero{background:none;border-bottom:2px solid #111}
+    .card,.box,.stage,.loc,.glance div{background:#fff}
+    h1,h2,h3,strong{color:#111}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Encounter · Pictish Isles · Jungle Interior</p>
+    <h1>The <em>Fire Lotus</em> Pools</h1>
+    <p class="thesis">Six flowers, ten Picts, and a hundred-Life-Point dragon <strong>already in the water when the party walks in.</strong></p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="glance">
+    <div class="lotus"><b>6</b><span>Fire Lotus total</span></div>
+    <div class="lotus"><b>2</b><span>Already harvested</span></div>
+    <div class="danger"><b>10</b><span>Fire Serpent Picts</span></div>
+    <div class="paste"><b>1</b><span>Prepared paint bag</span></div>
+    <div class="danger"><b>100</b><span>Dragon Life Points</span></div>
+  </div>
+
+  <section>
+    <h2>The situation</h2>
+    <p class="sub">Read this first</p>
+    <p class="lede">The Picts are not trespassing here. They are <strong>working</strong> — quietly, efficiently, and with a technique the party does not have.</p>
+    <p>Six of them are out on the boards harvesting: two at <strong>D</strong>, two at <strong>K</strong>, one on watch at <strong>E</strong>, one running baskets to <strong>F</strong>. Four more are in and around the huts. They keep their voices down, stay on the planks, and never splash.</p>
+    <p>Every one of them is streaked head to foot in a foul gray-brown paste made from the dung heap at <strong>A</strong>. That is the whole encounter in one image, and the players should see it before anyone says a word about it.</p>
+
+    <div class="box box-prize">
+      <h3>What is already on the table</h3>
+      <ul>
+        <li><strong>Two harvested blossoms</strong> in a woven basket at <strong>F. Center Platform</strong> — the easiest flowers in the settlement, and already someone else's.</li>
+        <li><strong>Four growing flowers</strong> — two at <strong>D</strong>, two at <strong>K</strong>.</li>
+        <li><strong>One prepared skin-bag of paint</strong> inside <strong>H. Lone Hut</strong>. The single most valuable object here.</li>
+        <li>Bone knives, scrapers and wrapping leaves for handling both substances.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>She is already here</h2>
+    <p class="sub">Not a spawn · not a punishment</p>
+    <p>The <strong>Veiled Mother</strong>, a Gargantuan Jungle Dragon, lies submerged beneath the walkways between <strong>F</strong>, <strong>G</strong> and <strong>I</strong>. She is the thing whose tracks the party followed in.</p>
+    <p>She killed the dragon carcass on the trail because it crossed into her water. She did not eat it. That was territory, not hunger, and the party should be able to work that out from the corpse.</p>
+    <p>She is not held in reserve behind a failed roll. She is under the boards from the first second of the scene, and the encounter is built so the party can learn that <em>before</em> it costs them anything.</p>
+
+    <div class="box box-danger">
+      <h3>Three signs, before anyone sees her</h3>
+      <ul>
+        <li>A broad wake moves beneath the planks, though no wind touches the water.</li>
+        <li>Something heavy bumps the supports under <strong>F</strong>. The whole platform shifts an inch.</li>
+        <li>A gull lands, pecks once at something floating, and is gone. It never gets as far as a cry.</li>
+      </ul>
+      <p>The Picts barely look up. One of them pauses, presses fresh paint over his forearms and throat, and goes back to work.</p>
+      <p><strong>That is the warning and the lesson in the same beat.</strong> Do not explain it.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What the party can see</h2>
+    <p class="sub">No roll required</p>
+    <p>The party enters at <strong>B</strong> and is unnoticed until they do something careless. Give them time to watch. None of the following should sit behind a check:</p>
+    <ul>
+      <li>The Picts have deliberately coated themselves in something taken from the dung heap.</li>
+      <li>They do not wash, and they do not enter deep water.</li>
+      <li>They are harvesting <em>two</em> things — flowers and dung.</li>
+      <li>Something very large is moving under the pools.</li>
+    </ul>
+    <p>A strong <strong>Wits Check</strong> earns the one piece that matters: the paste is masking their <em>scent</em>. It is not repelling insects, not warding off poison, not keeping the heat off. It is making them smell like part of her territory.</p>
+  </section>
+
+  <section>
+    <h2>The danger track</h2>
+    <p class="sub">Three steps · never the same check twice</p>
+    <p>Do not ask for repeated stealth rolls. Escalate on <em>fiction</em>. A shouted word, a heavy footfall, a missed ranged attack, a plank giving way, or anyone setting foot in the water moves the track one step. It never moves back.</p>
+
+    <div class="track">
+      <div class="stage stage-1">
+        <div class="stage-n"><b>I</b>First</div>
+        <h3>The Pools Stir</h3>
+        <p class="trigger">Trigger — any noise, any splash, any miss</p>
+        <p>The Veiled Mother starts moving beneath the party. Ripples converge on their position from three directions at once, which is the party's first hint of how big she is.</p>
+        <p>The lookout at <strong>E</strong> knows something is wrong. He does not yet know it is them.</p>
+      </div>
+
+      <div class="stage stage-2">
+        <div class="stage-n"><b>II</b>Second</div>
+        <h3>Something Beneath</h3>
+        <p class="trigger">Trigger — a second disturbance</p>
+        <p>She strikes without fully surfacing. A snout, a tail, or one enormous claw comes up through the black water. Snap at an isolated character, take out a run of walkway, or seize a Pict whose paint has washed thin — that last one is worth more than any warning you could speak aloud.</p>
+        <p>The Picts now know there are strangers here. <strong>They do not charge.</strong> They fall back toward <strong>E</strong> and <strong>I</strong>, working to leave the unpainted newcomers between themselves and her.</p>
+      </div>
+
+      <div class="stage stage-3">
+        <div class="stage-n"><b>III</b>Third</div>
+        <h3>The Veil Breaks</h3>
+        <p class="trigger">Trigger — a third disturbance, or any attack on her</p>
+        <p>She comes up whole, at <strong>G. Dirt Pit</strong> or straight through <strong>F. Center Platform</strong>. Now there are three sides in this fight and none of them are allies.</p>
+        <p>She takes the nearest creature that does not carry her scent. The Picts shoot from the platforms, grab what they can, and actively try to use the party as bait. The party chooses: fight, run, rob the place, or sprint for <strong>A</strong> and start smearing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The paint</h2>
+    <p class="sub">The ugly thing is the valuable thing</p>
+    <p>It does not blind her. It makes a coated character smell like part of her territory instead of like food.</p>
+
+    <div class="box box-safe">
+      <h3>Using it</h3>
+      <p>A character who spends an <strong>Action</strong> thoroughly coating exposed skin and clothing causes the Veiled Mother to hesitate and pick a different target.</p>
+      <p>A hurried handful across face and chest buys a moment. The prepared bag in <strong>H</strong> is reliable and covers one character properly.</p>
+      <h3>It stops working when they</h3>
+      <ul>
+        <li>attack her,</li>
+        <li>go into the water,</li>
+        <li>take a bad wound and start bleeding freely,</li>
+        <li>or use fire against her.</li>
+      </ul>
+      <p>That last clause is the trap worth setting. The Fire Lotus is right there, and burning it is the most obvious idea anyone will have.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The ground</h2>
+    <p class="sub">A–K · orange is a prize, grey is safety, red will kill you</p>
+    <div class="locs">
+      <div class="loc loc-safe"><div class="loc-k">A</div><div><h4>Dragon Dung</h4><p>Plentiful, and completely exposed. Enough raw dung for the whole party takes real time out in the open.</p></div></div>
+      <div class="loc loc-safe"><div class="loc-k">B</div><div><h4>Entrance</h4><p>The safest way out — until the Picts realise it and move to cut it off.</p></div></div>
+      <div class="loc"><div class="loc-k">C</div><div><h4>Platform</h4><p>Clear sightline over the central ground. The obvious archer or lookout post.</p></div></div>
+      <div class="loc loc-prize"><div class="loc-k">D</div><div><h4>Fire Lotus, North</h4><p>Two unharvested flowers, uncomfortably close to the northern gatherers.</p></div></div>
+      <div class="loc"><div class="loc-k">E</div><div><h4>North Platform</h4><p>The lookout stands here. Taking him quietly buys the party the whole northern half.</p></div></div>
+      <div class="loc loc-death"><div class="loc-k">F</div><div><h4>Center Platform</h4><p>The basket with two flowers. Also directly above where she is lying. Best prize, worst floor.</p></div></div>
+      <div class="loc loc-death"><div class="loc-k">G</div><div><h4>Dirt Pit</h4><p>The only place she can surface fully and turn without tearing through the huts.</p></div></div>
+      <div class="loc loc-safe"><div class="loc-k">H</div><div><h4>Lone Hut</h4><p>The prepared paint. The single most valuable object in the settlement.</p></div></div>
+      <div class="loc"><div class="loc-k">I</div><div><h4>South Platform</h4><p>Pict firing position and escape route once they know they are not alone.</p></div></div>
+      <div class="loc"><div class="loc-k">J</div><div><h4>Ruined Hut</h4><p>Cover, and somewhere to break her line of sight. Part of it comes down if she hits it.</p></div></div>
+      <div class="loc loc-prize"><div class="loc-k">K</div><div><h4>Fire Lotus, South</h4><p>The other two flowers. Easier to reach, and it pins the harvester against the south edge.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The Fire Serpent band</h2>
+    <p class="sub">Ten Picts · stats as built in the bestiary</p>
+    <p>Defences are rolled per token from the band shown, so no two Hunters are identical. Minions have no Life Points — a hit meeting the <strong>TH</strong> threshold kills outright, anything less wounds, and a wounded minion dies to the next thing that touches it.</p>
+
+    <div class="roster">
+
+      <div class="card">
+        <div class="card-top">
+          <span class="kind">Minion ×4</span>
+          <div class="vitals">
+            <div class="vital"><b>0</b><span>AR</span></div>
+            <div class="vital"><b>5–7</b><span>PD</span></div>
+            <div class="vital"><b>4–6</b><span>SD</span></div>
+            <div class="vital v-th"><b>4</b><span>TH</span></div>
+          </div>
+        </div>
+        <h3>Pict Hunter</h3>
+        <p class="role">The gatherers — two at D, two at K</p>
+        <div class="stats">
+          <div class="stat"><b>3</b><i>d6</i><span>MIG</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>EDG</span></div>
+          <div class="stat"><b>2</b><i>d6</i><span>GRT</span></div>
+          <div class="stat"><b>1</b><i>d6</i><span>WIT</span></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Primitive Hatchet 1d4+3</span>
+          <span class="pill">Primitive Bow 1d4+1 · Long</span>
+        </div>
+        <p class="card-note"><b>Hands full.</b> Kneeling over the pools with knives and leaves. They need a full Action to drop the harvest and ready a weapon — the party's best window is right here.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="kind">Minion ×1</span>
+          <div class="vitals">
+            <div class="vital"><b>0</b><span>AR</span></div>
+            <div class="vital"><b>5–7</b><span>PD</span></div>
+            <div class="vital"><b>4–6</b><span>SD</span></div>
+            <div class="vital v-th"><b>4</b><span>TH</span></div>
+          </div>
+        </div>
+        <h3>Pict Hunter <span style="color:var(--paste)">— Lookout</span></h3>
+        <p class="role">E. North Platform</p>
+        <div class="stats">
+          <div class="stat"><b>3</b><i>d6</i><span>MIG</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>EDG</span></div>
+          <div class="stat"><b>2</b><i>d6</i><span>GRT</span></div>
+          <div class="stat"><b>1</b><i>d6</i><span>WIT</span></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Primitive Bow 1d4+1 · Long</span>
+          <span class="pill-rule pill">Raises the alarm</span>
+        </div>
+        <p class="card-note"><b>The one that matters.</b> While he stands, any disturbance advances the track. Drop him silently and the party effectively skips a step.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="kind">Minion ×3</span>
+          <div class="vitals">
+            <div class="vital"><b>0</b><span>AR</span></div>
+            <div class="vital"><b>7–9</b><span>PD</span></div>
+            <div class="vital"><b>5–7</b><span>SD</span></div>
+            <div class="vital v-th"><b>8</b><span>TH</span></div>
+          </div>
+        </div>
+        <h3>Pict Warrior</h3>
+        <p class="role">One running baskets to F · two in the huts</p>
+        <div class="stats">
+          <div class="stat"><b>4</b><i>d8</i><span>MIG</span></div>
+          <div class="stat"><b>4</b><i>d8</i><span>EDG</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>GRT</span></div>
+          <div class="stat"><b>2</b><i>d6</i><span>WIT</span></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Primitive Hammer 1d6+4</span>
+          <span class="pill">Primitive Bow 1d4+1 · Long</span>
+        </div>
+        <p class="card-note"><b>Threshold 8.</b> Twice the Hunters'. A d6-stat character genuinely cannot one-shot these, and the two in the huts do not appear until step II.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="kind kind-anta">Antagonist</span>
+          <div class="vitals">
+            <div class="vital"><b>1–3</b><span>AR</span></div>
+            <div class="vital"><b>9–11</b><span>PD</span></div>
+            <div class="vital"><b>6–8</b><span>SD</span></div>
+            <div class="vital v-lp"><b>30</b><span>LP</span></div>
+          </div>
+        </div>
+        <h3>Pict Champion</h3>
+        <p class="role">Band leader — at H or F</p>
+        <div class="stats">
+          <div class="stat"><b>5</b><i>d8</i><span>MIG</span></div>
+          <div class="stat"><b>5</b><i>d8</i><span>EDG</span></div>
+          <div class="stat"><b>4</b><i>d6</i><span>GRT</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>WIT</span></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Primitive Axe 1d8+5</span>
+          <span class="pill">Primitive Bow 1d4+1 · Long</span>
+        </div>
+        <ul class="abilities">
+          <li><b>War Cry</b>Once per combat — every allied Pict takes +1 to Attacks for the rest of the fight.</li>
+        </ul>
+        <p class="card-note"><b>PD 9–11.</b> A character attacking with a d6 stat and a low value <em>cannot reach him</em>. Check before the player commits.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="kind kind-anta">Antagonist</span>
+          <div class="vitals">
+            <div class="vital"><b>2–4</b><span>AR</span></div>
+            <div class="vital"><b>5–7</b><span>PD</span></div>
+            <div class="vital v-lp"><b>10–12</b><span>SD</span></div>
+            <div class="vital v-lp"><b>35</b><span>LP</span></div>
+          </div>
+        </div>
+        <h3>Pict Sorcerer</h3>
+        <p class="role">Inside H — the one who knows why the paint works</p>
+        <div class="stats">
+          <div class="stat"><b>2</b><i>d6</i><span>MIG</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>EDG</span></div>
+          <div class="stat"><b>5</b><i>d8</i><span>GRT</span></div>
+          <div class="stat"><b>6</b><i>d10</i><span>WIT</span></div>
+        </div>
+        <div class="pills"><span class="pill">Improvised Weapon 1d4+2</span></div>
+        <ul class="abilities">
+          <li><b>Hellfire</b>Medium range · 10 damage · applies Hexed. Costs 6 Life.</li>
+          <li><b>Demonic Ward</b>While maintained, all non-Sorcery damage he takes is halved.</li>
+          <li><b>Call Beast</b>A wild dog, wolf, lion — or something worse — answers.</li>
+          <li><b>Summon Fiend</b>Pay 8 Life. It fights at his side.</li>
+          <li><b>Innate Sorcery</b>Casts from Life Points only. No Stamina.</li>
+        </ul>
+        <p class="card-note"><b>Hold him back.</b> He is a scene-ender, not an opener. He does not come out of H unless the paint is stolen or he is cornered — and he would rather bargain than burn. He is also the only creature here who can <em>explain</em> the island's larger dragons.</p>
+      </div>
+
+      <div class="card card-boss">
+        <div class="card-top">
+          <span class="kind kind-anta">Antagonist · Gargantuan</span>
+          <div class="vitals">
+            <div class="vital"><b>5–7</b><span>AR</span></div>
+            <div class="vital"><b>8–10</b><span>PD</span></div>
+            <div class="vital"><b>6–8</b><span>SD</span></div>
+            <div class="vital v-lp"><b>100</b><span>LP</span></div>
+          </div>
+        </div>
+        <h3>The Veiled Mother</h3>
+        <p class="role">Gargantuan Jungle Dragon · submerged between F, G and I</p>
+        <div class="stats" style="max-width:340px">
+          <div class="stat"><b>10</b><i>d10</i><span>MIG</span></div>
+          <div class="stat"><b>3</b><i>d6</i><span>EDG</span></div>
+          <div class="stat"><b>8</b><i>d10</i><span>GRT</span></div>
+          <div class="stat"><b>1</b><i>d6</i><span>WIT</span></div>
+        </div>
+        <div class="pills">
+          <span class="pill">Bite 1d10+10 · Touch</span>
+          <span class="pill">Tail 1d6+6 · Close</span>
+        </div>
+        <ul class="abilities">
+          <li><b>Three Actions</b>She acts three times per Turn.</li>
+          <li><b>Tail Strike</b>The Tail hits <em>every</em> character in Close range. One Attack roll, made against the lowest Physical Defense among them.</li>
+          <li><b>Scent, not sight</b>Wits 1. She takes the nearest creature not carrying her smell. Painted characters are not invisible — they are simply not the most appetising thing on the boards.</li>
+        </ul>
+        <p class="card-note"><b>100 Life Points behind AR 5–7, hitting for 1d10+10 three times a Turn.</b> She is not a boss fight, she is weather. A party that decides to kill her has chosen the hardest and least necessary route through this scene, and should be allowed to find that out.</p>
+      </div>
+
+    </div>
+
+    <p class="tally"><b>Roster</b> — 5 Pict Hunters (TH 4) · 3 Pict Warriors (TH 8) · 1 Pict Champion (30 LP) · 1 Pict Sorcerer (35 LP) · 1 Gargantuan Jungle Dragon (100 LP)</p>
+  </section>
+
+  <section>
+    <h2>How the Picts fight</h2>
+    <p class="sub">They have harvested here before</p>
+    <p>They know they cannot kill her. They will not try unless there is nothing else left. Once she surfaces, their priorities in order are:</p>
+    <ul>
+      <li><strong>Keep the prepared paint.</strong> Everything else is replaceable.</li>
+      <li><strong>Get out with the flowers.</strong></li>
+      <li><strong>Kill or abandon anyone in the way of the first two.</strong></li>
+    </ul>
+    <p>They fight like people who work here. A cornered Pict throws the flower basket <em>away</em> from himself and runs, expecting the party to scatter after it. Another cuts a support rope instead of swinging. A third shoves a character into the water rather than make a conventional attack — which is both an attack and a summons.</p>
+    <div class="box box-danger">
+      <p style="margin:0"><strong>The move that teaches the whole scene:</strong> a Pict grabs a character and drags them toward the deep water, not to drown them, but to <em>wash them</em>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The clean win</h2>
+    <p class="sub">What good play looks like</p>
+    <p>Careful players can walk out of here with all six blossoms, raw dung enough to paint the whole party, the Picts' prepared bag, the knowledge of <em>why</em> it works, and confirmation that far bigger things than the Veiled Mother live on this island.</p>
+    <p>They never have to fight her. The best possible outcome is theft, comprehension, and a quiet exit — leaving the Picts and the dragon behind them to sort each other out.</p>
+    <p>Built this way, the scene produces stealth, observation, robbery, environmental tactics, a fight, and a flight, arriving in whatever order the party causes. Nobody picked them off a menu beforehand.</p>
+  </section>
+
+  <footer>Blood <b>&amp;</b> Steel · The Fire Lotus Pools</footer>
+</div>
+</body>
+</html>

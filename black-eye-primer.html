@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Black Eye of the Goblin King — Player Primer</title>
+<style>
+:root{
+  --paper:#e8e0cc;
+  --paper2:#d8ceb6;
+  --ink:#1f1c17;
+  --soft:#5a5145;
+  --blue:#315f78;
+  --red:#7d2b23;
+  --gold:#92712c;
+  --green:#455d3c;
+  --rule:#716854;
+  --measure:52rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:18px;
+  line-height:1.58;
+  background:
+    radial-gradient(circle at 15% 8%,rgba(125,43,35,.055),transparent 38rem),
+    radial-gradient(circle at 85% 92%,rgba(49,95,120,.055),transparent 42rem),
+    var(--paper);
+}
+.wrap{max-width:var(--measure);margin:auto;padding:0 1.3rem 5rem}
+.cover{
+  margin:0 -1.3rem 2rem;
+  min-height:88vh;
+  padding:4.5rem 1.5rem 3rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  border-bottom:4px double var(--ink);
+  position:relative;
+}
+.cover:before,.cover:after{content:"";display:block;height:1px;background:var(--rule);width:min(33rem,82%);margin:0 auto 1.3rem}
+.cover:after{margin:1.3rem auto 0}
+.eyebrow{font:700 .72rem/1.3 "Courier New",monospace;letter-spacing:.28em;text-transform:uppercase;color:var(--red)}
+h1{font-family:Georgia,serif;font-size:clamp(2.8rem,9vw,5rem);line-height:.92;text-transform:uppercase;margin:.7rem 0 .5rem;letter-spacing:-.035em}
+.subtitle{font-style:italic;font-size:1.25rem;color:var(--soft);margin:.15rem 0 1.6rem}
+.band{display:flex;gap:.5rem 1.5rem;justify-content:center;flex-wrap:wrap;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:.65rem 0;font:700 .72rem/1.3 "Courier New",monospace;letter-spacing:.13em;text-transform:uppercase}
+.band b{color:var(--blue)}
+.pitch{max-width:38rem;margin:1.5rem auto 0;font-size:1.08rem;color:var(--soft)}
+.safe{display:inline-block;margin-top:1.5rem;padding:.25rem .65rem;border:1px solid var(--green);color:var(--green);font:700 .65rem/1.4 "Courier New",monospace;letter-spacing:.16em;text-transform:uppercase}
+nav{border:1px solid var(--blue);padding:1rem 1.1rem;background:rgba(255,255,255,.24);margin:1.6rem 0 3rem}
+nav strong{display:block;font:700 .68rem/1.2 "Courier New",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:.7rem}
+nav a{color:var(--ink);text-decoration:none;margin-right:1rem;white-space:nowrap;border-bottom:1px dotted var(--blue)}
+h2{font-family:Georgia,serif;font-size:1.65rem;line-height:1.15;color:var(--red);margin:3.4rem 0 .2rem}
+.kicker{font:700 .67rem/1.3 "Courier New",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);padding-bottom:.55rem;border-bottom:1px solid var(--rule);margin:0 0 1.2rem}
+h3{font-family:Georgia,serif;font-size:1.12rem;margin:1.8rem 0 .35rem}
+p{margin:.2rem 0 1rem}
+ul{padding-left:1.25rem;margin:.4rem 0 1.2rem}
+li{margin:.35rem 0}
+strong{font-weight:700}
+.callout{border:1px solid var(--ink);border-left:5px solid var(--red);padding:1rem 1.1rem;margin:1.4rem 0;background:rgba(255,255,255,.28)}
+.callout h3{margin:0 0 .45rem;color:var(--red);text-transform:uppercase;font-size:.95rem;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}
+.card{border-top:3px solid var(--blue);padding:.85rem .9rem;background:rgba(255,255,255,.22)}
+.card h3{margin:0 0 .35rem;text-transform:uppercase;font-size:.96rem}
+.card p{font-size:.96rem;margin:0;color:#373127}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.4rem;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:.5rem .42rem;border-bottom:1px solid #b9ad93}
+th{font:700 .64rem/1.3 "Courier New",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border-bottom:1px solid var(--blue)}
+td:last-child,th:last-child{text-align:right;white-space:nowrap}
+.rules{counter-reset:r;list-style:none;padding:0}
+.rules li{position:relative;border-bottom:1px solid #b9ad93;padding:.7rem .2rem .7rem 2.65rem;margin:0}
+.rules li:before{counter-increment:r;content:counter(r);position:absolute;left:.2rem;top:.62rem;width:1.75rem;height:1.75rem;border:1.5px solid var(--red);border-radius:50%;display:grid;place-items:center;color:var(--red);font:700 .72rem/1 "Courier New",monospace}
+.checklist{columns:2;column-gap:2rem}
+.checklist li{break-inside:avoid}
+.quote{font-size:1.17rem;font-style:italic;border-left:4px solid var(--gold);padding:.7rem 1rem;margin:1.5rem 0;color:#383126}
+.footer{margin-top:4rem;border-top:4px double var(--ink);padding-top:1rem;text-align:center;color:var(--soft);font:700 .65rem/1.5 "Courier New",monospace;letter-spacing:.14em;text-transform:uppercase}
+.small{font-size:.9rem;color:var(--soft)}
+@media(max-width:650px){body{font-size:17px}.cover{min-height:auto;padding-top:3.5rem}.grid{grid-template-columns:1fr}.checklist{columns:1}table{font-size:.88rem}.wrap{padding-left:1rem;padding-right:1rem}.cover{margin-left:-1rem;margin-right:-1rem}}
+@media print{body{background:#fff}.cover{min-height:auto;break-after:page;padding-top:2.5rem}.callout,.card{background:#fff}.grid{break-inside:avoid}h2{break-after:avoid}.footer{break-before:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="cover">
+  <div class="eyebrow">Player Primer · Sandpoint Frontier</div>
+  <h1>The Black Eye<br>of the Goblin King</h1>
+  <p class="subtitle">A Sandpoint Frontier Adventure</p>
+  <div class="band">
+    <span><b>System</b> Dragonslayer</span>
+    <span><b>Start</b> 1st Level</span>
+    <span><b>Party</b> 4–6 Adventurers</span>
+    <span><b>Home</b> Sandpoint</span>
+  </div>
+  <p class="pitch">A poor frontier town, a wilderness that has stopped keeping its distance, and a goblin problem that is getting worse. You are the people willing to go into the hills and do something about it.</p>
+  <span class="safe">Spoiler-safe player handout</span>
+</header>
+
+<nav aria-label="Primer contents">
+  <strong>What you can safely know before play</strong>
+  <a href="#frontier">The Frontier</a>
+  <a href="#job">The First Job</a>
+  <a href="#sandpoint">Sandpoint</a>
+  <a href="#game">The Game</a>
+  <a href="#rules">Rules to Know</a>
+  <a href="#before">Before You Leave</a>
+</nav>
+
+<section id="frontier">
+<h2>The Sandpoint Frontier</h2>
+<p class="kicker">Small town · big wilderness · trouble close to home</p>
+<p><strong>Sandpoint is not a great city.</strong> It is a small frontier settlement surrounded by farms, rough country, wooded hills, and more wilderness than anyone in town can comfortably control.</p>
+<p>The trouble began with livestock disappearing from the outlying farms. Then barns and storehouses were raided. Then children began to vanish.</p>
+<p>Everyone blames goblins. They have been seen in the wooded hills beyond the hinterlands, but nobody knows how many there are, how organized they have become, or where their chief keeps his lair. What everyone agrees on is simpler: <strong>the raids are getting bolder.</strong></p>
+<div class="callout">
+  <h3>What Your Character Knows</h3>
+  <p>Goblins are hitting the farms around Sandpoint. At least one child may still be alive somewhere in their territory. Goblin country begins roughly half a day's walk from town. A larger settlement with a proper armoury is about two days away—too far to solve every equipment problem at a moment's notice.</p>
+</div>
+</section>
+
+<section id="job">
+<h2>The First Job</h2>
+<p class="kicker">The adventure starts with a simple offer</p>
+<p>Mayor <strong>Kendra Devron</strong> has little money, fewer soldiers, and no one else volunteering to crawl into goblin holes.</p>
+<p>She offers your company <strong>100 gold pieces</strong> to clear a tunnel complex in the hills half a day's walk from Sandpoint and <strong>bring home anyone still alive inside.</strong></p>
+<p>She has a crude map showing the hillside and the tunnel mouth. She does not know how many goblins are there or how deep the tunnels run.</p>
+<div class="quote">Go in. Clear them out. Search for captives. Come home.</div>
+<p>That is all your characters need to know when play begins.</p>
+</section>
+
+<section id="sandpoint">
+<h2>Sandpoint</h2>
+<p class="kicker">Your home base between expeditions</p>
+<p>Sandpoint is poor enough that treasure matters and small enough that people remember what you do. If you save a family, people know. If you hire someone from the tavern and come home without them, people know that too.</p>
+<div class="grid">
+  <div class="card"><h3>Town Hall</h3><p>Mayor Devron's office and a map increasingly marked with raids, missing livestock, and trouble in the hinterlands.</p></div>
+  <div class="card"><h3>Market</h3><p>Sell gems, curiosities, salvage, and whatever strange things you drag back. Weapons and armour are harder to replace.</p></div>
+  <div class="card"><h3>Smith</h3><p>Competent, slow, and only one forge. Broken gear can be repaired. New gear takes time.</p></div>
+  <div class="card"><h3>Shrine</h3><p>Ordinary religious services, offerings, and memorials for people who do not come back from the hills.</p></div>
+  <div class="card"><h3>Tavern</h3><p>Porters, torchbearers, hunters, men-at-arms, and would-be adventurers sometimes looking for paid work.</p></div>
+  <div class="card"><h3>Hinterlands</h3><p>The farms that feed Sandpoint—and the first places to hear screaming when something comes out of the woods.</p></div>
+</div>
+
+<h3>Common Services</h3>
+<table>
+<thead><tr><th>Service</th><th>What You Get</th><th>Cost</th></tr></thead>
+<tbody>
+<tr><td>Porter</td><td>Carries goods; not hired to fight</td><td>1 sp/day</td></tr>
+<tr><td>Torchbearer</td><td>Carries the light and little else</td><td>1 sp/day</td></tr>
+<tr><td>Man-at-arms</td><td>Will fight; expects a share if treasure is found</td><td>1 gp/day</td></tr>
+<tr><td>Adventurer</td><td>A full member hired onto the expedition</td><td>1 share</td></tr>
+<tr><td>Torches, bundle</td><td>Tracked with a d6 usage die</td><td>1 sp</td></tr>
+<tr><td>Rations, one week</td><td>Tracked with a d8 usage die or by meal</td><td>5 sp</td></tr>
+<tr><td>Common weapon</td><td>Hand axe, club, spear, sling</td><td>5–10 gp</td></tr>
+<tr><td>Weapon repair</td><td>Usually one day</td><td>2 gp</td></tr>
+<tr><td>Bow restrung</td><td>Usually same day</td><td>1 gp</td></tr>
+<tr><td>Light armour</td><td>Leather; availability is limited</td><td>20 gp</td></tr>
+<tr><td>Potion of healing</td><td>Rarely available</td><td>60 gp</td></tr>
+</tbody>
+</table>
+<p class="small">Sandpoint cannot instantly replace everything you lose. Bringing equipment home matters almost as much as bringing treasure home.</p>
+</section>
+
+<section id="game">
+<h2>What Kind of Game Is This?</h2>
+<p class="kicker">Old-school danger without a predetermined story</p>
+<p>This is a <strong>low-level Dragonslayer adventure</strong>. You begin at 1st level. The wilderness is dangerous, dungeon time matters, light matters, and combat can become lethal very quickly.</p>
+<p>That does <em>not</em> mean every problem is a fight. Enemies use morale. Creatures may flee or surrender. Retreat is a real option. Good plans, caution, negotiation, ambushes, traps, hirelings, and ugly improvisation can matter as much as a high attack roll.</p>
+<ul>
+  <li><strong>No class is mandatory.</strong> Thieves, clerics, clever readers, and sturdy fighters all have obvious uses, but the adventure does not require a particular party composition.</li>
+  <li><strong>Your decisions carry forward.</strong> People you save stay saved. Enemies you let escape may remember. Sandpoint reacts to what happens.</li>
+  <li><strong>Failure changes the situation.</strong> Losing a fight, retreating, or missing an objective does not automatically end the campaign.</li>
+  <li><strong>Death is possible.</strong> This is dangerous 1st-level adventuring. Make a character you want to keep, but do not assume the world is obliged to keep them alive.</li>
+  <li><strong>Practical play is rewarded.</strong> Ask questions. Look at the room. Use the terrain. Bring light. Keep track of time. Decide when something is not worth touching.</li>
+</ul>
+</section>
+
+<section id="rules">
+<h2>Rules Worth Knowing</h2>
+<p class="kicker">The campaign rulings that will affect your decisions most often</p>
+<ol class="rules">
+  <li><strong>Initiative is rolled every round.</strong> Side order can swing back and forth quickly. Do not assume today's turn order survives into the next round.</li>
+  <li><strong>Declare spells before initiative.</strong> A caster states the spell and target before anyone knows which side acts first.</li>
+  <li><strong>Zero hit points is not automatically death.</strong> At exactly 0 hp you are unconscious for 1d6 rounds, then return at 1 hp. Below −10 is death. Dying characters save versus death; a natural 20 is a <strong>miracle</strong> and returns the character to 1 hp.</li>
+  <li><strong>Enemies have morale.</strong> Half a group going down, a leader falling, or something terrifying happening can make enemies run. Not everything fights to the death.</li>
+  <li><strong>Binding wounds works; sleeping does not heal you.</strong> Ten minutes after a fight restores 1d3 hp. A night's sleep restores time and spells, but no hp by itself.</li>
+  <li><strong>Time creates danger.</strong> Long searches, stubborn locks, resting, forcing doors, and lingering in hostile places can trigger encounter checks.</li>
+  <li><strong>Natural 1s create openings.</strong> A character may drop or compromise a weapon; bows can lose a string. When a monster rolls a natural 1 in melee, its target gets an immediate free attack.</li>
+  <li><strong>Advantage and disadvantage are ±4.</strong> Smaller situational benefits can be worth +1 or +2 when the circumstances clearly support them.</li>
+  <li><strong>Dangerous ideas are allowed to work.</strong> A wild stunt may cost position, hp, an ability check, or expose you to a save—but if you accept the risk and succeed, expect a real effect.</li>
+</ol>
+</section>
+
+<section id="before">
+<h2>Before You Leave Town</h2>
+<p class="kicker">A useful five-minute party conversation</p>
+<ul class="checklist">
+  <li>Who is carrying the light?</li>
+  <li>Who has food?</li>
+  <li>Who has a backup weapon?</li>
+  <li>Who can carry treasure or a wounded companion?</li>
+  <li>Are you hiring a porter or torchbearer?</li>
+  <li>Are you hiring someone who can actually fight?</li>
+  <li>Who usually takes point underground?</li>
+  <li>Who usually speaks for the group in town?</li>
+  <li>What would make your character retreat?</li>
+  <li>What would make your character keep going?</li>
+</ul>
+<div class="callout">
+  <h3>One Last Thing</h3>
+  <p>You do not need to solve the campaign before you begin it. You need a 1st-level adventurer, a reason to take dangerous work, and enough sense to understand that a dark hole in the hills can contain things nobody in Sandpoint knows about.</p>
+</div>
+</section>
+
+
+<section id="fulltext" style="margin-top:3.5rem">
+<h2>The Complete Adventure</h2>
+<p class="kicker">For referees and the curious — not for players</p>
+<div class="callout" style="border-left-color:var(--gold)">
+  <h3 style="color:var(--gold)">Referee's Text · Full Spoilers</h3>
+  <p>Everything above is safe to read before play. The complete module is a different document: it
+  contains every secret of the campaign — what is really behind the goblin raids, what the villains
+  want, and every map, stat block, trap and treasure.</p>
+  <p style="margin-bottom:0"><strong>If you are playing in this game, stop here.</strong> If you are a
+  referee, or simply want to read the adventure, it is here:</p>
+</div>
+<p style="text-align:center;margin:1.6rem 0 0">
+  <a href="./black-eye-of-the-goblin-king.html" style="display:inline-block;padding:.7rem 1.4rem;border:2px solid var(--red);
+     color:var(--red);text-decoration:none;font:700 .8rem/1.3 'Courier New',monospace;
+     letter-spacing:.16em;text-transform:uppercase">Read the full module &rarr;</a>
+</p>
+<p class="small" style="text-align:center;margin-top:.7rem">The Black Eye of the Goblin King — complete referee's text</p>
+</section>
+
+<footer class="footer">
+The Black Eye of the Goblin King · Player Primer · Sandpoint Frontier · Dragonslayer
+</footer>
+</div>
+</body>
+</html>

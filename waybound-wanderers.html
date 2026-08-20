@@ -1,0 +1,1437 @@
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Waybound Wanderers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --void:#070a14; --panel:#0d1220; --panel2:#131a2c; --sunk:#05070e;
+  --gold:#d8b45c; --gold-dim:#8a713a; --quantum:#8f74dd; --ember:#e0674f;
+  --ink:#e8ebf5; --ink-2:#b3bcd4; --ink-3:#7e88a4;
+  --hair:rgba(216,180,92,.22); --hair-soft:rgba(179,188,212,.14);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Cascadia Mono",Consolas,"SF Mono",ui-monospace,Menlo,monospace;
+  --col:660px;   /* fixed: ch units would re-resolve per element font-size */
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--void);color:var(--ink);font:400 17px/1.68 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--gold);text-decoration-color:var(--hair);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+
+/* hero */
+.hero{position:relative;min-height:min(78vh,680px);display:grid;align-items:end;
+  border-bottom:1px solid var(--hair);overflow:hidden;background:var(--sunk)}
+.hero-bg{position:absolute;inset:0;background:url("images/web/scenes/hero-battle-ui.jpg") center/cover no-repeat;
+  opacity:.42;filter:saturate(.85)}
+.hero-veil{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 70% 20%,rgba(7,10,20,.15),rgba(7,10,20,.92) 72%),
+  linear-gradient(to top,var(--void) 4%,rgba(7,10,20,.35) 55%)}
+.hero-inner{position:relative;padding:clamp(28px,6vw,80px) clamp(20px,5vw,72px) clamp(34px,5vw,64px);
+  max-width:1100px}
+.eyebrow{font:600 12px/1 var(--mono);letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+.hero h1{font:400 clamp(36px,6vw,70px)/1.04 var(--serif);letter-spacing:.005em;margin:0 0 8px;text-wrap:balance}
+.hero .welcome{margin:22px 0 0;font:400 clamp(17px,2vw,21px)/1 var(--serif);letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold)}
+/* working annotation: art that still carries pre-rename vocabulary */
+/* block, not flex: a flex container would promote each <b> into its own column */
+.artnote{margin:10px 0 0;max-width:min(600px,100%);padding:10px 13px;
+  border:1px dashed rgba(224,103,79,.45);border-radius:4px;
+  background:rgba(224,103,79,.06);font:400 12.8px/1.6 var(--sans);color:var(--ink-2)}
+.artnote .flag{font:600 9.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ember);margin-right:9px}
+.artnote b{color:var(--ink);font-weight:600}
+.hero .sub{font:400 clamp(17px,2.2vw,23px)/1.4 var(--serif);font-style:italic;color:var(--gold);margin:0 0 26px}
+.hero .note{max-width:62ch;color:var(--ink-2);font-size:16.5px;margin:0;
+  border-left:2px solid var(--gold);padding-left:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin:30px 0 0;padding:0;list-style:none;
+  font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.hero .meta b{color:var(--gold);font-weight:600}
+
+/* shell */
+.shell{display:grid;grid-template-columns:290px minmax(0,1fr);gap:0;align-items:start;
+  max-width:1500px;margin:0 auto}
+.rail{position:sticky;top:0;height:100vh;overflow-y:auto;overscroll-behavior:contain;
+  border-right:1px solid var(--hair-soft);padding:34px 20px 60px 24px;background:var(--void)}
+.rail::-webkit-scrollbar{width:9px}
+.rail::-webkit-scrollbar-thumb{background:#1d2440;border-radius:9px}
+.rail h2{font:600 11px/1 var(--mono);letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);margin:0 0 20px}
+.tocpart{margin:0 0 22px}
+.tocpart-label{font:600 10.5px/1 var(--mono);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 9px;padding-bottom:7px;border-bottom:1px solid var(--hair)}
+.rail ul{list-style:none;margin:0;padding:0}
+.rail li a{display:grid;grid-template-columns:2.1em 1fr;gap:2px;padding:4px 6px;border-radius:3px;
+  font-size:13.4px;line-height:1.36;color:var(--ink-2);text-decoration:none}
+.rail li a:hover{background:var(--panel2);color:var(--ink)}
+.rail li a.on{background:var(--panel2);color:var(--gold)}
+.rail li a.on .tn{color:var(--gold)}
+.tn{font:500 11.5px/1.5 var(--mono);color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+main{padding:56px clamp(20px,4vw,72px) 120px;min-width:0}
+.sec{max-width:min(1180px,100%);margin:0 0 60px;scroll-margin-top:24px}
+.sechead{display:flex;align-items:center;gap:16px;margin:0 0 20px;padding-top:26px;
+  border-top:1px solid var(--hair);max-width:var(--col)}
+.secnum{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--gold-dim);background:radial-gradient(circle at 50% 38%,#141a2b,#080b15);
+  font:500 15px/1 var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;
+  box-shadow:0 0 0 4px rgba(216,180,92,.05)}
+.sechead h2{font:400 clamp(25px,3.4vw,34px)/1.16 var(--serif);margin:0;letter-spacing:.005em;text-wrap:balance}
+h3{font:600 13px/1.3 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  margin:38px 0 12px;display:flex;align-items:center;gap:12px;max-width:var(--col)}
+h3.h3-icon img{width:34px;height:34px;flex:none}
+h4{font:600 15.5px/1.4 var(--sans);color:var(--ink);margin:26px 0 8px;letter-spacing:.01em;max-width:var(--col)}
+p{margin:0 0 15px;color:var(--ink-2);max-width:var(--col)}
+strong{color:var(--ink);font-weight:600}
+ul,ol{margin:0 0 18px;padding-left:1.35em;color:var(--ink-2);max-width:var(--col)}
+li{margin:0 0 6px}
+li::marker{color:var(--gold-dim)}
+code{font:500 .88em/1.5 var(--mono);background:#111829;border:1px solid var(--hair-soft);
+  padding:.1em .4em;border-radius:3px;color:var(--gold)}
+.code{background:var(--sunk);border:1px solid var(--hair-soft);border-left:2px solid var(--gold-dim);
+  border-radius:4px;padding:16px 18px;overflow-x:auto;margin:0 0 20px;max-width:var(--col)}
+.code code{background:none;border:0;padding:0;color:var(--ink-2);font-size:13.6px;line-height:1.62}
+blockquote{margin:22px 0;padding:16px 22px;border-left:2px solid var(--gold);background:var(--panel);
+  border-radius:0 4px 4px 0;color:var(--ink);font:400 17.5px/1.6 var(--serif);font-style:italic;max-width:var(--col)}
+blockquote strong{font-style:normal}
+.beat{font:400 clamp(20px,3vw,29px)/1.2 var(--serif);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);text-align:center;margin:30px 0;padding:18px 10px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);max-width:var(--col)}
+.flow{height:34px;max-width:var(--col);display:grid;place-items:center;margin:-14px 0 -6px}
+.flow::before{content:"";width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--gold-dim),transparent)}
+
+hr.rule{border:0;height:1px;background:var(--hair-soft);max-width:var(--col);margin:26px 0}
+.tablewrap{overflow-x:auto;margin:0 0 22px;border:1px solid var(--hair-soft);border-radius:5px;max-width:var(--col)}
+table{border-collapse:collapse;width:100%;font-size:15.5px}
+th{font:600 11px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);
+  text-align:left;padding:13px 16px;background:var(--panel);border-bottom:1px solid var(--hair)}
+td{padding:11px 16px;border-bottom:1px solid var(--hair-soft);color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td strong{color:var(--gold);font:500 14px/1 var(--mono);letter-spacing:.06em}
+
+/* figures */
+.fig{margin:26px 0 30px;max-width:var(--col)}
+.fig img{border:1px solid var(--hair-soft);border-radius:5px;background:var(--sunk)}
+.fig.wide{max-width:min(1180px,100%)}
+/* band: an ultrawide breather. No frame, more air — reads as a pause, not an exhibit. */
+.fig.band{max-width:min(1180px,100%);margin:38px 0 42px}
+.fig.band img{border:0;border-radius:6px;width:100%}
+.fig.tall img{max-width:min(420px,100%)}
+.fig.ui img{max-width:min(560px,100%)}
+figcaption{margin-top:11px;font-size:13.8px;line-height:1.55;color:var(--ink-3);max-width:64ch;
+  border-left:1px solid var(--gold-dim);padding-left:12px}
+.plate{max-width:min(1180px,100%)}
+.plate-row{display:grid;gap:14px;grid-template-columns:repeat(var(--pcols,3),minmax(0,1fr))}
+.plate-cell{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+/* width:auto keeps small UI crops at native size instead of upscaling them into mush */
+.plate-cell img{border:1px solid var(--hair-soft);border-radius:5px;width:auto;max-width:100%}
+.plate-cell span{margin-top:auto;font:500 11.5px/1.4 var(--mono);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3)}
+
+.icongrid{display:grid;gap:8px;margin:24px 0 30px;
+  grid-template-columns:repeat(var(--cols,6),minmax(0,1fr));
+  max-width:min(calc(var(--cols,6) * 122px),100%)}
+.ic{display:flex;flex-direction:column;align-items:center;gap:9px;padding:16px 8px 13px;
+  background:var(--panel);border:1px solid var(--hair-soft);border-radius:6px;text-align:center;
+  transition:border-color .18s ease,background .18s ease}
+.ic:hover{border-color:var(--hair);background:var(--panel2)}
+.ic img{width:60px;height:60px}
+.ic span{font:500 10.5px/1.35 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+
+.appendix{max-width:min(1180px,100%);margin:70px 0 0;padding-top:30px;border-top:1px solid var(--hair)}
+.appendix h2{font:400 30px/1.15 var(--serif);margin:0 0 8px}
+.appendix > p{margin-bottom:26px}
+.refgrid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.refgrid figcaption{border-left:1px solid var(--gold-dim)}
+footer{max-width:min(1180px,100%);margin-top:64px;padding-top:24px;border-top:1px solid var(--hair-soft);
+  font:500 11.5px/1.7 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+
+@media (max-width:1180px){ .plate{--pcols:2} }
+@media (max-width:820px){ .icongrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));max-width:100%} }
+@media (max-width:620px){ .plate{--pcols:1} }
+@media (max-width:1040px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--hair-soft);
+    padding:26px 20px;max-height:none}
+  .rail .tocpart ul{columns:2;column-gap:26px}
+  main{padding-top:34px}
+}
+@media (max-width:560px){ .rail .tocpart ul{columns:1} .ic img{width:52px;height:52px} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="hero">
+  <div class="hero-bg"></div><div class="hero-veil"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Working Master Scope</p>
+    <h1>Waybound Wanderers</h1>
+    <p class="sub">A tabletop rules engine designed from the beginning for Foundry VTT.</p>
+    <p class="note">In <strong>Waybound Wanderers</strong> you travel the Lumen — the light between the stars — crewing a Glighter with others who heard the same call.<br>
+    Why do you wander? What bound you to the Way? That is yours to decide.</p>
+    <p class="welcome">Welcome, Wanderer.</p>
+    <ul class="meta">
+      <li><b>93</b> sections</li><li><b>8</b> parts</li><li><b>7</b> milestones</li><li><b>19</b> development tracks</li>
+    </ul>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="rail" aria-label="Table of contents"><h2>Contents</h2><div class="tocpart"><p class="tocpart-label">Premise</p><ul><li><a href="#s1"><span class="tn">1</span>What This Is</a></li><li><a href="#s2"><span class="tn">2</span>The Core Fantasy</a></li><li><a href="#s3"><span class="tn">3</span>Primary Design Philosophy</a></li><li><a href="#s4"><span class="tn">4</span>Three Modes of Play</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Characters</p><ul><li><a href="#s5"><span class="tn">5</span>Player Character Structure</a></li><li><a href="#s6"><span class="tn">6</span>Core Attributes</a></li><li><a href="#s7"><span class="tn">7</span>Skills</a></li><li><a href="#s8"><span class="tn">8</span>Core Resolution Engine</a></li><li><a href="#s9"><span class="tn">9</span>Derived Combat Statistics</a></li><li><a href="#s10"><span class="tn">10</span>Character Combat Kit</a></li><li><a href="#s11"><span class="tn">11</span>Personal Resources</a></li><li><a href="#s12"><span class="tn">12</span>Party Skill Points</a></li><li><a href="#s13"><span class="tn">13</span>Energy and Ultimates</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Combat</p><ul><li><a href="#s14"><span class="tn">14</span>Combat Timeline</a></li><li><a href="#s15"><span class="tn">15</span>Combat Presentation — 2.5D Battle Tableau</a></li><li><a href="#s16"><span class="tn">16</span>Logical Battlefield Positioning</a></li><li><a href="#s17"><span class="tn">17</span>Targeting Types</a></li><li><a href="#s18"><span class="tn">18</span>Target Selection UX</a></li><li><a href="#s19"><span class="tn">19</span>Action Wheel</a></li><li><a href="#s20"><span class="tn">20</span>Weakness and Toughness</a></li><li><a href="#s21"><span class="tn">21</span>Break Effects</a></li><li><a href="#s22"><span class="tn">22</span>Damage, Healing, and Shields</a></li><li><a href="#s23"><span class="tn">23</span>Event-Driven Ability Engine</a></li><li><a href="#s24"><span class="tn">24</span>Trigger Stack / Reaction Resolver</a></li><li><a href="#s25"><span class="tn">25</span>Follow-Up Attacks</a></li><li><a href="#s26"><span class="tn">26</span>Reactions and Interrupts</a></li><li><a href="#s27"><span class="tn">27</span>Summons / Companions / Reflections</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Character Systems</p><ul><li><a href="#s28"><span class="tn">28</span>Dynamic Character Sheet States</a></li><li><a href="#s29"><span class="tn">29</span>Character Sheet</a></li><li><a href="#s30"><span class="tn">30</span>Advancement / Skill Tree</a></li><li><a href="#s31"><span class="tn">31</span>Character Creation</a></li><li><a href="#s32"><span class="tn">32</span>Way</a></li><li><a href="#s33"><span class="tn">33</span>Element</a></li><li><a href="#s34"><span class="tn">34</span>Hero Builder</a></li><li><a href="#s35"><span class="tn">35</span>Traits</a></li><li><a href="#s36"><span class="tn">36</span>Bonds</a></li><li><a href="#s37"><span class="tn">37</span>Informal Conflict</a></li><li><a href="#s38"><span class="tn">38</span>Equipment</a></li><li><a href="#s39"><span class="tn">39</span>Status Effects</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Enemies & GM Tools</p><ul><li><a href="#s40"><span class="tn">40</span>Enemy Architecture</a></li><li><a href="#s41"><span class="tn">41</span>Enemy Information UI</a></li><li><a href="#s42"><span class="tn">42</span>Boss Engine</a></li><li><a href="#s43"><span class="tn">43</span>Boss Phase Presentation</a></li><li><a href="#s44"><span class="tn">44</span>GM Combat Tools</a></li><li><a href="#s45"><span class="tn">45</span>Encounter Builder</a></li><li><a href="#s46"><span class="tn">46</span>Battle Stage Composer</a></li><li><a href="#s47"><span class="tn">47</span>Per-Player Battle View</a></li></ul></div><div class="tocpart"><p class="tocpart-label">World & Play</p><ul><li><a href="#s48"><span class="tn">48</span>Exploration System</a></li><li><a href="#s49"><span class="tn">49</span>Location Network</a></li><li><a href="#s50"><span class="tn">50</span>Combat Transition</a></li><li><a href="#s51"><span class="tn">51</span>Towns and Hubs</a></li><li><a href="#s52"><span class="tn">52</span>Home Base / Ship</a></li><li><a href="#s53"><span class="tn">53</span>Missions</a></li><li><a href="#s54"><span class="tn">54</span>Campaign Structure</a></li><li><a href="#s55"><span class="tn">55</span>World Creation Tools</a></li><li><a href="#s56"><span class="tn">56</span>Canon and Player Importance</a></li><li><a href="#s57"><span class="tn">57</span>Character Death and Defeat</a></li><li><a href="#s58"><span class="tn">58</span>Inventory and Consumables</a></li><li><a href="#s59"><span class="tn">59</span>Party HUD</a></li><li><a href="#s60"><span class="tn">60</span>Audio and Visual Feedback</a></li><li><a href="#s61"><span class="tn">61</span>Accessibility and Presentation Options</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Architecture</p><ul><li><a href="#s62"><span class="tn">62</span>Technical Architecture</a></li><li><a href="#s63"><span class="tn">63</span>Core Actor Types</a></li><li><a href="#s64"><span class="tn">64</span>Data-Driven Ability Schema</a></li><li><a href="#s65"><span class="tn">65</span>Unified Effect Pipeline</a></li><li><a href="#s66"><span class="tn">66</span>Transaction Logging</a></li><li><a href="#s67"><span class="tn">67</span>GM Undo</a></li><li><a href="#s68"><span class="tn">68</span>Cross-Client Synchronization</a></li><li><a href="#s69"><span class="tn">69</span>Character Extension Layer</a></li><li><a href="#s70"><span class="tn">70</span>GM Authoring Tools</a></li><li><a href="#s71"><span class="tn">71</span>Compendiums</a></li><li><a href="#s72"><span class="tn">72</span>Character Creation UX</a></li><li><a href="#s73"><span class="tn">73</span>Onboarding</a></li><li><a href="#s74"><span class="tn">74</span>Initial Vertical Slice</a></li></ul></div><div class="tocpart"><p class="tocpart-label">Build Plan</p><ul><li><a href="#s75"><span class="tn">75</span>Prototype Characters</a></li><li><a href="#s76"><span class="tn">76</span>Initial Boss Prototype</a></li><li><a href="#s77"><span class="tn">77</span>Release Content Target</a></li><li><a href="#s78"><span class="tn">78</span>Development Methodology</a></li><li><a href="#s79"><span class="tn">79</span>Testing Priorities</a></li><li><a href="#s80"><span class="tn">80</span>Development Documents</a></li><li><a href="#s81"><span class="tn">81</span>Major Development Tracks</a></li><li><a href="#s82"><span class="tn">82</span>Milestone 1 — Mechanical Sandbox</a></li><li><a href="#s83"><span class="tn">83</span>Milestone 2 — Combat Vertical Slice</a></li><li><a href="#s84"><span class="tn">84</span>Milestone 3 — Tabletop Vertical Slice</a></li><li><a href="#s85"><span class="tn">85</span>Milestone 4 — Character Creation Alpha</a></li><li><a href="#s86"><span class="tn">86</span>Milestone 5 — GM Alpha</a></li><li><a href="#s87"><span class="tn">87</span>Milestone 6 — Closed Beta</a></li><li><a href="#s88"><span class="tn">88</span>Milestone 7 — 1.0</a></li><li><a href="#s89"><span class="tn">89</span>Explicit Non-Goals</a></li><li><a href="#s90"><span class="tn">90</span>Things Deliberately Not Locked Yet</a></li><li><a href="#s91"><span class="tn">91</span>Success Criteria</a></li><li><a href="#s92"><span class="tn">92</span>The Fundamental Rule</a></li><li><a href="#s93"><span class="tn">93</span>Project Statement</a></li></ul></div></nav>
+  <main>
+<section class="sec" id="s1"><div class="sechead"><span class="secnum" aria-hidden="true">1</span><h2>What This Is</h2></div>
+<p>A complete standalone tabletop roleplaying game designed <strong>from the beginning for Foundry VTT</strong>.</p>
+<p>This is not a conversion of D&amp;D 5e, Pathfinder, Fabula Ultima, or another existing tabletop system.</p>
+<p>It is not a recreation of the Honkai: Star Rail videogame with dice bolted onto it.</p>
+<p>It is a new tabletop rules engine intended to capture the things that make a character-driven space-fantasy JRPG compelling:</p>
+<ul><li>Distinctive heroes with mechanically unique combat identities</li><li>Way and Element interactions</li><li>Shared party resources</li><li>Weakness and Break mechanics</li><li>Turn-order manipulation</li><li>Ultimates that can interrupt normal action flow</li><li>Follow-up attacks and reactions</li><li>Summoned entities and alternate combat states</li><li>Bosses with phase changes and encounter-specific rules</li><li>Exploration across dramatically different worlds</li><li>Towns and social spaces worth spending time in</li><li>Character relationships, downtime, rivalries, friendships, and nonsense</li><li>Missions ranging from cosmic crises to helping somebody around the corner</li><li>A campaign structure that allows the party to continually discover new civilizations, threats, and stories</li></ul>
+<p>Foundry is not merely the place where the game sheet happens to be displayed.</p>
+<p><strong>Foundry is part of the rules engine.</strong></p>
+<p>The system is allowed to track calculations, event chains, timing windows, resource changes, targeting restrictions, conditional abilities, status durations, and other mechanical interactions that would become cumbersome in a purely paper game.</p>
+<p>The computer handles bookkeeping.</p>
+<p>The players make decisions.</p>
+<p>The GM runs the world.</p>
+</section>
+<section class="sec" id="s2"><div class="sechead"><span class="secnum" aria-hidden="true">2</span><h2>The Core Fantasy</h2></div>
+<figure class="fig band"><img src="images/web/scenes/lumen-vista.jpg" alt="The Lumen — the light between the stars. Not a route anyone built, but a current that was already there." loading="lazy" decoding="async"><figcaption>The Lumen — the light between the stars. Not a route anyone built, but a current that was already there.</figcaption></figure>
+<p>The player should feel like they are playing <strong>their own hero in an anime space-fantasy campaign</strong>, not controlling a spreadsheet and not impersonating an existing protagonist.</p>
+<p>A campaign should comfortably support all of the following:</p>
+<ul><li>Traveling aboard a ship or other mobile home base</li><li>Arriving at an unfamiliar world</li><li>Wandering through a city</li><li>Sitting around a fountain talking nonsense with the party</li><li>Meeting NPCs</li><li>Shopping</li><li>Gambling</li><li>Investigating mysteries</li><li>Exploring ruins</li><li>Sneaking through restricted facilities</li><li>Getting caught</li><li>Talking their way out</li><li>Starting a bar fight</li><li>Having a completely unnecessary slap fight because someone insulted a character's favorite celebrity</li><li>Hunting monsters</li><li>Fighting soldiers, machines, strange lifeforms, and cosmic horrors</li><li>Saving a village</li><li>Becoming involved in faction politics</li><li>Developing friendships and rivalries</li><li>Returning to the ship after a mission</li><li>Spending downtime with companions</li><li>Upgrading gear</li><li>Developing new powers</li><li>Departing for the next world</li></ul>
+<p>The setting must support both:</p>
+<p><strong>“Tonight we kill the thing threatening this planet.”</strong></p>
+<p>and:</p>
+<p><strong>“Tonight we never left town.”</strong></p>
+<p>Both are legitimate sessions.</p>
+</section>
+<section class="sec" id="s3"><div class="sechead"><span class="secnum" aria-hidden="true">3</span><h2>Primary Design Philosophy</h2></div>
+<h3 id="3-1-the-tabletop-game-comes-first-3"><span>3.1 The Tabletop Game Comes First</span></h3>
+<p>This must remain a tabletop roleplaying game.</p>
+<p>The GM adjudicates an open world.</p>
+<p>Players may attempt things the rules did not anticipate.</p>
+<p>NPC conversations are conversations, not dialogue trees.</p>
+<p>Exploration is not reduced to clicking videogame hotspots.</p>
+<p>Characters are not confined to combat abilities.</p>
+<p>The VTT supports imagination rather than replacing it.</p>
+<hr class="rule">
+<h3 id="3-2-the-computer-handles-what-computers-are-good-at-3"><span>3.2 The Computer Handles What Computers Are Good At</span></h3>
+<p>Players should not manually track:</p>
+<ul><li>Temporary modifier arithmetic</li><li>Action-value calculations</li><li>Break calculations</li><li>Resource triggers</li><li>Duration counters</li><li>Trigger chains</li><li>Repeated status damage</li><li>Follow-up eligibility</li><li>Reaction windows</li><li>Summon timers</li><li>Equipment-derived modifiers</li><li>Conditional bonuses</li><li>Multi-target damage distribution</li><li>Shared resource synchronization</li></ul>
+<p>If Foundry knows the answer, the player should usually not have to calculate it.</p>
+<hr class="rule">
+<h3 id="3-3-the-player-makes-the-interesting-decision-3"><span>3.3 The Player Makes the Interesting Decision</span></h3>
+<p>Automation must never eliminate meaningful choices.</p>
+<p>The engine may say:</p>
+<p><strong>Netherwing can react.</strong></p>
+<p>It should not decide whether Netherwing reacts.</p>
+<p>The engine may say:</p>
+<p><strong>Ultimate Ready.</strong></p>
+<p>It should not fire the Ultimate automatically.</p>
+<p>The engine may identify valid targets.</p>
+<p>It should not pick the player's target unless the ability itself is explicitly random.</p>
+<p>The guiding rule is:</p>
+<blockquote><strong>Automate consequences. Preserve decisions.</strong></blockquote>
+<hr class="rule">
+<h3 id="3-4-every-character-should-feel-different-3"><span>3.4 Every Character Should Feel Different</span></h3>
+<p>Characters are not bags of different numerical bonuses wrapped around the same action loop.</p>
+<p>Every hero is expected to possess a recognizable mechanical engine.</p>
+<p>One hero may accumulate power from party HP fluctuations.</p>
+<p>Another may hunt a marked target.</p>
+<p>Another may manipulate the action timeline.</p>
+<p>Another may store damage and release it later.</p>
+<p>Another may deploy creatures or drones.</p>
+<p>Another may change stance.</p>
+<p>Another may consume their own health.</p>
+<p>Another may intercept attacks.</p>
+<p>Another may create battlefield rules that affect everyone.</p>
+<p>Two characters following the same Way should still be capable of playing dramatically differently.</p>
+<hr class="rule">
+<h3 id="3-5-the-interface-is-part-of-character-design-3"><span>3.5 The Interface Is Part of Character Design</span></h3>
+<p>A character's special mechanic should not exist only as text.</p>
+<p>If a character accumulates a unique resource, the resource appears.</p>
+<p>If a summon enters battle, the sheet changes.</p>
+<p>If a stance changes, the controls change.</p>
+<p>If an Ultimate becomes available, the interface communicates it.</p>
+<p>If an ability creates a reaction window, the appropriate player sees it immediately.</p>
+<p>A player should be able to glance at the screen and understand:</p>
+<ul><li>Who they are</li><li>How healthy they are</li><li>What resources they have</li><li>What conditions affect them</li><li>What actions are available</li><li>What their character is currently trying to accomplish</li></ul>
+<hr class="rule">
+<h3 id="3-6-visual-spectacle-without-becoming-a-videogame-3"><span>3.6 Visual Spectacle Without Becoming a Videogame</span></h3>
+<p>Combat should feel dramatically different from ordinary Foundry combat.</p>
+<p>However, this project will not attempt to reproduce a fully animated 3D videogame.</p>
+<p>The visual language is:</p>
+<p><strong>2.5D tabletop battle presentation using flat character artwork, depth, scale, motion, effects, UI animation, and perspective.</strong></p>
+<p>Good staging is more important than expensive animation.</p>
+</section>
+<section class="sec" id="s4"><div class="sechead"><span class="secnum" aria-hidden="true">4</span><h2>Three Modes of Play</h2></div>
+<figure class="fig band"><img src="images/web/scenes/three-modes-triptych.jpg" alt="Three modes, one table: a street worth walking, a line worth holding, an hour worth spending." loading="lazy" decoding="async"><figcaption>Three modes, one table: a street worth walking, a line worth holding, an hour worth spending.</figcaption></figure>
+<p>The system has three major presentation states.</p>
+<h3 id="4-1-exploration-roleplaying-mode-4"><span>4.1 Exploration / Roleplaying Mode</span></h3>
+<p>Used for:</p>
+<ul><li>Towns</li><li>Ships</li><li>Wilderness</li><li>Dungeons</li><li>Investigation</li><li>Social scenes</li><li>Travel</li><li>Downtime</li><li>General roleplaying</li></ul>
+<p>The UI is deliberately lighter.</p>
+<p>Players are encouraged to look at the world and one another rather than a combat HUD.</p>
+<hr class="rule">
+<h3 id="4-2-combat-mode-4"><span>4.2 Combat Mode</span></h3>
+<p>When combat begins, the presentation changes.</p>
+<p>The exploration interface gives way to:</p>
+<ul><li>2.5D battle tableau</li><li>Combat timeline</li><li>Character resources</li><li>Party Skill Points</li><li>Target indicators</li><li>Action wheel</li><li>Enemy information</li><li>Weakness indicators</li><li>Break bars</li><li>Status feedback</li><li>Reaction prompts</li></ul>
+<p>The transition itself should feel significant.</p>
+<p><strong>The machine wakes up when violence begins.</strong></p>
+<hr class="rule">
+<h3 id="4-3-downtime-mode-4"><span>4.3 Downtime Mode</span></h3>
+<p>Downtime is not merely “restore everything and skip ahead.”</p>
+<p>It supports:</p>
+<ul><li>Resting</li><li>Hanging out</li><li>Personal projects</li><li>Research</li><li>Shopping</li><li>Crafting</li><li>Training</li><li>Bond scenes</li><li>Faction activity</li><li>Ship activity</li><li>Gambling and recreation</li><li>Personal errands</li><li>Medical recovery</li><li>Character development</li></ul>
+<p>Downtime mechanics should encourage roleplaying without replacing roleplaying.</p>
+</section>
+<section class="sec" id="s5"><div class="sechead"><span class="secnum" aria-hidden="true">5</span><h2>Player Character Structure</h2></div>
+<figure class="fig plate" style="--pcols:4"><div class="plate-row"><div class="plate-cell"><img src="images/web/scenes/char-vanguard.jpg" alt="Vanguard — Physical / Fire" loading="lazy" decoding="async"><span>Vanguard — Physical / Fire</span></div><div class="plate-cell"><img src="images/web/scenes/char-gunner.jpg" alt="Gunner — Lightning" loading="lazy" decoding="async"><span>Gunner — Lightning</span></div><div class="plate-cell"><img src="images/web/scenes/char-summoner.jpg" alt="Remembrance Summoner — Quantum" loading="lazy" decoding="async"><span>Remembrance Summoner — Quantum</span></div><div class="plate-cell"><img src="images/web/scenes/char-protector.jpg" alt="Protector — Preservation" loading="lazy" decoding="async"><span>Protector — Preservation</span></div></div><figcaption>The four prototype heroes. Each is a different answer to “what does this character do that no one else can?”</figcaption></figure>
+<p>Every player character uses a common structural vocabulary even though their individual mechanics may vary radically.</p>
+<h3 id="5-1-identity-5"><span>5.1 Identity</span></h3>
+<p>Each character contains:</p>
+<ul><li>Name</li><li>Portrait</li><li>Level</li><li>Way</li><li>Element</li><li>Origin / Homeworld</li><li>Background</li><li>Role descriptors</li><li>Personal traits</li><li>Bonds</li><li>Faction affiliations</li><li>Notes / biography</li><li>Advancement state</li></ul>
+</section>
+<section class="sec" id="s6"><div class="sechead"><span class="secnum" aria-hidden="true">6</span><h2>Core Attributes</h2></div>
+<p>The exact mathematical implementation remains a prototype decision.</p>
+<p>The initial design uses five broad Attributes:</p>
+<div class="tablewrap"><table><thead><tr><th>Attribute</th><th>Governs</th></tr></thead><tbody><tr><td><strong>Might</strong></td><td>Strength, endurance, physical force</td></tr><tr><td><strong>Agility</strong></td><td>Coordination, reflexes, balance, stealth</td></tr><tr><td><strong>Intellect</strong></td><td>Reasoning, science, technology, investigation</td></tr><tr><td><strong>Presence</strong></td><td>Charm, intimidation, deception, social force</td></tr><tr><td><strong>Will</strong></td><td>Discipline, courage, supernatural resistance</td></tr></tbody></table></div>
+<p>These are <strong>tabletop attributes</strong>, not videogame combat statistics.</p>
+<p>They provide the foundation for everything characters attempt outside their bespoke combat kits.</p>
+<p>Final values, dice, modifier ranges, and advancement costs are intentionally TBD until prototype testing.</p>
+</section>
+<section class="sec" id="s7"><div class="sechead"><span class="secnum" aria-hidden="true">7</span><h2>Skills</h2></div>
+<p>Characters also possess general skills representing learned competence.</p>
+<p>Initial categories may include:</p>
+<ul><li>Athletics</li><li>Acrobatics</li><li>Engineering</li><li>Science</li><li>Medicine</li><li>Investigation</li><li>Perception</li><li>Insight</li><li>Negotiation</li><li>Deception</li><li>Intimidation</li><li>Stealth</li><li>Survival</li><li>Piloting</li><li>Technology</li><li>Streetwise</li><li>Culture / Lore</li></ul>
+<p>The final list should remain compact enough that players can remember what their character is good at.</p>
+<p>Skills are primarily used for open-ended tabletop play.</p>
+<p>They are <strong>not substitutes for combat powers</strong>.</p>
+</section>
+<section class="sec" id="s8"><div class="sechead"><span class="secnum" aria-hidden="true">8</span><h2>Core Resolution Engine</h2></div>
+<p>The final dice mechanic remains an early prototype decision.</p>
+<p>Whatever resolution system is selected must satisfy the following requirements:</p>
+<ol><li>Fast resolution</li><li>Multiple degrees of outcome</li><li>Easy Foundry automation</li><li>Enough mechanical hooks for Traits and powers</li><li>Useful failure without excessive whiffing</li><li>Clear player-facing results</li><li>Ability to resolve opposed and environmental challenges</li><li>Minimal arithmetic at the table</li></ol>
+<p>Potential outcomes should distinguish more than simple success/failure.</p>
+<p>The system should be capable of expressing concepts such as:</p>
+<ul><li>Failure</li><li>Success with complication</li><li>Standard success</li><li>Strong success</li><li>Exceptional / critical success</li></ul>
+<p>The final mechanic should be tested in actual play before becoming foundational.</p>
+</section>
+<section class="sec" id="s9"><div class="sechead"><span class="secnum" aria-hidden="true">9</span><h2>Derived Combat Statistics</h2></div>
+<p>Combat statistics are derived separately from tabletop Attributes.</p>
+<p>Potential core values include:</p>
+<ul><li>HP</li><li>Guard / Defense</li><li>Speed</li><li>Movement or Mobility where applicable</li><li>Break Power</li><li>Effect</li><li>Resistance</li><li>Critical capability if retained</li><li>Healing effectiveness</li><li>Shield strength</li></ul>
+<p>The goal is not to reproduce every Honkai numerical statistic.</p>
+<p>Only statistics that create meaningful tabletop behavior should exist.</p>
+</section>
+<section class="sec" id="s10"><div class="sechead"><span class="secnum" aria-hidden="true">10</span><h2>Character Combat Kit</h2></div>
+<div class="icongrid" style="--cols:6"><div class="ic"><img src="images/web/icons/action-basic-attack.png" alt="Basic Attack icon" loading="lazy" decoding="async"><span>Basic Attack</span></div><div class="ic"><img src="images/web/icons/action-skill.png" alt="Skill icon" loading="lazy" decoding="async"><span>Skill</span></div><div class="ic"><img src="images/web/icons/action-ultimate.png" alt="Ultimate icon" loading="lazy" decoding="async"><span>Ultimate</span></div><div class="ic"><img src="images/web/icons/action-talent.png" alt="Talent icon" loading="lazy" decoding="async"><span>Talent</span></div><div class="ic"><img src="images/web/icons/action-technique.png" alt="Technique icon" loading="lazy" decoding="async"><span>Technique</span></div><div class="ic"><img src="images/web/icons/action-defend.png" alt="Defend icon" loading="lazy" decoding="async"><span>Defend</span></div><div class="ic"><img src="images/web/icons/action-item.png" alt="Item icon" loading="lazy" decoding="async"><span>Item</span></div><div class="ic"><img src="images/web/icons/action-reaction.png" alt="Reaction icon" loading="lazy" decoding="async"><span>Reaction</span></div><div class="ic"><img src="images/web/icons/action-follow-up-attack.png" alt="Follow-Up Attack icon" loading="lazy" decoding="async"><span>Follow-Up Attack</span></div><div class="ic"><img src="images/web/icons/action-summon.png" alt="Summon icon" loading="lazy" decoding="async"><span>Summon</span></div><div class="ic"><img src="images/web/icons/action-intercept.png" alt="Intercept icon" loading="lazy" decoding="async"><span>Intercept</span></div><div class="ic"><img src="images/web/icons/action-formation-shift.png" alt="Formation Shift icon" loading="lazy" decoding="async"><span>Formation Shift</span></div></div>
+<p>Every character possesses a recognizable combat kit built from common interface categories.</p>
+<h3 id="basic-attack-10" class="h3-icon"><img src="images/web/icons/action-basic-attack.png" alt="" aria-hidden="true"><span>Basic Attack</span></h3>
+<p>Reliable attack requiring no party Skill Point.</p>
+<p>Usually generates a party Skill Point.</p>
+<p>Provides a default action when conserving resources.</p>
+<hr class="rule">
+<h3 id="skill-10" class="h3-icon"><img src="images/web/icons/action-skill.png" alt="" aria-hidden="true"><span>Skill</span></h3>
+<p>The character's primary tactical action.</p>
+<p>Usually costs party Skill Points.</p>
+<p>Skills are expected to interact strongly with the character's signature mechanic.</p>
+<hr class="rule">
+<h3 id="ultimate-10" class="h3-icon"><img src="images/web/icons/action-ultimate.png" alt="" aria-hidden="true"><span>Ultimate</span></h3>
+<p>A powerful ability charged through the character's own mechanics.</p>
+<p>Ultimates are not restricted to the character's normal turn.</p>
+<p>When available, they may be activated during legal timing windows and inserted into the action timeline.</p>
+<hr class="rule">
+<h3 id="talent-10" class="h3-icon"><img src="images/web/icons/action-talent.png" alt="" aria-hidden="true"><span>Talent</span></h3>
+<p>The character's core passive or reactive engine.</p>
+<p>Talents frequently listen for events such as:</p>
+<ul><li>Ally damaged</li><li>Enemy damaged</li><li>Healing</li><li>Shield gained</li><li>Shield broken</li><li>Weakness broken</li><li>Enemy defeated</li><li>Ultimate used</li><li>Skill used</li><li>Status applied</li><li>Turn beginning</li><li>Turn ending</li><li>Resource threshold reached</li></ul>
+<hr class="rule">
+<h3 id="technique-10" class="h3-icon"><img src="images/web/icons/action-technique.png" alt="" aria-hidden="true"><span>Technique</span></h3>
+<p>Primarily used:</p>
+<ul><li>Before combat</li><li>During exploration</li><li>At encounter entry</li><li>For ambushes</li><li>For environmental manipulation</li><li>To establish starting combat state</li></ul>
+<p>Techniques are intended to bridge exploration and combat.</p>
+<hr class="rule">
+<h3 id="signature-mechanic-10"><span>Signature Mechanic</span></h3>
+<p>Many characters possess something that goes beyond the five common ability categories.</p>
+<p>Examples:</p>
+<ul><li>Summoned creature</li><li>Personal meter</li><li>Marks</li><li>Stances</li><li>Stored damage</li><li>Ammunition</li><li>Charges</li><li>Companion</li><li>Form transformation</li><li>Deployable object</li><li>Counter state</li><li>Alternate action set</li></ul>
+<p>The system architecture must support these without character-specific spaghetti code.</p>
+</section>
+<section class="sec" id="s11"><div class="sechead"><span class="secnum" aria-hidden="true">11</span><h2>Personal Resources</h2></div>
+<div class="icongrid" style="--cols:5"><div class="ic"><img src="images/web/icons/resource-skill-point.png" alt="Skill Point icon" loading="lazy" decoding="async"><span>Skill Point</span></div><div class="ic"><img src="images/web/icons/resource-energy.png" alt="Energy icon" loading="lazy" decoding="async"><span>Energy</span></div><div class="ic"><img src="images/web/icons/resource-personal-resource.png" alt="Personal Resource icon" loading="lazy" decoding="async"><span>Personal Resource</span></div><div class="ic"><img src="images/web/icons/resource-life.png" alt="Life (HP) icon" loading="lazy" decoding="async"><span>Life (HP)</span></div><div class="ic"><img src="images/web/icons/resource-toughness.png" alt="Toughness icon" loading="lazy" decoding="async"><span>Toughness</span></div></div><figure class="fig ui"><img src="images/web/ui/resource-pips.png" alt="Personal resources read as a discrete pip meter, never a number the player has to track by hand." loading="lazy" decoding="async"><figcaption>Personal resources read as a discrete pip meter, never a number the player has to track by hand.</figcaption></figure>
+<p>Characters may have individual resources beyond HP and Energy.</p>
+<p>Examples include:</p>
+<ul><li>Newbud</li><li>Resolve</li><li>Momentum</li><li>Charges</li><li>Memory</li><li>Heat</li><li>Ammunition</li><li>Marks</li><li>Companion Life</li></ul>
+<p>Resources may be:</p>
+<ul><li>Numeric</li><li>Segmented</li><li>Binary</li><li>Stacking</li><li>Event-generated</li><li>Spent</li><li>Converted</li><li>Shared with another actor</li></ul>
+<p>The character sheet displays only resources relevant to that character.</p>
+</section>
+<section class="sec" id="s12"><div class="sechead"><span class="secnum" aria-hidden="true">12</span><h2>Party Skill Points</h2></div>
+<figure class="fig ui"><img src="images/web/ui/skill-point-pips.png" alt="The shared Skill Point pool — a party-wide resource, displayed once and visible to everyone." loading="lazy" decoding="async"><figcaption>The shared Skill Point pool — a party-wide resource, displayed once and visible to everyone.</figcaption></figure>
+<p>Skill Points are a <strong>shared party resource</strong>.</p>
+<p>Example display:</p>
+<p><code>● ● ○ ○ ○</code></p>
+<p>Basic actions commonly generate Skill Points.</p>
+<p>Skills commonly consume them.</p>
+<p>Because the resource belongs to the party, it should exist primarily on the persistent party/combat HUD rather than inside any one character sheet.</p>
+<p>All clients see the same synchronized value.</p>
+<p>This creates cooperation without requiring conventional action-point bookkeeping.</p>
+</section>
+<section class="sec" id="s13"><div class="sechead"><span class="secnum" aria-hidden="true">13</span><h2>Energy and Ultimates</h2></div>
+<figure class="fig plate" style="--pcols:2"><div class="plate-row"><div class="plate-cell"><img src="images/web/ui/energy-bar.png" alt="Energy accrues toward the Ultimate" loading="lazy" decoding="async"><span>Energy accrues toward the Ultimate</span></div><div class="plate-cell"><img src="images/web/ui/ultimate-ready-frame.png" alt="Ultimate ready — the interrupt is armed" loading="lazy" decoding="async"><span>Ultimate ready — the interrupt is armed</span></div></div><figcaption>Energy and its payoff state.</figcaption></figure>
+<p>Each character may possess an Energy meter or equivalent Ultimate charge mechanic.</p>
+<p>Energy can be generated by:</p>
+<ul><li>Acting</li><li>Taking damage</li><li>Dealing damage</li><li>Healing</li><li>Character-specific Talents</li><li>Equipment</li><li>Ally actions</li><li>Enemy events</li></ul>
+<p>When the threshold is reached:</p>
+<p><strong>ULTIMATE READY</strong></p>
+<p>The system clearly alerts the owning player.</p>
+<p>The player may activate the Ultimate during permitted timing windows.</p>
+</section>
+<section class="sec" id="s14"><div class="sechead"><span class="secnum" aria-hidden="true">14</span><h2>Combat Timeline</h2></div>
+<figure class="fig ui"><img src="images/web/ui/timeline-portraits.png" alt="The timeline is the combat interface: order is a row of portraits that can be pushed, pulled, and cut into." loading="lazy" decoding="async"><figcaption>The timeline is the combat interface: order is a row of portraits that can be pushed, pulled, and cut into.</figcaption></figure>
+<p>Combat does not use traditional fixed-round initiative as its primary presentation.</p>
+<p>Characters and enemies occupy a visual action timeline.</p>
+<p>The engine tracks:</p>
+<ul><li>Current action order</li><li>Speed</li><li>Action advancement</li><li>Action delay</li><li>Extra actions</li><li>Summon turns</li><li>Interrupting Ultimates</li><li>Boss insertions</li><li>Follow-up actions</li></ul>
+<p>The player does not calculate timeline values manually.</p>
+<p>When an effect alters action order, the portrait physically moves on the timeline.</p>
+</section>
+<section class="sec" id="s15"><div class="sechead"><span class="secnum" aria-hidden="true">15</span><h2>Combat Presentation — 2.5D Battle Tableau</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/hero-battle-ui.jpg" alt="The 2.5D battle tableau — flat character art staged against a painted backdrop, with the whole party legible at once." loading="lazy" decoding="async"><figcaption>The 2.5D battle tableau — flat character art staged against a painted backdrop, with the whole party legible at once.</figcaption></figure>
+<p>This is one of the project's defining systems.</p>
+<h3 id="player-perspective-15"><span>Player Perspective</span></h3>
+<p>Each player client receives a composition centered around that player's own hero.</p>
+<p>The player's character appears:</p>
+<ul><li>Large</li><li>Foreground</li><li>Center or center-right</li><li>Facing the enemy formation</li></ul>
+<p>Enemies appear primarily toward the left / middle distance.</p>
+<p>Their apparent size and location communicate battlefield organization.</p>
+<p>Nearby allies may appear partially off-screen and larger.</p>
+<p>More distant allies may appear smaller.</p>
+<p>The result creates depth without requiring actual 3D models.</p>
+<hr class="rule">
+<h3 id="flat-character-art-15"><span>Flat Character Art</span></h3>
+<p>Combatants use layered flat artwork.</p>
+<p>Potential character states include:</p>
+<ul><li>Idle</li><li>Acting</li><li>Hurt</li><li>Ultimate</li><li>Defeated</li><li>Alternate stance</li><li>Summoned state</li></ul>
+<p>Not every character requires every state for the initial release.</p>
+<p>Motion is created through:</p>
+<ul><li>Translation</li><li>Scaling</li><li>Parallax</li><li>Sprite swaps</li><li>Screen shake</li><li>Impact effects</li><li>Lighting</li><li>Particle overlays</li><li>UI transitions</li></ul>
+<p>The game should create the <strong>impression</strong> of motion without requiring expensive frame-by-frame animation.</p>
+</section>
+<section class="sec" id="s16"><div class="sechead"><span class="secnum" aria-hidden="true">16</span><h2>Logical Battlefield Positioning</h2></div>
+<figure class="fig plate" style="--pcols:2"><div class="plate-row"><div class="plate-cell"><img src="images/web/ui/front-row-markers.png" alt="Front row — FRL / FRC / FRR" loading="lazy" decoding="async"><span>Front row — FRL / FRC / FRR</span></div><div class="plate-cell"><img src="images/web/ui/back-row-markers.png" alt="Back row — BRL / BRC / BRR" loading="lazy" decoding="async"><span>Back row — BRL / BRC / BRR</span></div></div><figcaption>Position is a six-slot state, not a movement grid.</figcaption></figure>
+<p>The visual battlefield is not a free-movement grid.</p>
+<p>Combatants carry logical position data.</p>
+<p>Enemy formation initially supports:</p>
+<div class="tablewrap"><table><thead><tr><th>Code</th><th>Position</th></tr></thead><tbody><tr><td><strong>FRL</strong></td><td>Front Row Left</td></tr><tr><td><strong>FRC</strong></td><td>Front Row Center</td></tr><tr><td><strong>FRR</strong></td><td>Front Row Right</td></tr><tr><td><strong>BRL</strong></td><td>Back Row Left</td></tr><tr><td><strong>BRC</strong></td><td>Back Row Center</td></tr><tr><td><strong>BRR</strong></td><td>Back Row Right</td></tr></tbody></table></div>
+<p>Internally, position should be stored separately:</p>
+<pre class="code"><code>row: front
+lane: left</code></pre>
+<p>rather than relying on a single display string.</p>
+<p>This allows rules to independently query Row and Lane.</p>
+<hr class="rule">
+<h3 id="position-display-16"><span>Position Display</span></h3>
+<p>Position markers should not clutter normal play.</p>
+<p>Hovering a target may show:</p>
+<p><strong>Murder Drone</strong></p>
+<p><code>FRL</code></p>
+<p>Front Row — Left</p>
+<p>or:</p>
+<p><strong>Kill Borg</strong></p>
+<p><code>BR</code></p>
+<p>Back Row</p>
+<hr class="rule">
+<h3 id="position-is-mostly-state-not-movement-16"><span>Position Is Mostly State, Not Movement</span></h3>
+<p>Characters do not normally spend turns walking between grid squares.</p>
+<p>Position changes occur when an ability or encounter rule makes them meaningful.</p>
+<p>Examples:</p>
+<ul><li>Pull enemy Front</li><li>Knock enemy Back</li><li>Swap lanes</li><li>Expose Back Row target</li><li>Intercept</li><li>Push</li><li>Advance</li><li>Retreat</li><li>Protect corresponding lane</li></ul>
+<p>This provides tactical positioning without turning the game into miniature wargaming.</p>
+</section>
+<section class="sec" id="s17"><div class="sechead"><span class="secnum" aria-hidden="true">17</span><h2>Targeting Types</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/targeting-patterns.png" alt="The ten targeting shapes drawn on the six-slot formation. Position is what makes them differ from each other." loading="lazy" decoding="async"><figcaption>The ten targeting shapes drawn on the six-slot formation. Position is what makes them differ from each other.</figcaption></figure>
+<p>The action engine must support at least:</p>
+<h3 id="single-target-17"><span>Single Target</span></h3>
+<p>One valid target.</p>
+<h3 id="blast-17"><span>Blast</span></h3>
+<p>Primary target plus adjacent targets.</p>
+<h3 id="area-of-effect-17"><span>Area of Effect</span></h3>
+<p>All legal targets within an affected group.</p>
+<h3 id="bounce-17"><span>Bounce</span></h3>
+<p>Initial target selected by player; subsequent hits distributed according to ability rules.</p>
+<h3 id="lane-17"><span>Lane</span></h3>
+<p>Affects Front and/or Back units sharing a lane.</p>
+<h3 id="row-17"><span>Row</span></h3>
+<p>Affects an entire Front or Back Row.</p>
+<h3 id="random-17"><span>Random</span></h3>
+<p>Engine selects legal targets.</p>
+<h3 id="self-17"><span>Self</span></h3>
+<p>Source only.</p>
+<h3 id="ally-17"><span>Ally</span></h3>
+<p>One or more friendly targets.</p>
+<h3 id="global-17"><span>Global</span></h3>
+<p>All combatants meeting defined criteria.</p>
+</section>
+<section class="sec" id="s18"><div class="sechead"><span class="secnum" aria-hidden="true">18</span><h2>Target Selection UX</h2></div>
+<figure class="fig ui"><img src="images/web/ui/target-reticle.png" alt="The target reticle. Selection has to survive being read across a table, not just on one screen." loading="lazy" decoding="async"><figcaption>The target reticle. Selection has to survive being read across a table, not just on one screen.</figcaption></figure>
+<p>Selecting an action enters a targeting state.</p>
+<p>Valid targets become visually obvious.</p>
+<p>Invalid targets dim.</p>
+<p>Hovering a target can expose:</p>
+<ul><li>Name</li><li>Position</li><li>HP</li><li>Toughness</li><li>Weaknesses</li><li>Relevant conditions</li><li>Expected targeting pattern</li><li>Break potential</li><li>Important ability warnings</li></ul>
+<p>Example:</p>
+<p><strong>Murder Drone — FRL</strong></p>
+<p>HP: <code>██████░░</code></p>
+<p>Toughness: <code>◇◇</code></p>
+<p>Weakness: <code>⚡ ❄️</code></p>
+<p><strong>BREAK POSSIBLE</strong></p>
+<p>The engine does not require the player to understand why an illegal target is illegal before making the action.</p>
+<p>It communicates legal choices directly.</p>
+</section>
+<section class="sec" id="s19"><div class="sechead"><span class="secnum" aria-hidden="true">19</span><h2>Action Wheel</h2></div>
+<figure class="fig ui"><img src="images/web/ui/action-wheel.png" alt="The action wheel — the single control surface a player touches on their turn." loading="lazy" decoding="async"><figcaption>The action wheel — the single control surface a player touches on their turn.</figcaption></figure>
+<p>The primary combat control is a contextual radial / partial-radial action menu.</p>
+<p>The initial wheel expands approximately from <strong>12 o'clock through 5–6 o'clock</strong>, leaving the hero art unobscured.</p>
+<p>Potential top-level actions:</p>
+<ul><li>Attack</li><li>Skill</li><li>Ultimate</li><li>Item</li><li>Defend</li><li>Special</li><li>Character-specific action</li></ul>
+<p>Selecting a category expands its available actions.</p>
+<p>Example:</p>
+<p><strong>ATTACK</strong></p>
+<p>→ Basic Attack</p>
+<p>→ Skill</p>
+<p>→ Alternate Attack</p>
+<p>→ Character-specific option</p>
+<p>The wheel is not identical for every character.</p>
+<p>A summoner may expose <strong>Command</strong>.</p>
+<p>A stance fighter may expose <strong>Stance</strong>.</p>
+<p>A hacker may expose <strong>Hack</strong>.</p>
+<p>A character with deployables may expose <strong>Deploy</strong>.</p>
+<p>The action wheel belongs to the character, not merely to the rules engine.</p>
+</section>
+<section class="sec" id="s20"><div class="sechead"><span class="secnum" aria-hidden="true">20</span><h2>Weakness and Toughness</h2></div>
+<figure class="fig ui"><img src="images/web/ui/toughness-bar.png" alt="Toughness depletes visibly, so the table can see a Break coming before it lands." loading="lazy" decoding="async"><figcaption>Toughness depletes visibly, so the table can see a Break coming before it lands.</figcaption></figure>
+<p>Enemies may possess:</p>
+<ul><li>HP</li><li>Toughness</li><li>One or more elemental Weaknesses</li></ul>
+<p>Attacking an enemy using an appropriate Element reduces Toughness.</p>
+<p>Foundry handles the calculation.</p>
+<p>Players see the Toughness bar change immediately.</p>
+<p>Example:</p>
+<p><code>◇◇◇◇ → ◇◇</code></p>
+<p>When Toughness reaches zero:</p>
+<p class="beat">WEAKNESS BREAK</p>
+<p>The engine resolves the appropriate Break effect.</p>
+</section>
+<section class="sec" id="s21"><div class="sechead"><span class="secnum" aria-hidden="true">21</span><h2>Break Effects</h2></div>
+<figure class="fig ui"><img src="images/web/ui/break-ready-indicator.png" alt="Break-ready. The moment the encounter turns." loading="lazy" decoding="async"><figcaption>Break-ready. The moment the encounter turns.</figcaption></figure>
+<p>Break may cause:</p>
+<ul><li>Bonus damage</li><li>Timeline delay</li><li>Element-specific status</li><li>Vulnerability</li><li>Ability interruption</li><li>Boss mechanic disruption</li><li>Exposure of hidden targets</li><li>Phase interaction</li></ul>
+<p>Elements should differ meaningfully in how Break behaves.</p>
+<p>Element should therefore be more than damage color.</p>
+</section>
+<section class="sec" id="s22"><div class="sechead"><span class="secnum" aria-hidden="true">22</span><h2>Damage, Healing, and Shields</h2></div>
+<figure class="fig plate" style="--pcols:2"><div class="plate-row"><div class="plate-cell"><img src="images/web/ui/player-hp-frame.png" alt="Player frame" loading="lazy" decoding="async"><span>Player frame</span></div><div class="plate-cell"><img src="images/web/ui/enemy-hp-frame.png" alt="Enemy frame" loading="lazy" decoding="async"><span>Enemy frame</span></div></div><figcaption>One transaction pipeline feeds both frames.</figcaption></figure>
+<p>The engine maintains a unified transaction pipeline.</p>
+<p>Every HP change is an event.</p>
+<p>Examples:</p>
+<pre class="code"><code>damageApplied
+hpLost
+healingApplied
+hpRecovered
+shieldApplied
+shieldDamaged
+shieldBroken
+actorDefeated</code></pre>
+<p>This distinction matters.</p>
+<p>A character such as Castorice may care about <strong>real HP lost or restored</strong>, while another character may care specifically about Shields.</p>
+<p>The engine must preserve enough information for both mechanics to function correctly.</p>
+</section>
+<section class="sec" id="s23"><div class="sechead"><span class="secnum" aria-hidden="true">23</span><h2>Event-Driven Ability Engine</h2></div>
+<p>This is the central technical foundation of character design.</p>
+<p>Actions and Talents subscribe to meaningful game events.</p>
+<p>Potential hooks include:</p>
+<pre class="code"><code>onActionDeclared
+onAttack
+onHit
+onMiss
+onCritical
+onDamage
+onDamageTaken
+onHeal
+onHPChanged
+onShieldGained
+onShieldBroken
+onStatusApplied
+onStatusRemoved
+onBreak
+onAllyBreak
+onEnemyBreak
+onUltimate
+onSkill
+onBasic
+onFollowUp
+onTurnStart
+onTurnEnd
+onEnemyDefeated
+onAllyDefeated
+onSummon
+onSummonDismissed
+onResourceChanged</code></pre>
+<p>Characters should primarily be defined through data-driven actions, conditions, triggers, and effects.</p>
+<p>New characters should not require rewriting the combat engine.</p>
+</section>
+<section class="sec" id="s24"><div class="sechead"><span class="secnum" aria-hidden="true">24</span><h2>Trigger Stack / Reaction Resolver</h2></div>
+<figure class="fig band"><img src="images/web/scenes/glighter-underway.jpg" alt="A Glighter running a Lumenway. The vanes catch a current the ship did not make." loading="lazy" decoding="async"><figcaption>A Glighter running a Lumenway. The vanes catch a current the ship did not make.</figcaption></figure>
+<p>Multiple abilities may react to the same event.</p>
+<p>The engine therefore requires a deterministic reaction system.</p>
+<p>Example:</p>
+<p>Enemy attacks Ally A.</p>
+<ol><li>Damage is declared.</li><li>Defender reaction becomes available.</li><li>Preservation ally may intercept.</li><li>Shield response resolves.</li><li>Damage resolves.</li><li>HP-loss Talents detect the result.</li><li>Healing reaction may fire.</li><li>Resource gains resolve.</li><li>Follow-up eligibility is checked.</li></ol>
+<p>The player should never see an incomprehensible technical stack.</p>
+<p>They see only the decisions relevant to them.</p>
+</section>
+<section class="sec" id="s25"><div class="sechead"><span class="secnum" aria-hidden="true">25</span><h2>Follow-Up Attacks</h2></div>
+<p>Follow-up attacks are first-class actions.</p>
+<p>They may trigger when:</p>
+<ul><li>An ally attacks</li><li>An ally is damaged</li><li>An enemy is Broken</li><li>A marked enemy acts</li><li>A shield is attacked</li><li>Healing occurs</li><li>A summon acts</li><li>A condition is applied</li><li>Another specific trigger occurs</li></ul>
+<p>Follow-ups may be:</p>
+<ul><li>Automatic</li><li>Optional</li><li>Limited per round / cycle</li><li>Resource-gated</li></ul>
+<p>The system tracks limits and eligibility.</p>
+</section>
+<section class="sec" id="s26"><div class="sechead"><span class="secnum" aria-hidden="true">26</span><h2>Reactions and Interrupts</h2></div>
+<figure class="fig ui"><img src="images/web/ui/reaction-alert-frame.png" alt="The reaction prompt — the interrupt that pulls a player back in on someone else’s turn." loading="lazy" decoding="async"><figcaption>The reaction prompt — the interrupt that pulls a player back in on someone else’s turn.</figcaption></figure>
+<p>Reaction prompts appear contextually.</p>
+<p>Example:</p>
+<p><strong>ALLY TARGETED</strong></p>
+<p><code>INTERVENE?</code></p>
+<p><code>[Shield] [Counter] [Ignore]</code></p>
+<p>The prompt:</p>
+<ul><li>Identifies the event</li><li>Shows the affected character</li><li>Shows available responses</li><li>Enforces timing</li><li>Resolves the selected effect</li><li>Disappears when no longer legal</li></ul>
+<p>Players should not need to shout over one another asking whether they can react.</p>
+</section>
+<section class="sec" id="s27"><div class="sechead"><span class="secnum" aria-hidden="true">27</span><h2>Summons / Companions / Reflections</h2></div>
+<figure class="fig tall"><img src="images/web/scenes/char-summoner.jpg" alt="A summoner and her Reflection. The companion is a second body on the timeline, not a stat bonus." loading="lazy" decoding="async"><figcaption>A summoner and her Reflection. The companion is a second body on the timeline, not a stat bonus.</figcaption></figure>
+<p>Summoned entities are first-class combat participants.</p>
+<p>They may have:</p>
+<ul><li>Their own artwork</li><li>HP or Life</li><li>Actions</li><li>Timeline position</li><li>Duration</li><li>Resources</li><li>Status effects</li><li>Triggered abilities</li><li>Relationship to summoner statistics</li></ul>
+<p>The engine must support summons that:</p>
+<ul><li>Act independently</li><li>Act immediately</li><li>Share statistics with owner</li><li>Use owner's statistics</li><li>Have unique statistics</li><li>Consume their own Life</li><li>Disappear after a timer</li><li>Transform</li><li>Detonate</li><li>Trigger events when entering/leaving play</li></ul>
+</section>
+<section class="sec" id="s28"><div class="sechead"><span class="secnum" aria-hidden="true">28</span><h2>Dynamic Character Sheet States</h2></div>
+<p>Character sheets are allowed to transform based on current mechanics.</p>
+<p>Examples:</p>
+<h4>Netherwing Dormant</h4>
+<p>The summon panel is subdued.</p>
+<h4>Netherwing Summoned</h4>
+<p>Panel expands.</p>
+<p>Life diamonds appear.</p>
+<p>Summon actions become active.</p>
+<p>Duration appears.</p>
+<p>Relevant Castorice actions change.</p>
+<h4>Alternate Stance</h4>
+<p>Action set changes.</p>
+<h4>Transformation</h4>
+<p>Portrait, resources, actions, and available Traits may change.</p>
+<p>Dynamic sheets are a core feature, not an optional visual gimmick.</p>
+</section>
+<section class="sec" id="s29"><div class="sechead"><span class="secnum" aria-hidden="true">29</span><h2>Character Sheet</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/sheet-character.jpg" alt="The character sheet as a combat instrument — identity, engine, and active systems in one read." loading="lazy" decoding="async"><figcaption>The character sheet as a combat instrument — identity, engine, and active systems in one read.</figcaption><p class="artnote"><span class="flag">Art</span>Legacy terminology — this plate was generated before the Waybound Wanderers naming and still reads <b>Path</b> / <b>Remembrance</b> / <b>Preservation</b>. Regenerate on the next art pass.</p></figure>
+<p>The full character sheet remains the foundation of the tabletop character.</p>
+<p>Primary layout:</p>
+<h3 id="left-identity-29"><span>Left — Identity</span></h3>
+<ul><li>Large character portrait</li><li>Name</li><li>Level</li><li>Element</li><li>Way</li><li>Role</li><li>Background / Origin</li><li>Advancement spine</li></ul>
+<h3 id="center-character-engine-29"><span>Center — Character Engine</span></h3>
+<ul><li>Attributes</li><li>Combat statistics</li><li>HP</li><li>Personal resource</li><li>Energy</li><li>Conditions</li><li>Actions</li><li>Talents</li></ul>
+<h3 id="right-active-systems-29"><span>Right — Active Systems</span></h3>
+<ul><li>Summon / alternate state</li><li>Equipment</li><li>Relics</li><li>Memory / Light Cone equivalent</li><li>Contextual character mechanic</li></ul>
+<h3 id="bottom-secondary-panels-29"><span>Bottom / Secondary Panels</span></h3>
+<ul><li>Traits</li><li>Skills</li><li>Bonds</li><li>Statuses</li><li>Notes</li><li>Biography</li><li>Inventory</li><li>Advancement information</li></ul>
+<p>The entire sheet should allow a player to understand the character without navigating five databases.</p>
+</section>
+<section class="sec" id="s30"><div class="sechead"><span class="secnum" aria-hidden="true">30</span><h2>Advancement / Skill Tree</h2></div>
+<figure class="fig tall"><img src="images/web/ui/skill-tree.png" alt="The advancement skill tree: every node is a visible, chosen upgrade." loading="lazy" decoding="async"><figcaption>The advancement skill tree: every node is a visible, chosen upgrade.</figcaption></figure>
+<p>Advancement should be visible.</p>
+<p>The sheet includes an interactive progression spine / tree.</p>
+<p>Possible categories:</p>
+<ul><li>Basic</li><li>Skill</li><li>Ultimate</li><li>Talent</li><li>Technique</li><li>Signature mechanic</li><li>Major Traits</li><li>Minor Traits</li><li>Attribute improvements</li></ul>
+<p>Nodes visibly change when purchased.</p>
+<p>Whenever possible, advancement should create <strong>new behavior</strong>, not merely increase percentages.</p>
+<p>Bad advancement:</p>
+<blockquote>Damage +3%.</blockquote>
+<p>Better advancement:</p>
+<blockquote>The first time you Break an enemy each encounter, immediately Advance 15 on the timeline.</blockquote>
+<p>Progression should make the character more interesting, not just numerically larger.</p>
+</section>
+<section class="sec" id="s31"><div class="sechead"><span class="secnum" aria-hidden="true">31</span><h2>Character Creation</h2></div>
+<p>The game is built around <strong>original player characters</strong>.</p>
+<p>Canon characters may exist in the world, but PCs are not expected to play them.</p>
+<p>Character creation must eventually support:</p>
+<ol><li>Concept</li><li>Origin / Homeworld</li><li>Way</li><li>Element</li><li>Attributes</li><li>Skills</li><li>Background Traits</li><li>Combat kit</li><li>Signature mechanic</li><li>Starting advancement</li><li>Equipment</li><li>Bonds / connections</li><li>Portrait and visual identity</li></ol>
+<p>The difficult design problem is allowing bespoke-feeling characters without requiring players to program their own Foundry actors.</p>
+<p>This will require a structured <strong>Hero Builder</strong>.</p>
+</section>
+<section class="sec" id="s32"><div class="sechead"><span class="secnum" aria-hidden="true">32</span><h2>Way</h2></div>
+<figure class="fig tall"><img src="images/web/scenes/the-binding.jpg" alt="The moment a Wanderer becomes Waybound. The light does not treat this one the same." loading="lazy" decoding="async"><figcaption>The moment a Wanderer becomes Waybound. The light does not treat this one the same.</figcaption></figure>
+<p>Way defines broad philosophy and mechanical tendencies.</p>
+<p>Way is <strong>not a rigid class</strong>.</p>
+<p>It may influence:</p>
+<ul><li>Available Talents</li><li>Advancement options</li><li>Signature-engine families</li><li>Ultimate styles</li><li>Combat role</li><li>Equipment interaction</li></ul>
+<p>Two characters of the same Way should not be assumed to have the same rotation.</p>
+</section>
+<section class="sec" id="s33"><div class="sechead"><span class="secnum" aria-hidden="true">33</span><h2>Element</h2></div>
+<div class="icongrid" style="--cols:7"><div class="ic"><img src="images/web/icons/element-physical.png" alt="Physical icon" loading="lazy" decoding="async"><span>Physical</span></div><div class="ic"><img src="images/web/icons/element-fire.png" alt="Fire icon" loading="lazy" decoding="async"><span>Fire</span></div><div class="ic"><img src="images/web/icons/element-ice.png" alt="Ice icon" loading="lazy" decoding="async"><span>Ice</span></div><div class="ic"><img src="images/web/icons/element-lightning.png" alt="Lightning icon" loading="lazy" decoding="async"><span>Lightning</span></div><div class="ic"><img src="images/web/icons/element-wind.png" alt="Wind icon" loading="lazy" decoding="async"><span>Wind</span></div><div class="ic"><img src="images/web/icons/element-quantum.png" alt="Quantum icon" loading="lazy" decoding="async"><span>Quantum</span></div><div class="ic"><img src="images/web/icons/element-imaginary.png" alt="Imaginary icon" loading="lazy" decoding="async"><span>Imaginary</span></div></div>
+<p>Elements interact strongly with:</p>
+<ul><li>Weakness</li><li>Toughness</li><li>Break</li><li>Conditions</li><li>Talents</li><li>Enemy types</li><li>Equipment</li></ul>
+<p>Initial elemental framework:</p>
+<ul><li>Physical</li><li>Fire</li><li>Ice</li><li>Lightning</li><li>Wind</li><li>Quantum</li><li>Imaginary</li></ul>
+<p>Element must influence actual tactical behavior rather than merely changing damage color.</p>
+</section>
+<section class="sec" id="s34"><div class="sechead"><span class="secnum" aria-hidden="true">34</span><h2>Hero Builder</h2></div>
+<p>Because bespoke characters are a central appeal, the system requires a player-facing kit construction system.</p>
+<p>The builder should provide controlled components for:</p>
+<ul><li>Basic Attack</li><li>Skill</li><li>Ultimate</li><li>Talent</li><li>Technique</li><li>Personal resource</li><li>Trigger</li><li>Targeting pattern</li><li>Costs</li><li>Effects</li><li>Advancement branches</li></ul>
+<p>Way and Element constrain available combinations sufficiently to protect balance and identity.</p>
+<p>The player creates a distinctive hero without writing formulas or code.</p>
+<p>An advanced GM mode may permit unrestricted custom powers.</p>
+</section>
+<section class="sec" id="s35"><div class="sechead"><span class="secnum" aria-hidden="true">35</span><h2>Traits</h2></div>
+<p>Traits define who a character is beyond combat.</p>
+<p>Examples:</p>
+<ul><li>Street Rat</li><li>IPC Insider</li><li>Mechanic</li><li>Former Soldier</li><li>Noble</li><li>Wanted Criminal</li><li>Academic</li><li>Pathstrider</li><li>Synthetic Life</li><li>Nameless</li><li>Medical Training</li><li>Underworld Contacts</li></ul>
+<p>Traits may:</p>
+<ul><li>Grant narrative permissions</li><li>Improve checks</li><li>Provide contacts</li><li>Reveal information</li><li>Alter downtime</li><li>Create special options</li><li>Occasionally interact with combat</li></ul>
+<p>Traits should encourage players to describe <em>why</em> their character can do something.</p>
+</section>
+<section class="sec" id="s36"><div class="sechead"><span class="secnum" aria-hidden="true">36</span><h2>Bonds</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/bonds-two-wanderers.jpg" alt="Bonds are the relationships the sheet has to remember, because the table already does." loading="lazy" decoding="async"><figcaption>Bonds are the relationships the sheet has to remember, because the table already does.</figcaption></figure>
+<p>Characters may form Bonds with:</p>
+<ul><li>Other PCs</li><li>Important NPCs</li><li>Organizations</li><li>Communities</li></ul>
+<p>Bonds are intentionally light.</p>
+<p>They are not numerical dating-simulator meters.</p>
+<p>A Bond represents a relationship that has become mechanically meaningful.</p>
+<p>Examples:</p>
+<p><strong>We've Got Each Other's Back</strong></p>
+<p>Once per mission, intervene when the bonded character fails an appropriate check.</p>
+<p><strong>Professional Rivals</strong></p>
+<p>Gain a benefit when attempting to outdo one another.</p>
+<p><strong>Old Friends</strong></p>
+<p>Gain additional recovery or information during downtime together.</p>
+<p>Players decide whether a relationship is:</p>
+<ul><li>Friendship</li><li>Romance</li><li>Rivalry</li><li>Family</li><li>Mentorship</li><li>Professional partnership</li><li>Something stranger</li></ul>
+</section>
+<section class="sec" id="s37"><div class="sechead"><span class="secnum" aria-hidden="true">37</span><h2>Informal Conflict</h2></div>
+<p>Not every disagreement requires tactical combat.</p>
+<p>The system should support fast contests for:</p>
+<ul><li>Arguments</li><li>Races</li><li>Gambling</li><li>Drinking competitions</li><li>Sparring</li><li>Slap fights</li><li>Bar fights</li><li>Sports</li><li>Showing off</li></ul>
+<p>Example:</p>
+<p><strong>CONFLICT</strong></p>
+<p><code>[Argument] [Contest] [Brawl] [Duel]</code></p>
+<p>These use normal tabletop Attributes and Skills.</p>
+<p>A fountain slap fight should not require bringing up the boss-combat timeline unless somebody escalates matters dramatically.</p>
+</section>
+<section class="sec" id="s38"><div class="sechead"><span class="secnum" aria-hidden="true">38</span><h2>Equipment</h2></div>
+<p>Equipment should create meaningful choices without recreating videogame substat hell.</p>
+<p>Potential categories:</p>
+<ul><li>Weapon / focus</li><li>Memory / Light Cone equivalent</li><li>Relics</li><li>Ornament</li><li>Utility gear</li><li>Consumables</li></ul>
+<p>Equipment may:</p>
+<ul><li>Alter stats</li><li>Modify abilities</li><li>Add triggers</li><li>Change targeting</li><li>Modify resource generation</li><li>Interact with Break</li><li>Provide exploration utility</li></ul>
+<p>Avoid endless tiny percentage bonuses.</p>
+</section>
+<section class="sec" id="s39"><div class="sechead"><span class="secnum" aria-hidden="true">39</span><h2>Status Effects</h2></div>
+<div class="icongrid" style="--cols:5"><div class="ic"><img src="images/web/icons/state-broken.png" alt="Broken icon" loading="lazy" decoding="async"><span>Broken</span></div><div class="ic"><img src="images/web/icons/state-bloodied.png" alt="Bloodied icon" loading="lazy" decoding="async"><span>Bloodied</span></div><div class="ic"><img src="images/web/icons/state-shielded.png" alt="Shielded icon" loading="lazy" decoding="async"><span>Shielded</span></div><div class="ic"><img src="images/web/icons/state-buffed.png" alt="Buffed icon" loading="lazy" decoding="async"><span>Buffed</span></div><div class="ic"><img src="images/web/icons/state-debuffed.png" alt="Debuffed icon" loading="lazy" decoding="async"><span>Debuffed</span></div><div class="ic"><img src="images/web/icons/state-marked.png" alt="Marked icon" loading="lazy" decoding="async"><span>Marked</span></div><div class="ic"><img src="images/web/icons/state-stunned.png" alt="Stunned icon" loading="lazy" decoding="async"><span>Stunned</span></div><div class="ic"><img src="images/web/icons/state-damage-over-time.png" alt="Damage over Time icon" loading="lazy" decoding="async"><span>Damage over Time</span></div><div class="ic"><img src="images/web/icons/state-healing.png" alt="Healing icon" loading="lazy" decoding="async"><span>Healing</span></div><div class="ic"><img src="images/web/icons/state-critical.png" alt="Critical icon" loading="lazy" decoding="async"><span>Critical</span></div></div>
+<p>Statuses are centrally managed.</p>
+<p>Initial categories include:</p>
+<ul><li>Buffs</li><li>Debuffs</li><li>Damage-over-time</li><li>Control</li><li>Shields</li><li>Marks</li><li>Broken</li><li>Bloodied</li><li>Character-specific states</li></ul>
+<p>Statuses display:</p>
+<ul><li>Icon</li><li>Name</li><li>Source</li><li>Duration</li><li>Stacks where applicable</li><li>Mechanical effect on hover</li></ul>
+<p>The system handles expiration automatically.</p>
+</section>
+<section class="sec" id="s40"><div class="sechead"><span class="secnum" aria-hidden="true">40</span><h2>Enemy Architecture</h2></div>
+<figure class="fig plate" style="--pcols:4"><div class="plate-row"><div class="plate-cell"><img src="images/web/enemies/murder-drone.jpg" alt="Murder Drone — Common" loading="lazy" decoding="async"><span>Murder Drone — Common</span></div><div class="plate-cell"><img src="images/web/enemies/kill-borg.jpg" alt="Kill Borg — Elite, Front Row" loading="lazy" decoding="async"><span>Kill Borg — Elite, Front Row</span></div><div class="plate-cell"><img src="images/web/enemies/rift-stalker.jpg" alt="Rift Stalker — Elite" loading="lazy" decoding="async"><span>Rift Stalker — Elite</span></div><div class="plate-cell"><img src="images/web/enemies/choir-operator.jpg" alt="Choir Operator — Elite, Back Row" loading="lazy" decoding="async"><span>Choir Operator — Elite, Back Row</span></div></div><figcaption>The enemy roster. Weakness, resistance, and threat level are printed on the card because they are the information the table needs.</figcaption></figure>
+<p>Enemies should not be built as miniature player characters.</p>
+<p>They require enough complexity to create tactical problems without overburdening the GM.</p>
+<p>Enemy categories may include:</p>
+<ul><li>Minion</li><li>Standard</li><li>Specialist</li><li>Elite</li><li>Commander</li><li>Boss</li><li>Summon</li><li>Hazard / Object</li></ul>
+<p>Enemy data may contain:</p>
+<ul><li>HP</li><li>Toughness</li><li>Weakness</li><li>Position</li><li>Speed</li><li>Defense</li><li>Actions</li><li>Traits</li><li>Reactions</li><li>Phase rules</li><li>Targeting priorities where necessary</li></ul>
+</section>
+<section class="sec" id="s41"><div class="sechead"><span class="secnum" aria-hidden="true">41</span><h2>Enemy Information UI</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/bestiary-full.jpg" alt="The bestiary plate — enemy information designed to be read, not looked up." loading="lazy" decoding="async"><figcaption>The bestiary plate — enemy information designed to be read, not looked up.</figcaption></figure>
+<p>Players should obtain relevant information through hover and inspection rather than opening NPC sheets.</p>
+<p>Example:</p>
+<p><strong>MURDER DRONE</strong></p>
+<p><code>FRL</code></p>
+<p>HP <code>███████░</code></p>
+<p>Toughness <code>◇◇◇</code></p>
+<p>Weakness <code>⚡ ❄️</code></p>
+<p><strong>ARMOR PLATING</strong></p>
+<p>Hovering Armor Plating explains what it does if the players have discovered that information.</p>
+<p>GMs retain a deeper enemy control card.</p>
+</section>
+<section class="sec" id="s42"><div class="sechead"><span class="secnum" aria-hidden="true">42</span><h2>Boss Engine</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/boss-siege-automaton.jpg" alt="The Siege Automaton. A boss is a multi-part encounter with its own rules, not a large enemy." loading="lazy" decoding="async"><figcaption>The Siege Automaton. A boss is a multi-part encounter with its own rules, not a large enemy.</figcaption></figure>
+<p>Bosses must be one of the system's showcases.</p>
+<p>A boss is not simply an enemy with more HP.</p>
+<p>Boss support includes:</p>
+<ul><li>Multiple phases</li><li>Changing Weaknesses</li><li>Break-dependent mechanics</li><li>Summoned components</li><li>Targetable body parts</li><li>Hidden / exposed targets</li><li>Timeline insertions</li><li>Interrupt actions</li><li>Arena states</li><li>Enrage states</li><li>Reactive powers</li><li>Formation changes</li><li>Phase-specific artwork</li><li>Phase-specific action sets</li></ul>
+<p>Example:</p>
+<p><strong>SIEGE AUTOMATON</strong></p>
+<p>Front:</p>
+<p><code>ARM — CORE — ARM</code></p>
+<p>Back:</p>
+<p><code>REACTOR</code></p>
+<p>The Reactor cannot initially be targeted.</p>
+<p>Breaking the Core triggers:</p>
+<p class="beat">REACTOR EXPOSED</p>
+<p><code>BRC → FRC</code></p>
+<p>The battlefield UI changes automatically.</p>
+</section>
+<section class="sec" id="s43"><div class="sechead"><span class="secnum" aria-hidden="true">43</span><h2>Boss Phase Presentation</h2></div>
+<figure class="fig ui"><img src="images/web/ui/boss-phase-bar.png" alt="Phase presentation — the encounter announces its own turn." loading="lazy" decoding="async"><figcaption>Phase presentation — the encounter announces its own turn.</figcaption></figure>
+<p>Major transitions should be theatrical.</p>
+<p>Possible effects:</p>
+<ul><li>Screen darkening</li><li>New portrait</li><li>Music change</li><li>Timeline restructuring</li><li>Status purge</li><li>New Break bar</li><li>New Weakness icons</li><li>New background</li><li>Camera shake</li><li>Title overlay</li><li>Voice / sound cue if assets exist</li></ul>
+<p>The rules and presentation happen together.</p>
+</section>
+<section class="sec" id="s44"><div class="sechead"><span class="secnum" aria-hidden="true">44</span><h2>GM Combat Tools</h2></div>
+<p>The GM requires a centralized battle-control interface.</p>
+<p>Potential functions:</p>
+<ul><li>Add enemy</li><li>Assign formation position</li><li>Change position</li><li>Adjust HP</li><li>Adjust Toughness</li><li>Apply status</li><li>Modify timeline</li><li>Trigger phase</li><li>Trigger enemy action</li><li>Add summon</li><li>Change Weakness</li><li>Set hidden/revealed state</li><li>Override targeting</li><li>Undo most recent mechanical transaction</li><li>End encounter</li></ul>
+<p>The GM should not need to open six NPC sheets to run six enemies.</p>
+</section>
+<section class="sec" id="s45"><div class="sechead"><span class="secnum" aria-hidden="true">45</span><h2>Encounter Builder</h2></div>
+<p>The GM can construct encounters through a dedicated interface.</p>
+<p>Features:</p>
+<ul><li>Enemy browser</li><li>Drag/add combatants</li><li>Formation preview</li><li>FR/BR assignment</li><li>Weakness overview</li><li>Difficulty estimate</li><li>Boss designation</li><li>Reinforcement groups</li><li>Encounter notes</li><li>Background selection</li><li>Music selection</li><li>Saved encounter templates</li></ul>
+<p>A GM should be able to build an ordinary encounter in minutes.</p>
+</section>
+<section class="sec" id="s46"><div class="sechead"><span class="secnum" aria-hidden="true">46</span><h2>Battle Stage Composer</h2></div>
+<p>The GM selects or constructs the visual battlefield separately from its logical formation.</p>
+<p>The Stage Composer controls:</p>
+<ul><li>Background</li><li>Foreground overlays</li><li>Enemy visual anchors</li><li>Scaling</li><li>Depth planes</li><li>Atmospheric effects</li><li>Lighting tint</li><li>Battle music</li><li>Entry animation</li><li>Optional environmental objects</li></ul>
+<p>Logical combat remains:</p>
+<p><code>row + lane</code></p>
+<p>Visual composition remains:</p>
+<p><code>screen position + scale + depth</code></p>
+<p>The two are related but not identical.</p>
+</section>
+<section class="sec" id="s47"><div class="sechead"><span class="secnum" aria-hidden="true">47</span><h2>Per-Player Battle View</h2></div>
+<p>Each client can render the battle from a slightly different perspective.</p>
+<p>The local player's hero remains foregrounded.</p>
+<p>The acting character may temporarily receive visual focus during attacks.</p>
+<p>The GM may use a neutral/director view.</p>
+<p>This should be calculated locally wherever possible to reduce synchronization complexity.</p>
+<p>Mechanical state remains authoritative and shared.</p>
+<p>Presentation may differ by client.</p>
+</section>
+<section class="sec" id="s48"><div class="sechead"><span class="secnum" aria-hidden="true">48</span><h2>Exploration System</h2></div>
+<figure class="fig tall"><img src="images/web/scenes/loc-transit-station.jpg" alt="The abandoned transit station. Exploration wants places with a history, not corridors." loading="lazy" decoding="async"><figcaption>The abandoned transit station. Exploration wants places with a history, not corridors.</figcaption></figure>
+<p>Outside combat the system supports two major exploration styles.</p>
+<h3 id="theater-of-the-mind-locations-48"><span>Theater-of-the-Mind Locations</span></h3>
+<p>Used for:</p>
+<ul><li>Cities</li><li>Shops</li><li>Taverns</li><li>Ship interiors</li><li>Social spaces</li><li>Small narrative locations</li></ul>
+<p>A location can have:</p>
+<ul><li>Background artwork</li><li>Name</li><li>Description</li><li>Present NPCs</li><li>Clickable exits</li><li>Points of interest</li><li>Notes</li><li>Available activities</li></ul>
+<hr class="rule">
+<h3 id="exploration-maps-48"><span>Exploration Maps</span></h3>
+<p>Used for:</p>
+<ul><li>Ruins</li><li>Wilderness</li><li>Facilities</li><li>Dungeons</li><li>Complex missions</li></ul>
+<p>These may use:</p>
+<ul><li>Simple maps</li><li>Zones</li><li>Rooms</li><li>Nodes</li><li>Connected locations</li></ul>
+<p>Precise tactical movement is not required unless an encounter explicitly needs it.</p>
+</section>
+<section class="sec" id="s49"><div class="sechead"><span class="secnum" aria-hidden="true">49</span><h2>Location Network</h2></div>
+<p>Locations may form a simple graph.</p>
+<p>Example:</p>
+<pre class="code"><code>Central Plaza
+   |
+Market ----- Workshop
+   |
+Transit Station
+   |
+Old District</code></pre>
+<p>Movement is about <strong>where you are</strong>, not how many five-foot squares you traveled.</p>
+<p>Locations can store:</p>
+<ul><li>Connections</li><li>Encounter state</li><li>NPC presence</li><li>Discovered information</li><li>Active missions</li><li>Environmental conditions</li></ul>
+</section>
+<section class="sec" id="s50"><div class="sechead"><span class="secnum" aria-hidden="true">50</span><h2>Combat Transition</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/lumenwake.jpg" alt="A Lumenwake — the trail something leaves through the current. It has not closed yet, which means whatever made it is still close." loading="lazy" decoding="async"><figcaption>A Lumenwake — the trail something leaves through the current. It has not closed yet, which means whatever made it is still close.</figcaption></figure>
+<p>When hostilities begin:</p>
+<ol><li>Exploration UI recedes.</li><li>Combatants are identified.</li><li>Battle Stage loads.</li><li>Enemy formation initializes.</li><li>Character art enters.</li><li>Timeline appears.</li><li>Skill Point pool appears.</li><li>Weakness/Toughness data activates.</li><li>Opening Techniques resolve.</li><li>Combat begins.</li></ol>
+<p>When combat ends:</p>
+<ol><li>Rewards resolve.</li><li>Temporary combat states clean up.</li><li>Summons dismiss as appropriate.</li><li>Exploration state returns.</li><li>Persistent consequences remain.</li></ol>
+</section>
+<section class="sec" id="s51"><div class="sechead"><span class="secnum" aria-hidden="true">51</span><h2>Towns and Hubs</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/loc-fountain-plaza.jpg" alt="A hub worth spending an evening in — the fountain plaza that anchors the exploration layer." loading="lazy" decoding="async"><figcaption>A hub worth spending an evening in — the fountain plaza that anchors the exploration layer.</figcaption></figure>
+<p>Settlements are expected to be real campaign locations rather than menus between missions.</p>
+<p>A hub may contain:</p>
+<ul><li>Inn / residence</li><li>Market</li><li>Food</li><li>Shops</li><li>Medical services</li><li>Workshop</li><li>Faction offices</li><li>Entertainment</li><li>Recreation</li><li>NPC hangouts</li><li>Mission sources</li><li>Secrets</li><li>Local events</li></ul>
+<p>Nothing prevents the party from spending an entire session in one.</p>
+</section>
+<section class="sec" id="s52"><div class="sechead"><span class="secnum" aria-hidden="true">52</span><h2>Home Base / Ship</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/loc-starship-lounge.jpg" alt="The ship’s common room — the home base players return to between worlds." loading="lazy" decoding="async"><figcaption>The ship’s common room — the home base players return to between worlds.</figcaption></figure>
+<p>Long-term campaigns benefit from a persistent mobile or stationary home base.</p>
+<p>The base may support:</p>
+<ul><li>Character quarters</li><li>Shared storage</li><li>Workshop</li><li>Medical area</li><li>Research</li><li>Mission board</li><li>NPC companions</li><li>Trophy / memory display</li><li>Travel interface</li><li>Group resources</li><li>Downtime activities</li></ul>
+<p>The exact campaign premise does not require every party to belong to a faction.</p>
+</section>
+<section class="sec" id="s53"><div class="sechead"><span class="secnum" aria-hidden="true">53</span><h2>Missions</h2></div>
+<p>The GM can track structured missions without forcing players into videogame quest logs.</p>
+<p>Mission data may include:</p>
+<ul><li>Title</li><li>Employer / source</li><li>Objective</li><li>Optional objectives</li><li>Known location</li><li>Rewards</li><li>Important NPCs</li><li>Current status</li><li>Notes</li></ul>
+<p>Players can see what their characters know.</p>
+<p>GM information remains separate.</p>
+</section>
+<section class="sec" id="s54"><div class="sechead"><span class="secnum" aria-hidden="true">54</span><h2>Campaign Structure</h2></div>
+<figure class="fig band"><img src="images/web/scenes/glighter-planetfall.jpg" alt="ARRIVE. A Glighter comes down through the cloud deck of somewhere new." loading="lazy" decoding="async"><figcaption>ARRIVE. A Glighter comes down through the cloud deck of somewhere new.</figcaption></figure>
+<p>The natural long-form campaign loop is:</p>
+<p class="beat">ARRIVE</p>
+<p>Discover a new world or location.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">LIVE</p>
+<p>Meet people, explore, socialize, establish interests.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">DISCOVER</p>
+<p>Find conflicts, mysteries, factions, opportunities.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">CHOOSE</p>
+<p>Decide what actually matters to the party.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">ADVENTURE</p>
+<p>Investigate, travel, infiltrate, negotiate, explore.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">FIGHT</p>
+<p>Enter tactical combat when violence matters.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">CHANGE</p>
+<p>Leave consequences behind.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">RECOVER</p>
+<p>Return to town or ship.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">DOWNTIME</p>
+<p>Develop characters, relationships, equipment, projects.</p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">DEPART</p>
+<p>Travel onward.</p>
+<p>The campaign can repeat this loop indefinitely without requiring every arc to resemble the previous one.</p>
+<p class="beat">WHY DO YOU WANDER?</p>
+<p>Answer this at your own table.</p>
+</section>
+<section class="sec" id="s55"><div class="sechead"><span class="secnum" aria-hidden="true">55</span><h2>World Creation Tools</h2></div>
+<div class="icongrid" style="--cols:6"><div class="ic"><img src="images/web/icons/faction-interstellar-trade-corporation.png" alt="Interstellar Trade Corp. icon" loading="lazy" decoding="async"><span>Interstellar Trade Corp.</span></div><div class="ic"><img src="images/web/icons/faction-explorers-guild.png" alt="Explorers Guild icon" loading="lazy" decoding="async"><span>Explorers Guild</span></div><div class="ic"><img src="images/web/icons/faction-medical-organization.png" alt="Medical Organization icon" loading="lazy" decoding="async"><span>Medical Organization</span></div><div class="ic"><img src="images/web/icons/faction-transit-authority.png" alt="Transit Authority icon" loading="lazy" decoding="async"><span>Transit Authority</span></div><div class="ic"><img src="images/web/icons/faction-security-force.png" alt="Security Force icon" loading="lazy" decoding="async"><span>Security Force</span></div><div class="ic"><img src="images/web/icons/faction-research-institute.png" alt="Research Institute icon" loading="lazy" decoding="async"><span>Research Institute</span></div><div class="ic"><img src="images/web/icons/faction-pilgrims-pathstriders.png" alt="Pilgrims / Pathstriders icon" loading="lazy" decoding="async"><span>Pilgrims / Pathstriders</span></div><div class="ic"><img src="images/web/icons/faction-mercenary-guild.png" alt="Mercenary Guild icon" loading="lazy" decoding="async"><span>Mercenary Guild</span></div><div class="ic"><img src="images/web/icons/faction-anomaly-warning.png" alt="Anomaly Warning icon" loading="lazy" decoding="async"><span>Anomaly Warning</span></div><div class="ic"><img src="images/web/icons/faction-medical-facility.png" alt="Medical Facility icon" loading="lazy" decoding="async"><span>Medical Facility</span></div><div class="ic"><img src="images/web/icons/faction-shop-exchange.png" alt="Shop / Exchange icon" loading="lazy" decoding="async"><span>Shop / Exchange</span></div><div class="ic"><img src="images/web/icons/faction-inn-rest.png" alt="Inn / Rest icon" loading="lazy" decoding="async"><span>Inn / Rest</span></div></div><div class="icongrid" style="--cols:3"><div class="ic"><img src="images/web/icons/signage-transit-hub.png" alt="Transit Hub icon" loading="lazy" decoding="async"><span>Transit Hub</span></div><div class="ic"><img src="images/web/icons/signage-mission-board.png" alt="Mission Board icon" loading="lazy" decoding="async"><span>Mission Board</span></div><div class="ic"><img src="images/web/icons/signage-restricted-area.png" alt="Restricted Area icon" loading="lazy" decoding="async"><span>Restricted Area</span></div></div>
+<p>The setting should make original worlds easy to create.</p>
+<p>A GM world generator may eventually produce prompts for:</p>
+<ul><li>Civilization</li><li>Technology level</li><li>Dominant Way influence</li><li>Environment</li><li>Current crisis</li><li>Major faction</li><li>Hidden truth</li><li>Local custom</li><li>Important location</li><li>Major threat</li><li>Strange phenomenon</li><li>Reason the party becomes involved</li></ul>
+<p>The generator creates inspiration, not final prose.</p>
+</section>
+<section class="sec" id="s56"><div class="sechead"><span class="secnum" aria-hidden="true">56</span><h2>Canon and Player Importance</h2></div>
+<p>A critical campaign rule:</p>
+<blockquote><strong>The setting may contain famous characters. The campaign belongs to the PCs.</strong></blockquote>
+<p>Existing heroes may:</p>
+<ul><li>Appear</li><li>Give information</li><li>Become contacts</li><li>Become rivals</li><li>Request assistance</li><li>Complicate situations</li><li>Participate in the world</li></ul>
+<p>They should not routinely arrive and solve the PCs' adventure.</p>
+<p>The players are not tourists.</p>
+</section>
+<section class="sec" id="s57"><div class="sechead"><span class="secnum" aria-hidden="true">57</span><h2>Character Death and Defeat</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/defeat-and-recovery.jpg" alt="Defeat should be a scene the party plays through, not a sheet somebody puts away." loading="lazy" decoding="async"><figcaption>Defeat should be a scene the party plays through, not a sheet somebody puts away.</figcaption></figure>
+<p>Exact death rules remain a prototype decision.</p>
+<p>The system must distinguish:</p>
+<ul><li>Knocked out</li><li>Defeated</li><li>Critically injured</li><li>Dead</li></ul>
+<p>Because this is a campaign RPG rather than a short tactical videogame, defeat should carry consequences without making character death arbitrary.</p>
+<p>Final implementation requires playtesting.</p>
+</section>
+<section class="sec" id="s58"><div class="sechead"><span class="secnum" aria-hidden="true">58</span><h2>Inventory and Consumables</h2></div>
+<p>Inventory should remain visually clear.</p>
+<p>Avoid inventory Tetris.</p>
+<p>Potential categories:</p>
+<ul><li>Equipped</li><li>Carried</li><li>Consumable</li><li>Mission</li><li>Valuable</li><li>Personal</li></ul>
+<p>The system may automatically enforce only restrictions that contribute meaningfully to play.</p>
+</section>
+<section class="sec" id="s59"><div class="sechead"><span class="secnum" aria-hidden="true">59</span><h2>Party HUD</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/crew-off-duty.jpg" alt="The party the HUD is actually describing. Four bars at the bottom of a screen are standing in for this." loading="lazy" decoding="async"><figcaption>The party the HUD is actually describing. Four bars at the bottom of a screen are standing in for this.</figcaption></figure>
+<p>A persistent lightweight party HUD may display:</p>
+<ul><li>Party Skill Points</li><li>Combat state</li><li>Current timeline</li><li>Major shared effects</li><li>Mission summary</li><li>Relevant group resource</li></ul>
+<p>It must not become permanent screen clutter.</p>
+</section>
+<section class="sec" id="s60"><div class="sechead"><span class="secnum" aria-hidden="true">60</span><h2>Audio and Visual Feedback</h2></div>
+<p>Important game events should have clear feedback.</p>
+<p>Examples:</p>
+<ul><li>Resource gained</li><li>Resource full</li><li>Ultimate ready</li><li>Weakness hit</li><li>Break</li><li>Critical</li><li>Shield broken</li><li>Follow-up available</li><li>Reaction available</li><li>Summon entry</li><li>Summon death</li><li>Boss phase</li><li>Character defeated</li></ul>
+<p>Feedback may use:</p>
+<ul><li>Sound</li><li>Glow</li><li>Pulse</li><li>Shake</li><li>Floating number</li><li>Icon burst</li><li>Timeline movement</li><li>Character-art movement</li></ul>
+<p>Every effect should communicate state, not merely decorate the screen.</p>
+</section>
+<section class="sec" id="s61"><div class="sechead"><span class="secnum" aria-hidden="true">61</span><h2>Accessibility and Presentation Options</h2></div>
+<p>Players must be able to reduce spectacle.</p>
+<p>Options should eventually include:</p>
+<ul><li>Screen shake off</li><li>Reduced motion</li><li>Reduced particles</li><li>Animation speed</li><li>Sound volume categories</li><li>High-contrast targeting</li><li>Larger text</li><li>Color-independent status indicators</li></ul>
+<p>Mechanical information cannot rely solely on color.</p>
+</section>
+<section class="sec" id="s62"><div class="sechead"><span class="secnum" aria-hidden="true">62</span><h2>Technical Architecture</h2></div>
+<figure class="fig band"><img src="images/web/scenes/lumen-lattice.jpg" alt="The Lumen as the engine has to model it — nodes, currents, and routes resolved into something a computer can walk." loading="lazy" decoding="async"><figcaption>The Lumen as the engine has to model it — nodes, currents, and routes resolved into something a computer can walk.</figcaption></figure>
+<h3 id="foundry-target-62"><span>Foundry Target</span></h3>
+<p>Initial development target:</p>
+<p><strong>Foundry VTT v14+</strong></p>
+<p>Architecture should avoid unnecessary dependence on third-party modules.</p>
+</section>
+<section class="sec" id="s63"><div class="sechead"><span class="secnum" aria-hidden="true">63</span><h2>Core Actor Types</h2></div>
+<p>Initial data model should support:</p>
+<ul><li>Player Character</li><li>NPC</li><li>Enemy</li><li>Boss</li><li>Summon / Companion</li><li>Vehicle / Ship if required</li><li>GM Tool actor or Application where useful</li></ul>
+<p>Actor types should remain intentionally small.</p>
+<p>Differences should preferably come from data and components rather than dozens of subclasses.</p>
+</section>
+<section class="sec" id="s64"><div class="sechead"><span class="secnum" aria-hidden="true">64</span><h2>Data-Driven Ability Schema</h2></div>
+<p>Every ability should share a common definition model wherever practical.</p>
+<p>Example conceptual structure:</p>
+<pre class="code"><code>Ability
+  id
+  name
+  type
+  icon
+  description
+
+  cost
+  resource
+
+  timing
+  trigger
+
+  target
+    faction
+    row
+    lane
+    count
+    pattern
+
+  effects[]
+    damage
+    healing
+    shield
+    status
+    movement
+    resource
+    timeline
+    summon
+
+  conditions[]
+
+  presentation
+    animation
+    sound
+    color</code></pre>
+<p>The exact schema will evolve.</p>
+<p>The architectural goal: <strong>Abilities are data interpreted by shared pipelines.</strong></p>
+</section>
+<section class="sec" id="s65"><div class="sechead"><span class="secnum" aria-hidden="true">65</span><h2>Unified Effect Pipeline</h2></div>
+<p>Actions resolve through a shared engine.</p>
+<p>Conceptually:</p>
+<pre class="code"><code>Declare
+→ Validate
+→ Pay Cost
+→ Select Targets
+→ Open Reactions
+→ Resolve Check
+→ Calculate Effects
+→ Apply Damage/Healing
+→ Modify Toughness
+→ Apply Status
+→ Publish Events
+→ Resolve Follow-Ups
+→ Update Timeline
+→ Play Presentation
+→ Cleanup</code></pre>
+<p>Special powers should hook into this pipeline rather than bypassing it whenever possible.</p>
+</section>
+<section class="sec" id="s66"><div class="sechead"><span class="secnum" aria-hidden="true">66</span><h2>Transaction Logging</h2></div>
+<p>Mechanical operations should be recorded as transactions.</p>
+<p>A transaction may contain:</p>
+<ul><li>Source</li><li>Ability</li><li>Targets</li><li>Costs</li><li>Rolls</li><li>HP changes</li><li>Toughness changes</li><li>Status changes</li><li>Resource changes</li><li>Timeline changes</li><li>Summons</li><li>Triggered follow-ups</li></ul>
+<p>This supports:</p>
+<ul><li>Debugging</li><li>Chat summaries</li><li>GM inspection</li><li>Potential Undo</li><li>Regression testing</li></ul>
+</section>
+<section class="sec" id="s67"><div class="sechead"><span class="secnum" aria-hidden="true">67</span><h2>GM Undo</h2></div>
+<p>Where technically safe, the GM should be able to reverse the most recent mechanical transaction.</p>
+<p>Especially useful for:</p>
+<ul><li>Accidental target</li><li>Wrong damage</li><li>Mistaken Skill usage</li><li>Bad status application</li><li>Misclick</li><li>Wrong resource cost</li></ul>
+<p>Complex narrative state is not expected to be universally undoable.</p>
+</section>
+<section class="sec" id="s68"><div class="sechead"><span class="secnum" aria-hidden="true">68</span><h2>Cross-Client Synchronization</h2></div>
+<p>Authoritative mechanical state must remain synchronized.</p>
+<p>Examples:</p>
+<ul><li>HP</li><li>Toughness</li><li>Resources</li><li>Timeline</li><li>Skill Points</li><li>Summons</li><li>Statuses</li><li>Formation</li></ul>
+<p>Purely cosmetic presentation should be allowed to run locally.</p>
+<p>Avoid network traffic for effects that do not require shared authority.</p>
+</section>
+<section class="sec" id="s69"><div class="sechead"><span class="secnum" aria-hidden="true">69</span><h2>Character Extension Layer</h2></div>
+<p>Some heroes will require interface behavior no generic schema anticipated.</p>
+<p>The architecture therefore needs controlled extension points for:</p>
+<ul><li>Character-specific UI</li><li>Custom meters</li><li>Alternate action wheels</li><li>Summon panels</li><li>Transformation states</li><li>Target overlays</li><li>Special reaction windows</li></ul>
+<p>These extensions should build on shared rules services rather than replacing them.</p>
+</section>
+<section class="sec" id="s70"><div class="sechead"><span class="secnum" aria-hidden="true">70</span><h2>GM Authoring Tools</h2></div>
+<p>Long-term GM tools should support authoring without requiring code.</p>
+<p>Potential editors:</p>
+<ul><li>Custom Enemy</li><li>Custom Boss</li><li>Custom Ability</li><li>Custom Trait</li><li>Custom Equipment</li><li>Custom Status</li><li>Custom Encounter</li><li>Custom Location</li><li>Custom World</li></ul>
+<p>A GM should be able to create campaign content at the table.</p>
+</section>
+<section class="sec" id="s71"><div class="sechead"><span class="secnum" aria-hidden="true">71</span><h2>Compendiums</h2></div>
+<p>Core installation should eventually include:</p>
+<ul><li>Traits</li><li>Skills</li><li>Equipment</li><li>Consumables</li><li>Status effects</li><li>Enemies</li><li>Boss templates</li><li>Locations</li><li>GM reference</li><li>Sample characters</li><li>Sample adventure</li></ul>
+<p>However, common material should surface contextually through the appropriate interface.</p>
+<p>Players should not spend the session browsing compendium folders.</p>
+</section>
+<section class="sec" id="s72"><div class="sechead"><span class="secnum" aria-hidden="true">72</span><h2>Character Creation UX</h2></div>
+<p>Character creation should be guided.</p>
+<p>Desired flow:</p>
+<p><strong>Concept</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Origin</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Way</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Element</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Attributes</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Skills</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Traits</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Combat Engine</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Basic</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Skill</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Ultimate</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Talent</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Technique</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Equipment</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p><strong>Review</strong></p>
+<div class="flow" aria-hidden="true"></div>
+<p class="beat">READY TO PLAY</p>
+<p>A new player should not need to understand the entire rules engine before making a viable character.</p>
+</section>
+<section class="sec" id="s73"><div class="sechead"><span class="secnum" aria-hidden="true">73</span><h2>Onboarding</h2></div>
+<p>The finished system requires:</p>
+<ul><li>Player tutorial</li><li>GM tutorial</li><li>First-combat walkthrough</li><li>Tooltips</li><li>Contextual help</li><li>Character creation guide</li><li>Rules reference</li><li>Sample characters</li><li>Sample encounter</li><li>Sample mission</li></ul>
+<p>The first experience matters as much as feature count.</p>
+</section>
+<section class="sec" id="s74"><div class="sechead"><span class="secnum" aria-hidden="true">74</span><h2>Initial Vertical Slice</h2></div>
+<p>Before building the entire game, one vertical slice proves the core concept.</p>
+<h3 id="content-74"><span>Content</span></h3>
+<ul><li>4 complete heroes</li><li>1 town / hub</li><li>1 exploration location</li><li>1 short mission</li><li>6–10 standard enemy types</li><li>2 elites</li><li>1 serious multi-phase boss</li><li>Small equipment set</li><li>Small trait/skill set</li></ul>
+<h3 id="systems-74"><span>Systems</span></h3>
+<p>The slice must prove:</p>
+<ul><li>Character sheet</li><li>Core resolution</li><li>Action wheel</li><li>2.5D battle stage</li><li>Timeline</li><li>Skill Points</li><li>Energy</li><li>Basic / Skill / Ultimate</li><li>Weakness</li><li>Toughness</li><li>Break</li><li>Statuses</li><li>Follow-ups</li><li>Reactions</li><li>Summons</li><li>Enemy formations</li><li>Boss phases</li><li>Exploration</li><li>Social checks</li><li>Downtime</li><li>Bonds</li><li>Advancement</li><li>GM encounter controls</li></ul>
+<p>The vertical slice is considered successful only when a real group can play:</p>
+<p><strong>town → roleplay → investigation → exploration → combat → boss → return to town</strong></p>
+<p>without developer intervention.</p>
+</section>
+<section class="sec" id="s75"><div class="sechead"><span class="secnum" aria-hidden="true">75</span><h2>Prototype Characters</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/sheet-compendium.jpg" alt="A prototype hero built end to end — actions, summon, traits, conditions, and loadout in one compendium entry." loading="lazy" decoding="async"><figcaption>A prototype hero built end to end — actions, summon, traits, conditions, and loadout in one compendium entry.</figcaption><p class="artnote"><span class="flag">Art</span>Legacy terminology — this plate was generated before the Waybound Wanderers naming and still reads <b>Path</b> / <b>Remembrance</b> / <b>Preservation</b>. Regenerate on the next art pass.</p></figure>
+<p>The first four heroes should deliberately stress different parts of the engine.</p>
+<h3 id="hero-a-summoner-hp-engine-75"><span>Hero A — Summoner / HP Engine</span></h3>
+<p>Tests:</p>
+<ul><li>HP event listening</li><li>Healing interaction</li><li>Personal resource</li><li>Summon</li><li>Summon Life</li><li>Summon timeline</li><li>Detonation</li><li>Dynamic sheet</li></ul>
+<p>Castorice is the current reference model for this test.</p>
+<h3 id="hero-b-timeline-manipulator-75"><span>Hero B — Timeline Manipulator</span></h3>
+<p>Tests:</p>
+<ul><li>Advance</li><li>Delay</li><li>Extra action</li><li>Ally manipulation</li><li>Ultimate interrupts</li></ul>
+<h3 id="hero-c-reaction-protection-character-75"><span>Hero C — Reaction / Protection Character</span></h3>
+<p>Tests:</p>
+<ul><li>Interception</li><li>Shields</li><li>Reaction prompts</li><li>Cross-actor effects</li><li>Conditional targeting</li></ul>
+<h3 id="hero-d-break-follow-up-character-75"><span>Hero D — Break / Follow-Up Character</span></h3>
+<p>Tests:</p>
+<ul><li>Weakness</li><li>Toughness</li><li>Break triggers</li><li>Follow-up attacks</li><li>Marks</li><li>Event chains</li></ul>
+<p>If these four feel radically different while using the same engine, the architecture works.</p>
+</section>
+<section class="sec" id="s76"><div class="sechead"><span class="secnum" aria-hidden="true">76</span><h2>Initial Boss Prototype</h2></div>
+<p>The first boss should exercise:</p>
+<ul><li>Multiple formation positions</li><li>Front/Back targeting</li><li>Targetable components</li><li>Weakness</li><li>Toughness</li><li>Break</li><li>Phase transition</li><li>Timeline manipulation</li><li>Reaction</li><li>Summon/reinforcement</li><li>Exposed weak point</li></ul>
+<p>The boss should be complex enough to expose architectural weaknesses early.</p>
+</section>
+<section class="sec" id="s77"><div class="sechead"><span class="secnum" aria-hidden="true">77</span><h2>Release Content Target</h2></div>
+<p>Final 1.0 content numbers should remain flexible until the vertical slice proves production cost.</p>
+<p>A reasonable target direction is:</p>
+<ul><li>All core playable Ways intended for launch</li><li>All core Elements</li><li>Complete Hero Builder</li><li>Large Trait library</li><li>Complete general Skill list</li><li>Broad equipment library</li><li>Diverse bestiary</li><li>Multiple elite archetypes</li><li>Multiple full bosses</li><li>One substantial starter region/world</li><li>One hub</li><li>One complete introductory adventure/campaign arc</li><li>GM world-building tools</li><li>Full tutorials and documentation</li></ul>
+<p><strong>Engine completeness outranks raw content count.</strong></p>
+<p>Twenty excellent enemies with meaningful mechanics are worth more than 150 stat blocks that differ only by HP.</p>
+</section>
+<section class="sec" id="s78"><div class="sechead"><span class="secnum" aria-hidden="true">78</span><h2>Development Methodology</h2></div>
+<figure class="fig wide"><img src="images/web/scenes/glighter-drydock.jpg" alt="A Glighter in Drydock 07 with the vane mounts still unchecked on the build log. One phase at a time." loading="lazy" decoding="async"><figcaption>A Glighter in Drydock 07 with the vane mounts still unchecked on the build log. One phase at a time.</figcaption></figure>
+<p>Every major system is developed through explicit phases.</p>
+<h3 id="full-plan-first-78"><span>Full Plan First</span></h3>
+<p>Before a large feature begins:</p>
+<ul><li>Define desired player experience</li><li>Define data required</li><li>Define affected systems</li><li>Break implementation into phases</li><li>Identify likely integration risks</li><li>Establish test cases</li></ul>
+<hr class="rule">
+<h3 id="one-phase-at-a-time-78"><span>One Phase at a Time</span></h3>
+<p>Do not build the battle renderer, timeline, Break engine, reaction engine, and character resources simultaneously.</p>
+<p>Each feature earns its way into the system.</p>
+<hr class="rule">
+<h3 id="layered-testing-78"><span>Layered Testing</span></h3>
+<h4>Layer 1 — Feature Test</h4>
+<p>Does the thing itself work?</p>
+<h4>Layer 2 — Integration Test</h4>
+<p>Does it still work when interacting with every neighboring system?</p>
+<h4>Layer 3 — End-to-End Test</h4>
+<p>Can the entire intended sequence execute correctly?</p>
+<h4>Layer 4 — Live Play</h4>
+<p>Does any of this actually feel good with four human beings trying to break it?</p>
+<p>A feature is not finished because it works in an isolated developer test.</p>
+</section>
+<section class="sec" id="s79"><div class="sechead"><span class="secnum" aria-hidden="true">79</span><h2>Testing Priorities</h2></div>
+<p>Critical regression chains include:</p>
+<h4>Action</h4>
+<p>Action selected</p>
+<p>→ cost paid</p>
+<p>→ target validated</p>
+<p>→ roll resolved</p>
+<p>→ damage applied</p>
+<p>→ Break applied</p>
+<p>→ trigger emitted</p>
+<p>→ reactions resolved</p>
+<p>→ resources updated</p>
+<p>→ timeline updated</p>
+<h4>Healing</h4>
+<p>Heal selected</p>
+<p>→ valid target</p>
+<p>→ HP restored</p>
+<p>→ overheal rejected where appropriate</p>
+<p>→ HP-change event emitted</p>
+<p>→ Talents react</p>
+<p>→ resources update</p>
+<h4>Summon</h4>
+<p>Resource full</p>
+<p>→ summon available</p>
+<p>→ actor created/activated</p>
+<p>→ timeline entry</p>
+<p>→ linked stats correct</p>
+<p>→ summon acts</p>
+<p>→ summon loses Life</p>
+<p>→ summon expires</p>
+<p>→ dismissal triggers</p>
+<p>→ owner UI returns to normal</p>
+<h4>Boss Phase</h4>
+<p>Trigger reached</p>
+<p>→ old actions disabled</p>
+<p>→ statuses handled</p>
+<p>→ art changes</p>
+<p>→ Weakness changes</p>
+<p>→ formation changes</p>
+<p>→ timeline changes</p>
+<p>→ new actions enabled</p>
+<p>→ clients synchronize</p>
+<p>These pipelines should eventually have automated tests wherever possible.</p>
+</section>
+<section class="sec" id="s80"><div class="sechead"><span class="secnum" aria-hidden="true">80</span><h2>Development Documents</h2></div>
+<p>Maintain:</p>
+<h3 id="scope-document-md-80"><span><code>SCOPE_DOCUMENT.md</code></span></h3>
+<p>This document.</p>
+<p>Describes what the product is and what belongs inside it.</p>
+<h3 id="next-commit-md-80"><span><code>NEXT_COMMIT.md</code></span></h3>
+<p>Working development log / release staging.</p>
+<h3 id="per-feature-roadmaps-80"><span>Per-Feature Roadmaps</span></h3>
+<p>Used while implementing major systems.</p>
+<p>Each records:</p>
+<ul><li>Phases</li><li>Expected behavior</li><li>Tests</li><li>Bugs</li><li>Integration findings</li><li>Live-play findings</li></ul>
+<h3 id="rules-decisions-md-80"><span><code>RULES_DECISIONS.md</code></span></h3>
+<p>Recommended addition for an original game.</p>
+<p>Records why fundamental mechanical decisions were made.</p>
+<p>Examples:</p>
+<ul><li>Why this dice engine?</li><li>Why five Attributes?</li><li>Why six enemy formation positions?</li><li>Why this Skill Point cap?</li><li>Why this Break formula?</li></ul>
+<p>This prevents future redesign from forgetting the reason behind old decisions.</p>
+</section>
+<section class="sec" id="s81"><div class="sechead"><span class="secnum" aria-hidden="true">81</span><h2>Major Development Tracks</h2></div>
+<h3 id="track-a-foundation-81"><span>Track A — Foundation</span></h3>
+<ul><li>Foundry system skeleton</li><li>Data schema</li><li>Settings</li><li>actor types</li><li>item types</li><li>base applications</li><li>event services</li></ul>
+<h3 id="track-b-character-sheet-81"><span>Track B — Character Sheet</span></h3>
+<ul><li>Identity</li><li>attributes</li><li>derived stats</li><li>skills</li><li>traits</li><li>resources</li><li>actions</li><li>advancement</li><li>dynamic state panels</li></ul>
+<h3 id="track-c-core-resolution-81"><span>Track C — Core Resolution</span></h3>
+<ul><li>dice</li><li>checks</li><li>degrees of success</li><li>modifiers</li><li>opposed checks</li><li>chat results</li></ul>
+<h3 id="track-d-combat-engine-81"><span>Track D — Combat Engine</span></h3>
+<ul><li>combat state</li><li>timeline</li><li>actions</li><li>targeting</li><li>damage</li><li>healing</li><li>shields</li><li>statuses</li></ul>
+<h3 id="track-e-battle-stage-81"><span>Track E — Battle Stage</span></h3>
+<ul><li>2.5D renderer</li><li>character composition</li><li>depth</li><li>hover UI</li><li>action wheel</li><li>transitions</li><li>VFX</li></ul>
+<h3 id="track-f-weakness-break-81"><span>Track F — Weakness / Break</span></h3>
+<ul><li>Elements</li><li>Weakness</li><li>Toughness</li><li>Break effects</li><li>boss interaction</li></ul>
+<h3 id="track-g-trigger-engine-81"><span>Track G — Trigger Engine</span></h3>
+<ul><li>event bus</li><li>Talents</li><li>reactions</li><li>follow-ups</li><li>priority</li><li>limits</li><li>cleanup</li></ul>
+<h3 id="track-h-summons-81"><span>Track H — Summons</span></h3>
+<ul><li>summon actors</li><li>ownership</li><li>stats</li><li>actions</li><li>timeline</li><li>duration</li><li>dismissal</li></ul>
+<h3 id="track-i-enemies-81"><span>Track I — Enemies</span></h3>
+<ul><li>enemy schema</li><li>actions</li><li>formation</li><li>AI assistance if useful</li><li>GM control cards</li><li>bestiary</li></ul>
+<h3 id="track-j-bosses-81"><span>Track J — Bosses</span></h3>
+<ul><li>components</li><li>phases</li><li>scripted encounter state</li><li>cinematic transitions</li></ul>
+<h3 id="track-k-exploration-81"><span>Track K — Exploration</span></h3>
+<ul><li>locations</li><li>maps</li><li>nodes</li><li>travel</li><li>scene transitions</li></ul>
+<h3 id="track-l-social-downtime-81"><span>Track L — Social / Downtime</span></h3>
+<ul><li>Bonds</li><li>contests</li><li>activities</li><li>recovery</li><li>projects</li></ul>
+<h3 id="track-m-character-creation-81"><span>Track M — Character Creation</span></h3>
+<ul><li>Origin</li><li>Way</li><li>Element</li><li>attributes</li><li>skills</li><li>Traits</li><li>Hero Builder</li><li>validation</li></ul>
+<h3 id="track-n-advancement-81"><span>Track N — Advancement</span></h3>
+<ul><li>XP</li><li>levels</li><li>Skill tree</li><li>unlocks</li><li>respec rules if desired</li></ul>
+<h3 id="track-o-equipment-81"><span>Track O — Equipment</span></h3>
+<ul><li>gear</li><li>relics</li><li>memory/light-cone equivalent</li><li>consumables</li><li>custom authoring</li></ul>
+<h3 id="track-p-gm-tools-81"><span>Track P — GM Tools</span></h3>
+<ul><li>encounter builder</li><li>stage composer</li><li>world/location tools</li><li>custom content</li><li>transaction inspector</li></ul>
+<h3 id="track-q-content-81"><span>Track Q — Content</span></h3>
+<ul><li>heroes</li><li>enemies</li><li>bosses</li><li>equipment</li><li>hub</li><li>first adventure</li></ul>
+<h3 id="track-r-onboarding-81"><span>Track R — Onboarding</span></h3>
+<ul><li>tutorials</li><li>guides</li><li>tooltips</li><li>first-session flow</li></ul>
+<h3 id="track-s-polish-81"><span>Track S — Polish</span></h3>
+<ul><li>animation</li><li>sound</li><li>accessibility</li><li>performance</li><li>packaging</li><li>regression QA</li></ul>
+</section>
+<section class="sec" id="s82"><div class="sechead"><span class="secnum" aria-hidden="true">82</span><h2>Milestone 1 — Mechanical Sandbox</h2></div>
+<p>Goal:</p>
+<p><strong>Prove the rules underneath the spectacle.</strong></p>
+<p>Required:</p>
+<ul><li>One character</li><li>One enemy</li><li>Dice/check system</li><li>HP</li><li>actions</li><li>timeline</li><li>Skill Points</li><li>Weakness</li><li>Toughness</li><li>Break</li></ul>
+<p>No elaborate art required.</p>
+</section>
+<section class="sec" id="s83"><div class="sechead"><span class="secnum" aria-hidden="true">83</span><h2>Milestone 2 — Combat Vertical Slice</h2></div>
+<p>Goal:</p>
+<p><strong>Prove the battle presentation.</strong></p>
+<p>Required:</p>
+<ul><li>Four heroes</li><li>Several enemies</li><li>2.5D stage</li><li>Action wheel</li><li>Targeting</li><li>reactions</li><li>follow-ups</li><li>summon</li><li>boss</li><li>dynamic character UI</li></ul>
+<p>At this point combat should already feel like its own game.</p>
+</section>
+<section class="sec" id="s84"><div class="sechead"><span class="secnum" aria-hidden="true">84</span><h2>Milestone 3 — Tabletop Vertical Slice</h2></div>
+<p>Goal:</p>
+<p><strong>Prove this is an RPG rather than a battle simulator.</strong></p>
+<p>Required:</p>
+<ul><li>Town</li><li>NPCs</li><li>Skills</li><li>Traits</li><li>Exploration</li><li>Investigation</li><li>Bonds</li><li>Downtime</li><li>Mission</li><li>Combat</li><li>Return to hub</li></ul>
+<p>One group runs a complete session.</p>
+</section>
+<section class="sec" id="s85"><div class="sechead"><span class="secnum" aria-hidden="true">85</span><h2>Milestone 4 — Character Creation Alpha</h2></div>
+<p>Goal:</p>
+<p><strong>Players stop selecting developer-built heroes and begin making their own.</strong></p>
+<p>Required:</p>
+<ul><li>Way framework</li><li>Elements</li><li>Origin</li><li>Attributes</li><li>Skills</li><li>Traits</li><li>Hero Builder</li><li>Advancement</li><li>Equipment</li></ul>
+</section>
+<section class="sec" id="s86"><div class="sechead"><span class="secnum" aria-hidden="true">86</span><h2>Milestone 5 — GM Alpha</h2></div>
+<p>Goal:</p>
+<p><strong>A GM other than the developer can build and run content.</strong></p>
+<p>Required:</p>
+<ul><li>Bestiary</li><li>Encounter Builder</li><li>Stage Composer</li><li>Custom enemies</li><li>Boss tooling</li><li>Location tooling</li><li>Mission tracking</li><li>Rules reference</li></ul>
+</section>
+<section class="sec" id="s87"><div class="sechead"><span class="secnum" aria-hidden="true">87</span><h2>Milestone 6 — Closed Beta</h2></div>
+<p>Goal:</p>
+<p><strong>Strangers can install it and play it without developer assistance.</strong></p>
+<p>Requirements:</p>
+<ul><li>Installer</li><li>Manifest</li><li>Content packs</li><li>Starter adventure</li><li>Tutorial</li><li>Documentation</li><li>Stable migrations</li><li>Error handling</li><li>Performance testing</li><li>Regression suite</li></ul>
+</section>
+<section class="sec" id="s88"><div class="sechead"><span class="secnum" aria-hidden="true">88</span><h2>Milestone 7 — 1.0</h2></div>
+<p>The game is 1.0 when:</p>
+<ul><li>Complete characters can be created</li><li>A campaign can be run indefinitely</li><li>Combat supports the intended tactical engine</li><li>Exploration works</li><li>Social play works</li><li>Downtime works</li><li>Advancement works</li><li>GM content can be created</li><li>New characters can be added without combat-engine rewrites</li><li>New enemies can be created without code</li><li>Bosses can meaningfully alter encounter rules</li><li>The starter content demonstrates every major mode</li><li>New players can install, learn, create characters, and play without developer intervention</li></ul>
+<p><strong>1.0 is defined by completeness of experience, not code volume.</strong></p>
+</section>
+<section class="sec" id="s89"><div class="sechead"><span class="secnum" aria-hidden="true">89</span><h2>Explicit Non-Goals</h2></div>
+<p>The project is <strong>not</strong> intended to become:</p>
+<ul><li>A 5e conversion</li><li>A generic d20 game</li><li>A reskinned existing RPG</li><li>A grid-heavy tactical miniature game</li><li>A fully 3D videogame</li><li>An MMO interface</li><li>A gacha simulator</li><li>A collectible-character monetization system</li><li>A dialogue-tree RPG</li><li>A perfect simulation of the Honkai videogame</li><li>A collection of static Foundry character sheets</li><li>A system requiring players to memorize hundreds of modifiers</li><li>A system where automation makes tactical decisions for the player</li><li>A system where canon heroes routinely overshadow PCs</li></ul>
+</section>
+<section class="sec" id="s90"><div class="sechead"><span class="secnum" aria-hidden="true">90</span><h2>Things Deliberately Not Locked Yet</h2></div>
+<p>The following require prototype and live-play testing before being finalized:</p>
+<ul><li>Exact dice mechanic</li><li>Attribute numeric range</li><li>Skill numeric range</li><li>Damage scale</li><li>HP scale</li><li>Defense formula</li><li>Critical rules</li><li>Speed / timeline mathematics</li><li>Maximum Skill Points</li><li>Energy formulas</li><li>Toughness scale</li><li>Break formulas</li><li>Death rules</li><li>Advancement costs</li><li>Level cap</li><li>Equipment balance</li><li>Exact Way construction rules</li><li>Hero Builder restrictions</li><li>Exact number of launch content pieces</li></ul>
+<p>The scope defines <strong>what these systems must accomplish</strong>, not arbitrary numbers before testing.</p>
+</section>
+<section class="sec" id="s91"><div class="sechead"><span class="secnum" aria-hidden="true">91</span><h2>Success Criteria</h2></div>
+<p>The project succeeds if a session can produce this experience:</p>
+<p>The players begin aboard their ship.</p>
+<p>They arrive at a new world.</p>
+<p>They wander into town.</p>
+<p>They spend half an hour arguing with a shopkeeper.</p>
+<p>One character gets into trouble at the fountain.</p>
+<p>Another discovers an actual lead.</p>
+<p>They investigate.</p>
+<p>The GM never needs a tactical grid.</p>
+<p>The party enters an abandoned facility.</p>
+<p>Something attacks.</p>
+<p>The screen changes.</p>
+<p>Their heroes step into the foreground.</p>
+<p>Enemies settle into Front and Back positions.</p>
+<p>The timeline lights.</p>
+<p>The action wheel opens.</p>
+<p>A player spends the party's last Skill Point.</p>
+<p>Another realizes they now have to Basic Attack to restore one.</p>
+<p>An enemy prepares a devastating move.</p>
+<p>The party desperately Breaks it before its timeline marker arrives.</p>
+<p>Someone's Ultimate becomes ready.</p>
+<p>They interrupt.</p>
+<p>A summon enters the fight.</p>
+<p>A reaction triggers.</p>
+<p>The boss changes phase.</p>
+<p>The players win because of decisions they made, not because the computer played for them.</p>
+<p>The battle UI fades.</p>
+<p>They return to town.</p>
+<p>The character who started the fountain fight is still wet.</p>
+<p>The party spends the remaining hour roleplaying.</p>
+<p><strong>That is the target experience.</strong></p>
+</section>
+<section class="sec" id="s92"><div class="sechead"><span class="secnum" aria-hidden="true">92</span><h2>The Fundamental Rule</h2></div>
+<p>Every major feature should be judged against one question:</p>
+<blockquote><strong>Does this make the people at the table feel more like they are living an adventure together?</strong></blockquote>
+<p>If automation removes bookkeeping, keep it.</p>
+<p>If presentation communicates what is happening, keep it.</p>
+<p>If a mechanic creates a meaningful decision, keep it.</p>
+<p>If a rule exists only because another RPG traditionally has that rule, question it.</p>
+<p>If a videogame mechanic becomes tedious when transferred to tabletop, redesign it.</p>
+<p>If something is visually impressive but slows the game without adding meaning, remove it.</p>
+<p>If Foundry can make an impossible paper mechanic effortless and understandable, exploit that advantage mercilessly.</p>
+</section>
+<section class="sec" id="s93"><div class="sechead"><span class="secnum" aria-hidden="true">93</span><h2>Project Statement</h2></div>
+<figure class="fig band"><img src="images/web/scenes/the-long-road.jpg" alt="The road goes on. Welcome, Wanderer." loading="lazy" decoding="async"><figcaption>The road goes on. Welcome, Wanderer.</figcaption></figure>
+<p>This project exists to build a type of tabletop RPG that rarely gets attempted:</p>
+<p><strong>a campaign-scale roleplaying game whose tabletop rules, user interface, combat presentation, automation, character design, and GM tools are conceived as one system rather than separate products.</strong></p>
+<p>The goal is not to make Foundry imitate a videogame.</p>
+<p>The goal is to ask what a tabletop RPG can become when it knows from its first line of design that a computer is sitting beneath the table.</p>
+<p>Players still talk.</p>
+<p>Players still improvise.</p>
+<p>Players still make characters.</p>
+<p>Players still surprise the GM.</p>
+<p>Players still decide what matters.</p>
+<p>Players still roll dice.</p>
+<p>The machine simply handles the parts that were never fun to do by hand.</p>
+<p><strong>The world belongs to the table.</strong></p>
+<p><strong>The rules support it.</strong></p>
+<p><strong>Foundry makes it move.</strong></p>
+</section>
+    <div class="appendix">
+      <h2>Appendix — Art Reference Sheets</h2>
+      <p>The master sheets these assets were cut from. Every icon and UI element on this page is lifted from the icon &amp; UI master at native resolution.</p>
+      <p class="artnote"><span class="flag">Art</span>Legacy terminology — this plate was generated before the Waybound Wanderers naming and still reads <b>Path</b> / <b>Remembrance</b> / <b>Preservation</b>. Regenerate on the next art pass. Applies to every reference sheet below.</p>
+      <div class="refgrid">
+        <figure class="fig"><img src="images/web/scenes/ref-sheet-1.jpg" alt="Art batch 1 — 17-panel master" loading="lazy" decoding="async"><figcaption>Art batch 1 — 17-panel master</figcaption></figure>
+        <figure class="fig"><img src="images/web/scenes/ref-sheet-2.jpg" alt="Reference sheet — variant" loading="lazy" decoding="async"><figcaption>Reference sheet — variant</figcaption></figure>
+        <figure class="fig"><img src="images/web/scenes/ref-sheet-3.jpg" alt="Composite board — variant" loading="lazy" decoding="async"><figcaption>Composite board — variant</figcaption></figure>
+        <figure class="fig"><img src="images/web/scenes/ref-sheet-4.jpg" alt="Collage layout — 8 panel" loading="lazy" decoding="async"><figcaption>Collage layout — 8 panel</figcaption></figure>
+        <figure class="fig"><img src="images/web/scenes/ref-sheet-5.jpg" alt="Clean asset sheet — 7 panel" loading="lazy" decoding="async"><figcaption>Clean asset sheet — 7 panel</figcaption></figure>
+        <figure class="fig"><img src="images/web/scenes/icon-sheet-master.jpg" alt="Icon &amp; UI master sheet — source for every symbol on this page" loading="lazy" decoding="async"><figcaption>Icon &amp; UI master sheet — source for every symbol on this page</figcaption></figure>
+      </div>
+    </div>
+    <footer>Waybound Wanderers · Working Master Scope · Fan project, not for commercial use</footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var links={}, secs=[].slice.call(document.querySelectorAll('section.sec'));
+  [].forEach.call(document.querySelectorAll('.rail a'),function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var cur=null;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var a=links[e.target.id]; if(!a||a===cur) return;
+      if(cur) cur.classList.remove('on');
+      a.classList.add('on'); cur=a;
+      var r=a.getBoundingClientRect(), n=a.closest('.rail');
+      if(n&&(r.top<80||r.bottom>window.innerHeight-40)) a.scrollIntoView({block:'nearest'});
+    });
+  },{rootMargin:'-12% 0px -70% 0px',threshold:0});
+  secs.forEach(function(s){io.observe(s);});
+})();
+</script>
