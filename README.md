@@ -13,6 +13,9 @@ Every link below is shareable as-is — no login, nothing to install.
 ## Dragonslayer — system reference
 - **[TALLOW — Light &amp; Sight](https://antoniosantos8520-cyber.github.io/handouts/tallow.html)** — the custom sight/light system: creatures are hidden per client, the map is never darkened.
 
+## Gloomhaven RPG (unofficial) — actor sheet
+- **[Treat — Mercenary Dossier](https://antoniosantos8520-cyber.github.io/handouts/treat-mercenary-dossier.html)** — a working actor-sheet prototype. Open the cover, ready two powers, Set your initiative, draw the modifier deck at advantage or disadvantage. Everything is live; nothing is saved anywhere but your own browser. Fan-made, unaffiliated with Cephalofair Games.
+
 ## Blood &amp; Steel (Conan) — session handouts
 - **[Maw of the Mountain — session guide](https://antoniosantos8520-cyber.github.io/handouts/maw-of-the-mountain.html)** — a GM session guide.
 - **[The Fire Lotus Pools](https://antoniosantos8520-cyber.github.io/handouts/fire-lotus-pools.html)** — a location handout.
