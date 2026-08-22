@@ -10,7 +10,8 @@ Every link below is shareable as-is — no login, nothing to install.
 ## Waybound Wanderers
 - **[Reading copy](https://antoniosantos8520-cyber.github.io/handouts/waybound-wanderers.html)** — the working master scope for a Foundry-native RPG: travel the Lumen, crew a Glighter, decide what bound you to the Way.
 
-## Dragonslayer — system reference
+## Dragonslayer
+- **[The Player's Primer](https://antoniosantos8520-cyber.github.io/handouts/dragonslayer-primer.html)** — the world, the eight races, the eleven classes, and how to play: a spoiler-free handout for new players.
 - **[TALLOW — Light &amp; Sight](https://antoniosantos8520-cyber.github.io/handouts/tallow.html)** — the custom sight/light system: creatures are hidden per client, the map is never darkened.
 
 ## Gloomhaven RPG (unofficial) — actor sheet

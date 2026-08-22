@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dragonslayer — A Player's Primer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+SC:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+  :root{
+    --paper:#efe3c6;      /* amber parchment ground        */
+    --paper-2:#e6d6b0;    /* deeper parchment for vignette  */
+    --paper-3:#dcc99a;    /* edge shadow                    */
+    --ink:#2b2018;        /* sepia-brown ink (body)         */
+    --ink-soft:#6a5738;   /* muted brown (secondary)        */
+    --oxblood:#7d1d16;    /* the one bold accent            */
+    --oxblood-soft:#9a3a2e;
+    --gold:#9c6b2b;       /* antique gold ornament          */
+    --rule:#c6ad78;       /* faint gold-brown hairline      */
+    --measure:42rem;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    margin:0;
+    color:var(--ink);
+    background-color:var(--paper);
+    /* mottled parchment: a couple of soft stains + a faint vertical fibre */
+    background-image:
+      radial-gradient(120% 90% at 15% 8%, rgba(120,90,40,.10), rgba(120,90,40,0) 55%),
+      radial-gradient(110% 80% at 88% 22%, rgba(90,60,20,.10), rgba(90,60,20,0) 50%),
+      radial-gradient(140% 120% at 50% 120%, rgba(70,45,15,.14), rgba(70,45,15,0) 55%),
+      repeating-linear-gradient(92deg, rgba(90,60,25,.028) 0 2px, rgba(90,60,25,0) 2px 5px);
+    font-family:"Alegreya", "Iowan Old Style", Palatino, Georgia, serif;
+    font-size:19px;
+    line-height:1.64;
+    text-rendering:optimizeLegibility;
+    font-kerning:normal;
+  }
+
+  /* vignette on the very edges — subtle, atmospheric */
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    box-shadow:inset 0 0 9rem rgba(60,38,12,.22), inset 0 0 1.5rem rgba(60,38,12,.14);
+  }
+
+  .leaf{
+    position:relative; z-index:1;
+    max-width:var(--measure);
+    margin:0 auto;
+    padding:clamp(2.4rem, 6vw, 5rem) clamp(1.4rem, 5vw, 3.2rem) 4rem;
+  }
+
+  p{ margin:0 0 .95rem; }
+  p:last-child{ margin-bottom:0; }
+
+  /* ——— title plate ——————————————————————————————————————— */
+  .plate{ text-align:center; margin-bottom:2.4rem; }
+  .plate .crest{
+    font-size:1.5rem; color:var(--gold); letter-spacing:.5em;
+    margin:0 0 1rem; padding-left:.5em;
+  }
+  .book-title{
+    font-family:"Cinzel", Georgia, serif; font-weight:700;
+    font-size:clamp(2.9rem, 10vw, 4.6rem);
+    line-height:.98; letter-spacing:.06em; margin:0;
+    color:var(--ink);
+    text-shadow:0 1px 0 rgba(255,250,235,.5), 0 2px 0 rgba(60,38,12,.12);
+    text-wrap:balance;
+  }
+  .book-sub{
+    font-family:"Alegreya SC", "Alegreya", serif; font-weight:400; font-style:italic;
+    font-size:clamp(.95rem, 2.4vw, 1.18rem);
+    letter-spacing:.04em; color:var(--oxblood);
+    margin:1.1rem auto 0; max-width:32rem; line-height:1.4;
+    text-wrap:balance;
+  }
+
+  /* ——— diamond divider ————————————————————————————————————— */
+  .divider{
+    display:flex; align-items:center; gap:1rem;
+    margin:2.2rem auto; color:var(--gold);
+    max-width:26rem;
+  }
+  .divider::before, .divider::after{
+    content:""; flex:1 1 auto; height:1px;
+    background:linear-gradient(90deg, transparent, var(--rule) 40%, var(--rule) 60%, transparent);
+  }
+  .divider span{ font-size:.9rem; letter-spacing:.3em; }
+  .divider span::before{ content:"\2756"; }   /* ❖ */
+
+  /* ——— section headings ———————————————————————————————————— */
+  .section{ margin-top:2.6rem; }
+  .section-title{
+    font-family:"Cinzel", Georgia, serif; font-weight:700;
+    font-size:clamp(1.35rem, 4vw, 1.85rem);
+    letter-spacing:.16em; text-transform:uppercase;
+    color:var(--oxblood); text-align:center;
+    margin:0 0 .3rem; text-wrap:balance;
+  }
+  .section-rule{
+    width:3.4rem; height:2px; margin:.55rem auto 1.6rem;
+    background:var(--oxblood); opacity:.7;
+  }
+
+  /* first paragraph of the book gets an illuminated initial */
+  .lead::first-letter{
+    font-family:"Cinzel", Georgia, serif; font-weight:700;
+    float:left; font-size:4.1rem; line-height:.72;
+    padding:.28rem .12rem 0 0; margin:.1rem .1rem 0 0;
+    color:var(--oxblood);
+  }
+
+  .welcome{
+    font-family:"Alegreya SC", serif; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); text-align:center;
+    font-size:1.05rem; margin:0 0 1.6rem;
+  }
+
+  /* a handful of signature beats set apart for timing */
+  .punch{
+    font-style:italic; text-align:center; color:var(--oxblood);
+    font-size:1.16rem; line-height:1.4;
+    margin:1.5rem auto; max-width:34rem; text-wrap:balance;
+  }
+
+  /* ——— race / class entries ——————————————————————————————— */
+  .entry{ margin:1.9rem 0; break-inside:avoid; }
+  .entry-name{
+    font-family:"Cinzel", Georgia, serif; font-weight:600;
+    font-size:1.42rem; letter-spacing:.02em;
+    color:var(--ink); margin:0 0 .5rem; line-height:1.1;
+    display:flex; align-items:baseline; gap:.6rem;
+  }
+  .entry-name::before{
+    content:"\2756"; color:var(--oxblood-soft); font-size:.82rem;
+    transform:translateY(-.18em); flex:0 0 auto;
+  }
+
+  em{ color:var(--ink); }
+
+  .colophon{
+    text-align:center; font-family:"Alegreya SC", serif; font-style:italic;
+    color:var(--ink-soft); letter-spacing:.08em; font-size:.95rem;
+    margin-top:.4rem;
+  }
+
+  /* ——— print / PDF ————————————————————————————————————————— */
+  @page{ margin:16mm 15mm; }
+
+  @media print{
+    html, body{
+      background:var(--paper) !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      font-size:11.4pt;
+    }
+    body::before{ box-shadow:none; }   /* the fixed vignette would stamp every page */
+    .leaf{ max-width:none; margin:0; padding:0; }
+    .races, .classes, .howto{ break-before:page; }
+    .section-title, .entry-name{ break-after:avoid; }
+    .entry, .punch, .divider{ break-inside:avoid; }
+    .plate{ margin-bottom:1.6rem; }
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .leaf{ animation:rise .6s ease-out both; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  }
+  @media print{ .leaf{ animation:none; } }
+</style>
+</head>
+<body>
+<main class="leaf">
+
+  <header class="plate">
+    <div class="crest">&#9876;</div>
+    <h1 class="book-title">Dragonslayer</h1>
+    <p class="book-sub">A Brief Introduction for Persons Intending to Go Underground for Money</p>
+  </header>
+
+  <p class="welcome">Welcome.</p>
+
+  <p class="lead">You have apparently decided that farming, carpentry, scholarship, honest trade, and remaining indoors after sunset are all insufficiently exciting ways to die.</p>
+  <p>Very well.</p>
+  <p>You are an adventurer.</p>
+  <p>This means that instead of earning a perfectly respectable living making shoes, you will enter abandoned crypts armed with six feet of rope, three days of dried meat, a torch and the firm conviction that nothing particularly awful can be living down there.</p>
+
+  <p class="punch">Something particularly awful is living down there.</p>
+
+  <p>That is why nobody else has taken the treasure.</p>
+
+  <section class="section" aria-label="The World">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">The World</h2>
+    <div class="section-rule"></div>
+
+    <p>Dragonslayer takes place in the sort of world where civilization has been built over the remains of several earlier civilizations, all of which seem to have possessed considerably more powerful magic and considerably less judgment.</p>
+    <p>There are kingdoms. There are villages. There are temples, roads, forests, mountains, swamps and charming little inns where somebody will invariably mention that no one has returned from the old monastery in twenty years.</p>
+    <p>This is not an invitation.</p>
+    <p>Nevertheless, you will go.</p>
+    <p>Beyond the settled lands are ruins, barrows, caves, forgotten fortresses and vast underground places constructed by people whose understanding of architecture apparently included the principle that every corridor should eventually contain either a monster or a pit.</p>
+    <p>Magic exists.</p>
+    <p>Monsters exist.</p>
+    <p>Dragons most certainly exist.</p>
+    <p>And none of them have been carefully positioned according to your level of experience.</p>
+    <p>This is important.</p>
+    <p>A dragon does not become younger because four first-level adventurers have wandered into its cave.</p>
+    <p>It eats them.</p>
+    <p>There is no shame in running away.</p>
+    <p>There is considerably more shame in being eaten while loudly insisting that the encounter seems improperly balanced.</p>
+  </section>
+
+  <section class="section" aria-label="A Word About Survival">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">A Word About Survival</h2>
+    <div class="section-rule"></div>
+
+    <p>The most important weapon in Dragonslayer is not the sword.</p>
+    <p>It is suspicion.</p>
+    <p>If the floor looks peculiar, don't step on it.</p>
+    <p>If the statue's mouth is open, don't put your hand inside it.</p>
+    <p>If there are six skeletons sitting around a table and one empty chair, do not sit in the chair.</p>
+    <p>If the corridor ends at a perfectly ordinary wooden chest sitting alone beneath a beam of inexplicable light, understand that the dungeon designer has made an effort and it would be rude not to notice.</p>
+    <p>Ask questions.</p>
+    <p>Listen at doors.</p>
+    <p>Examine ceilings.</p>
+    <p>Carry rope.</p>
+    <p>Keep track of your light.</p>
+    <p>And when somebody in the party says, &ldquo;I'll just quickly&mdash;&rdquo;</p>
+    <p>Stop them.</p>
+    <p>Nothing good has ever followed those words.</p>
+  </section>
+
+  <section class="section races" aria-label="The Races">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">The Races</h2>
+    <div class="section-rule"></div>
+
+    <article class="entry">
+      <h3 class="entry-name">Humans</h3>
+      <p>Humans are the great generalists.</p>
+      <p>They can become almost anything, live almost anywhere and possess the remarkable ability to encounter an obviously cursed ruin and immediately establish a settlement beside it.</p>
+      <p>Humans have no great racial restrictions and therefore make an excellent choice for anyone who wants maximum freedom in choosing a class.</p>
+      <p>They are ambitious, adaptable and numerous.</p>
+      <p>This last quality has proven extremely useful.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Dwarves</h3>
+      <p>Dwarves are short, immensely durable people who regard stonework with the same emotional intensity most humans reserve for weddings.</p>
+      <p>They are miners, warriors and craftsmen. They like mountains, solid construction, good metalwork and people who arrive when they said they would.</p>
+      <p>If a dwarf examines a dungeon wall and says, &ldquo;That's not right,&rdquo; stop walking.</p>
+      <p>He has noticed something.</p>
+      <p>If a human examines the same wall and says, &ldquo;Looks fine to me,&rdquo; ignore him.</p>
+      <p>He hasn't.</p>
+      <p>Both male and female dwarves traditionally wear beards.</p>
+      <p>You may inquire about this if you have exhausted every other conversational topic and no longer value your teeth.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Elves</h3>
+      <p>Elves are graceful, perceptive, long-lived and magically inclined.</p>
+      <p>This means an elf may spend a century mastering some subtle aspect of arcane philosophy before joining an adventuring company whose Fighter solves a locked door by repeatedly striking it with an axe.</p>
+      <p>Elves make excellent scouts and spellcasters. They tend to possess keen senses and an affinity for things humans describe as mysterious, enchanted or extremely expensive.</p>
+      <p>They are not, however, especially fond of being hit with clubs.</p>
+      <p>Few people are.</p>
+      <p>Elves simply have less margin for experimentation.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Gnomes</h3>
+      <p>Gnomes are ingenious, curious and worryingly enthusiastic about discovering what happens if you combine two things which responsible people have kept separate for centuries.</p>
+      <p>They have a natural affinity for illusion and clever devices and make particularly fine Illusionists.</p>
+      <p>A dwarf discovers an ancient mechanism and attempts to understand how it was constructed.</p>
+      <p>A gnome discovers the same mechanism and asks whether it can be made to whistle.</p>
+      <p>This distinction has caused several fires.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Halflings</h3>
+      <p>Halflings enjoy food, drink, comfort, conversation and the quiet acquisition of objects whose previous ownership is now largely academic.</p>
+      <p>They are small, nimble and frequently underestimated.</p>
+      <p>This is useful.</p>
+      <p>A halfling standing behind the Fighter may appear completely harmless.</p>
+      <p>This is because you cannot see what the halfling is doing.</p>
+      <p>Halflings refer to taller folk as Bigs.</p>
+      <p>Do not be offended.</p>
+      <p>You are enormous and constantly putting useful things on shelves they cannot reach.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Half-Elves</h3>
+      <p>Half-elves combine human adaptability with elven heritage and occasionally receive the social advantages of both.</p>
+      <p>More frequently, they receive awkward questions from both.</p>
+      <p>They are versatile, talented and naturally suited to lives spent moving between societies.</p>
+      <p>This makes adventuring appealing, because adventuring parties rarely care where your grandmother came from provided you can help remove the enormous spider currently blocking the exit.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Half-Orcs</h3>
+      <p>Half-orcs are strong, hardy and accustomed to being judged before they have spoken.</p>
+      <p>As a result, many develop the useful habit of allowing other people to speak first and reveal themselves as idiots.</p>
+      <p>They make excellent warriors and trackers and possess good night vision.</p>
+      <p>When the Half-Orc says something is following you through the woods, believe him.</p>
+      <p>When the Magic-User says he sees nothing, remind him that he is carrying a candle and has spent the last twenty minutes reading.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Cyclopsmen</h3>
+      <p>Cyclopsmen are enormous, powerful and equipped with exactly the number of eyes advertised.</p>
+      <p>They are believed to descend from people bred for brutal labor in ancient times. They tend to be physically formidable, straightforward and exceptionally loyal.</p>
+      <p>Their class choices are appropriately martial.</p>
+      <p>You do not hire a Cyclopsman because you require delicate political nuance.</p>
+      <p>You hire one because there is a portcullis in the way and negotiations have broken down.</p>
+      <p>And no, do not make the &ldquo;keep an eye on things&rdquo; joke.</p>
+      <p>Every Cyclopsman has heard it.</p>
+      <p>Several have killed people.</p>
+    </article>
+  </section>
+
+  <section class="section classes" aria-label="The Classes">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">The Classes</h2>
+    <div class="section-rule"></div>
+
+    <article class="entry">
+      <h3 class="entry-name">Fighter</h3>
+      <p>The Fighter fights.</p>
+      <p>This has confused absolutely nobody.</p>
+      <p>Fighters wear armor, carry serious weapons and possess the useful ability to remain standing after encountering situations which cause Magic-Users to become stains.</p>
+      <p>A good Fighter controls the front of a fight, protects weaker companions and kills enemies efficiently.</p>
+      <p>A bad Fighter charges alone into unexplored rooms.</p>
+      <p>The difference between these two Fighters is usually approximately six rounds.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Barbarian</h3>
+      <p>The Barbarian is what happens when someone decides the Fighter is insufficiently enthusiastic.</p>
+      <p>Barbarians are hardy wilderness warriors capable of entering terrifying battle fury. They possess tremendous physical resilience and a cultural distrust of certain forms of sorcery.</p>
+      <p>Do not interpret this as stupidity.</p>
+      <p>A Barbarian may not understand exactly how the wizard's glowing crystal works.</p>
+      <p>He does understand that smashing it stopped the screaming.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Paladin</h3>
+      <p>The Paladin is a warrior of tremendous conviction.</p>
+      <p>Armor, weapons, divine favor and moral certainty all arrive in one inconveniently upright package.</p>
+      <p>Paladins are rare because the qualifications are demanding.</p>
+      <p>You require strength, discipline, faith and the ability to look disappointed in another human being while wearing sixty pounds of plate armor.</p>
+      <p>Most people manage only three.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Ranger</h3>
+      <p>The Ranger is a wilderness specialist who can track, scout and fight.</p>
+      <p>Rangers know which berries are edible, which tracks belong to wolves and which apparently harmless patch of ground will swallow a horse.</p>
+      <p>Take one into the wilderness.</p>
+      <p>Listen to them.</p>
+      <p>If the Ranger says, &ldquo;We should camp somewhere else,&rdquo; do not hold a debate.</p>
+      <p>Move.</p>
+      <p>You may ask why afterward, assuming whatever was underneath the first campsite has not followed you.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Cleric</h3>
+      <p>Clerics are armored servants of the gods who wield divine magic, heal wounds and possess considerable authority when dealing with the undead.</p>
+      <p>This does not mean their sole function is repairing Fighters.</p>
+      <p>If you repeatedly allow yourself to be stabbed because &ldquo;the Cleric can heal me,&rdquo; the Cleric may eventually discover that his religion contains an obscure doctrine concerning natural consequences.</p>
+      <p>When a corpse stands up, however, allow the Cleric to the front.</p>
+      <p>This is professional work.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Druid</h3>
+      <p>Druids serve the natural world.</p>
+      <p>They understand animals, plants, weather and the ancient powers existing beyond civilization.</p>
+      <p>They can heal, cast divine magic and eventually take animal forms.</p>
+      <p>Treat druids with respect.</p>
+      <p>You may believe the party is alone in the forest.</p>
+      <p>The Druid knows that twelve squirrels have been listening to your conversation for half an hour.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Monk</h3>
+      <p>Not that kind.</p>
+      <p>Put your foot down.</p>
+      <p>Dragonslayer's Monk is a medieval monastic warrior-scholar, not a fellow who runs across rooftops kicking people in the forehead.</p>
+      <p>Monks study history, religion and ancient knowledge. They wield the quarterstaff, follow disciplined vows and eventually command divine power.</p>
+      <p>Think of a scholarly churchman capable of explaining precisely why the ancient manuscript is important while beating a bandit unconscious with six feet of ash wood.</p>
+      <p>Much clearer.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Magic-User</h3>
+      <p>The Magic-User studies arcane power.</p>
+      <p>At low levels, this means possessing a small number of extraordinary spells and roughly the physical resilience of damp stationery.</p>
+      <p>Protect the Magic-User.</p>
+      <p>Eventually this person may bend reality, summon impossible forces and destroy groups of enemies with a gesture.</p>
+      <p>At first level, however, a moderately determined housecat requires careful tactical consideration.</p>
+      <p>Magic-Users must choose when to use their spells.</p>
+      <p>If yours announces, &ldquo;I have one spell remaining,&rdquo; do not immediately ask him to illuminate the corridor.</p>
+      <p>You have torches.</p>
+      <p>Use one.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Illusionist</h3>
+      <p>Illusionists specialize in deceiving the senses and manipulating perception.</p>
+      <p>Where another spellcaster destroys the enemy, an Illusionist may convince the enemy that the bridge is on fire, the Fighter is twenty feet tall or the corridor contains six angry bears.</p>
+      <p>The fact that none of these things are actually happening is largely irrelevant if everyone behaves as though they are.</p>
+      <p>Illusionists reward inventive players.</p>
+      <p>If your approach to every problem begins with, &ldquo;I hit it,&rdquo; consider the Fighter.</p>
+      <p>They have prepared extensively for you.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Thief</h3>
+      <p>The Thief handles locks, traps, infiltration, scouting and various delicate matters the Paladin prefers not to describe in writing.</p>
+      <p>Every adventuring party eventually reaches a locked door.</p>
+      <p>The Fighter wants to break it.</p>
+      <p>The Magic-User wants to spend a spell.</p>
+      <p>The Cleric wishes to know whether opening it is wise.</p>
+      <p>The Thief has already opened it.</p>
+      <p>This is why you brought one.</p>
+      <p>Let the Thief examine treasure chests before touching them.</p>
+      <p>If you refuse, the Thief will still learn whether the chest was trapped.</p>
+      <p>He will simply learn it by watching you.</p>
+    </article>
+
+    <article class="entry">
+      <h3 class="entry-name">Assassin</h3>
+      <p>The Assassin is related professionally to the Thief but specializes in ensuring that inconvenient people cease being inconvenient.</p>
+      <p>Assassins excel at stealth, surprise and carefully prepared violence.</p>
+      <p>They are not intended to stand beside the Fighter exchanging blows honorably.</p>
+      <p>If an Assassin finds himself doing this, something has gone terribly wrong.</p>
+      <p>Preferably for someone else.</p>
+    </article>
+  </section>
+
+  <section class="section howto" aria-label="How to Play Dragonslayer">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">How to Play Dragonslayer</h2>
+    <div class="section-rule"></div>
+
+    <p>Do not stare at your character sheet waiting for the correct answer to appear.</p>
+    <p>Describe what you do.</p>
+    <p>If you want to know whether there is air coming from beneath the stone door, hold a flame near it.</p>
+    <p>If you suspect the floor is hollow, tap it.</p>
+    <p>If you want to know what's at the bottom of a pit, lower something into it.</p>
+    <p>Preferably not the halfling.</p>
+    <p>The Maze Controller describes the world.</p>
+    <p>You interact with it.</p>
+    <p>Your abilities and dice determine outcomes when the result is uncertain, but the game begins with the decisions you make rather than the numbers written beside your name.</p>
+    <p>Sometimes the clever solution avoids a fight entirely.</p>
+    <p>This is generally preferable because monsters have weapons too.</p>
+  </section>
+
+  <section class="section" aria-label="A Final Word Before We Begin">
+    <div class="divider"><span></span></div>
+    <h2 class="section-title">A Final Word Before We Begin</h2>
+    <div class="section-rule"></div>
+
+    <p>You will make mistakes.</p>
+    <p>Characters may die.</p>
+    <p>Treasure will be missed.</p>
+    <p>Maps will be wrong.</p>
+    <p>People will become lost.</p>
+    <p>Someone will forget to bring rope despite having been specifically told to bring rope.</p>
+    <p>This is all perfectly normal.</p>
+    <p>What matters is learning how the world works.</p>
+    <p>Be cautious without becoming paralyzed. Be bold without becoming suicidal. Ask questions. Make plans. Work together. Know when to fight and, considerably more importantly, know when not to.</p>
+    <p>And remember the oldest rule of dungeon exploration:</p>
+    <p>If you encounter a door covered in dried blood, claw marks and sacred warnings written in six languages&mdash;</p>
+    <p>someone will open it.</p>
+
+    <p class="punch">Try not to be standing directly behind him.</p>
+
+    <div class="divider"><span></span></div>
+    <p class="colophon">Ask questions &middot; Listen at doors &middot; Keep track of your light</p>
+  </section>
+
+</main>
+</body>
+</html>
