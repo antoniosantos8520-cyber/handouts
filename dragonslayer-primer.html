@@ -18,7 +18,7 @@
     --oxblood-soft:#9a3a2e;
     --gold:#9c6b2b;       /* antique gold ornament          */
     --rule:#c6ad78;       /* faint gold-brown hairline      */
-    --measure:42rem;
+    --measure:44rem;
   }
 
   *{ box-sizing:border-box; }
@@ -36,8 +36,8 @@
       radial-gradient(140% 120% at 50% 120%, rgba(70,45,15,.14), rgba(70,45,15,0) 55%),
       repeating-linear-gradient(92deg, rgba(90,60,25,.028) 0 2px, rgba(90,60,25,0) 2px 5px);
     font-family:"Alegreya", "Iowan Old Style", Palatino, Georgia, serif;
-    font-size:19px;
-    line-height:1.64;
+    font-size:22px;
+    line-height:1.6;
     text-rendering:optimizeLegibility;
     font-kerning:normal;
   }
@@ -98,7 +98,7 @@
   .section{ margin-top:2.6rem; }
   .section-title{
     font-family:"Cinzel", Georgia, serif; font-weight:700;
-    font-size:clamp(1.35rem, 4vw, 1.85rem);
+    font-size:clamp(1.55rem, 4vw, 1.95rem);
     letter-spacing:.16em; text-transform:uppercase;
     color:var(--oxblood); text-align:center;
     margin:0 0 .3rem; text-wrap:balance;
@@ -134,7 +134,7 @@
   .entry{ margin:1.9rem 0; break-inside:avoid; }
   .entry-name{
     font-family:"Cinzel", Georgia, serif; font-weight:600;
-    font-size:1.42rem; letter-spacing:.02em;
+    font-size:1.72rem; letter-spacing:.02em;
     color:var(--ink); margin:0 0 .5rem; line-height:1.1;
     display:flex; align-items:baseline; gap:.6rem;
   }
@@ -152,15 +152,41 @@
   }
 
   /* ——— print / PDF ————————————————————————————————————————— */
+  /* ——— left quick-nav (screen only, hidden when there is no room) ——— */
+  .toc{
+    position:fixed; left:clamp(.75rem, 3vw, 2.25rem); top:50%;
+    transform:translateY(-50%); z-index:5;
+    display:flex; flex-direction:column; gap:.55rem;
+    padding-left:1rem; border-left:1px solid var(--rule); max-width:11rem;
+  }
+  .toc a{
+    position:relative;
+    font-family:"Alegreya SC", "Alegreya", serif; font-weight:400;
+    font-size:.82rem; letter-spacing:.05em; line-height:1.15;
+    color:var(--ink-soft); text-decoration:none;
+    transition:color .15s ease;
+  }
+  .toc a:hover{ color:var(--oxblood); }
+  .toc a.active{ color:var(--oxblood); }
+  .toc a.active::before{
+    content:""; position:absolute; left:-1.02rem; top:.34em;
+    width:.4rem; height:.4rem; background:var(--oxblood); transform:rotate(45deg);
+  }
+  .toc a:focus-visible{ outline:2px solid var(--oxblood); outline-offset:3px; }
+  [id]{ scroll-margin-top:2rem; }
+  @media (max-width:1180px){ .toc{ display:none; } }
+  @media (prefers-reduced-motion:no-preference){ html{ scroll-behavior:smooth; } }
+
   @page{ margin:16mm 15mm; }
 
   @media print{
     html, body{
       background:var(--paper) !important;
       -webkit-print-color-adjust:exact; print-color-adjust:exact;
-      font-size:11.4pt;
+      font-size:12.4pt;
     }
     body::before{ box-shadow:none; }   /* the fixed vignette would stamp every page */
+    .toc{ display:none; }
     .leaf{ max-width:none; margin:0; padding:0; }
     .races, .classes, .howto{ break-before:page; }
     .section-title, .entry-name{ break-after:avoid; }
@@ -176,6 +202,17 @@
 </style>
 </head>
 <body>
+
+<nav class="toc" aria-label="Contents">
+  <a href="#welcome">Welcome</a>
+  <a href="#world">The World</a>
+  <a href="#survival">Survival</a>
+  <a href="#races">The Races</a>
+  <a href="#classes">The Classes</a>
+  <a href="#howto">How to Play</a>
+  <a href="#final">A Final Word</a>
+</nav>
+
 <main class="leaf">
 
   <header class="plate">
@@ -184,7 +221,7 @@
     <p class="book-sub">A Brief Introduction for Persons Intending to Go Underground for Money</p>
   </header>
 
-  <p class="welcome">Welcome.</p>
+  <p class="welcome" id="welcome">Welcome.</p>
 
   <p class="lead">You have apparently decided that farming, carpentry, scholarship, honest trade, and remaining indoors after sunset are all insufficiently exciting ways to die.</p>
   <p>Very well.</p>
@@ -195,7 +232,7 @@
 
   <p>That is why nobody else has taken the treasure.</p>
 
-  <section class="section" aria-label="The World">
+  <section id="world" class="section" aria-label="The World">
     <div class="divider"><span></span></div>
     <h2 class="section-title">The World</h2>
     <div class="section-rule"></div>
@@ -216,7 +253,7 @@
     <p>There is considerably more shame in being eaten while loudly insisting that the encounter seems improperly balanced.</p>
   </section>
 
-  <section class="section" aria-label="A Word About Survival">
+  <section id="survival" class="section" aria-label="A Word About Survival">
     <div class="divider"><span></span></div>
     <h2 class="section-title">A Word About Survival</h2>
     <div class="section-rule"></div>
@@ -237,7 +274,7 @@
     <p>Nothing good has ever followed those words.</p>
   </section>
 
-  <section class="section races" aria-label="The Races">
+  <section id="races" class="section races" aria-label="The Races">
     <div class="divider"><span></span></div>
     <h2 class="section-title">The Races</h2>
     <div class="section-rule"></div>
@@ -324,7 +361,7 @@
     </article>
   </section>
 
-  <section class="section classes" aria-label="The Classes">
+  <section id="classes" class="section classes" aria-label="The Classes">
     <div class="divider"><span></span></div>
     <h2 class="section-title">The Classes</h2>
     <div class="section-rule"></div>
@@ -444,7 +481,7 @@
     </article>
   </section>
 
-  <section class="section howto" aria-label="How to Play Dragonslayer">
+  <section id="howto" class="section howto" aria-label="How to Play Dragonslayer">
     <div class="divider"><span></span></div>
     <h2 class="section-title">How to Play Dragonslayer</h2>
     <div class="section-rule"></div>
@@ -462,7 +499,7 @@
     <p>This is generally preferable because monsters have weapons too.</p>
   </section>
 
-  <section class="section" aria-label="A Final Word Before We Begin">
+  <section id="final" class="section" aria-label="A Final Word Before We Begin">
     <div class="divider"><span></span></div>
     <h2 class="section-title">A Final Word Before We Begin</h2>
     <div class="section-rule"></div>
@@ -487,5 +524,23 @@
   </section>
 
 </main>
+
+<script>
+(function(){
+  var links = [].slice.call(document.querySelectorAll(".toc a"));
+  var map = {};
+  links.forEach(function(a){ var el = document.getElementById(a.getAttribute("href").slice(1)); if (el) map[el.id] = a; });
+  if (!("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      links.forEach(function(a){ a.classList.remove("active"); });
+      if (map[e.target.id]) map[e.target.id].classList.add("active");
+    });
+  }, { rootMargin: "-35% 0px -60% 0px", threshold: 0 });
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+</script>
+
 </body>
 </html>
